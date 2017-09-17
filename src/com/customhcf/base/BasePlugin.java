@@ -57,7 +57,6 @@ extends JavaPlugin {
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
 
-    //public static BasePlugin getPlugin(){ return plugin; }
 
     public void onEnable() {
         plugin = this;
