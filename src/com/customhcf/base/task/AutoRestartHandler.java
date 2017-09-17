@@ -2,16 +2,15 @@
 package com.customhcf.base.task;
 
 import com.customhcf.base.BasePlugin;
-import java.util.concurrent.TimeUnit;
 import net.minecraft.server.v1_7_R4.MinecraftServer;
 import net.minecraft.util.com.google.common.primitives.Ints;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.concurrent.TimeUnit;
 
 public class AutoRestartHandler {
     private static final int[] ALERT_SECONDS = new int[]{14400, 7200, 1800, 600, 300, 270, 240, 210, 180, 150, 120, 90, 60, 30, 15, 10, 5, 4, 3, 2, 1};
@@ -84,7 +83,7 @@ public class AutoRestartHandler {
                     if(reason == null) {
                         Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + "None specified");
                     } else {
-                        Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + reason.toString().replace("[", "").replace("]", ""));
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + reason.replace("[", "").replace("]", ""));
                     }
                     Bukkit.broadcastMessage(" ");
 
