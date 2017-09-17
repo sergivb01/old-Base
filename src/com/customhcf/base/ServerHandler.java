@@ -24,14 +24,14 @@ public class ServerHandler {
     @Getter @Setter private long chatDisabledMillis;
     @Getter @Setter private int chatSlowedDelay;
     @Getter private String broadcastFormat;
-    private FileConfiguration config;
+    @Getter private FileConfiguration config;
     @Getter @Setter private boolean decreasedLagMode;
     @Getter @Setter private boolean end;
-    private Location endExit;
+    @Getter private Location endExit;
     @Getter @Setter private boolean donorOnly;
-    private int worldBorder;
-    private int netherBorder;
-    private int endBorder;
+    @Getter private int worldBorder;
+    @Getter private int netherBorder;
+    @Getter private int endBorder;
 
     public ServerHandler(BasePlugin plugin) {
         this.plugin = plugin;
