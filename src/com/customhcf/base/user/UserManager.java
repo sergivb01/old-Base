@@ -50,7 +50,7 @@ public class UserManager
         return null;
     }
 
-    private ServerParticipator getParticipator(final UUID uuid) {
+    public ServerParticipator getParticipator(final UUID uuid) {
         Preconditions.checkNotNull((Object)uuid, "Unique ID cannot be null");
         return this.participators.get(uuid);
     }
@@ -67,7 +67,7 @@ public class UserManager
         return baseUser;
     }
 
-    private void reloadParticipatorData() {
+    public void reloadParticipatorData() {
         this.userConfig = new Config(this.plugin, "participators");
         final Object object = this.userConfig.get("participators");
         if (object instanceof MemorySection) {

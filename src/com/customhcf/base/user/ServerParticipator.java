@@ -100,7 +100,7 @@ implements ConfigurationSerializable {
     }
 
     public Player getLastRepliedToPlayer() {
-        return Bukkit.getPlayer(this.lastRepliedTo);
+        return Bukkit.getPlayer((UUID)this.lastRepliedTo);
     }
 
     public boolean isInStaffChat() {
