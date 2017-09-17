@@ -24,6 +24,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getBookTool;
@@ -51,8 +52,8 @@ public class StaffListener implements Listener {
                             ItemStack xSkull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
                             ItemMeta xSkullMeta = xSkull.getItemMeta();
                             xSkullMeta.setDisplayName(ChatColor.GOLD + players.getName());
-                            xSkullMeta.setLore(Arrays.asList(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY()));
-                            xSkullMeta.setLore(Arrays.asList(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
+                            xSkullMeta.setLore(Collections.singletonList(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY()));
+                            xSkullMeta.setLore(Collections.singletonList(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
                             xSkull.setItemMeta(xSkullMeta);
                             inv.addItem(xSkull);
                         }
