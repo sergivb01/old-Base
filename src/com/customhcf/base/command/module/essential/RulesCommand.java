@@ -3,11 +3,6 @@ package com.customhcf.base.command.module.essential;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.BaseCommand;
-import com.customhcf.util.BukkitUtils;
-import com.customhcf.util.chat.ClickAction;
-import com.customhcf.util.chat.Text;
-import java.util.HashMap;
-import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,12 +10,12 @@ import org.bukkit.command.CommandSender;
 public class RulesCommand
 extends BaseCommand {
     private final BasePlugin plugin;
-    final HashMap<String, String> rule = new HashMap();
+    //final HashMap<String, String> rule = new HashMap();
 
     public RulesCommand(BasePlugin plugin) {
         super("rules", "Shows the server rules.");
         this.setUsage("/(command)");
-        this.rule.put("Staff-Disrespect", "Intentionally trying to insult and criticise a staff member.");
+        /*this.rule.put("Staff-Disrespect", "Intentionally trying to insult and criticise a staff member.");
         this.rule.put("DDoS-Threats", "Threats relating to DoS attacks [DDoS].");
         this.rule.put("DDoS-Comedy", "Joking around about DDoS.");
         this.rule.put("Spamming", "Constantly posting the same message over.");
@@ -28,13 +23,13 @@ extends BaseCommand {
         this.rule.put("Racist-Content", "Any messages related to profanity towards one's race.");
         this.rule.put("Death-Threats", "Messages that encourage harm/suicidal inflictions towards one's personal life.");
         this.rule.put("Unfair-Modification", "Any mods that aren't on the allowed mod list.");
-        this.rule.put("Insiding", "Removing items and or Griefing your current faction to then leave and betray.");
+        this.rule.put("Insiding", "Removing items and or Griefing your current faction to then leave and betray.");*/
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Integer ruleAmount = 1;
+        /*Integer ruleAmount = 1;
         if (args.length == 0) {
             sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
             for (String string : this.rule.keySet()) {
@@ -119,7 +114,8 @@ extends BaseCommand {
                 sender.sendMessage(ChatColor.YELLOW + "Third Offence: " + ChatColor.RED + "Blacklist from joining any faction.");
                 sender.sendMessage(ChatColor.GOLD + "Note: Punishment may vary due to severity");
             }
-        }
+        }*/
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eRules can be found at &aveilhcf.us/rules"));
         return true;
     }
 }
