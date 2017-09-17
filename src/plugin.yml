@@ -127,8 +127,6 @@ commands:
   ad:
   rules:
     description: Shows the server rules.
-  seen:
-    description: Checks when a player was last seen.
   skull:
     description: Spawn the skull of a player.
   slowchat:
@@ -140,6 +138,8 @@ commands:
     aliases: [sc, ac]
     description: Speak in staff chat mode only.
   stoplag:
+  killmobs:
+  near:
   sudo:
     description: Force another player to run a command.
   teleport:
@@ -163,6 +163,7 @@ commands:
     aliases: [v, vis, vanish, invis]
     description: Hide yourself from other players.
   whois:
+    aliases: [seen]
     description: Check information about a player.
   world:
     description: Change your current world.

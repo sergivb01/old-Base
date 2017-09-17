@@ -19,6 +19,8 @@ extends BaseCommandModule {
         this.commands.add(new NoteCommand());
         this.commands.add(new FeedCommand());
         this.commands.add(new FlyCommand());
+        this.commands.add(new KillMobsCommand());
+        this.commands.add(new NearCommand());
         this.commands.add(new FreezeCommand(plugin));
         this.commands.add(new GamemodeCommand());
         this.commands.add(new HatCommand());
