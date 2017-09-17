@@ -31,7 +31,7 @@ extends BaseCommand {
         }
         GameMode mode = this.getGameModeByName(args[0]);
         if (mode == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Gamemode '" + args[0] + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Gamemode '" + args[0] + "' not found.");
             return true;
         }
         if (args.length > 1) {
@@ -48,11 +48,11 @@ extends BaseCommand {
             return true;
         }
         if (target.getGameMode() == mode) {
-            sender.sendMessage((Object)ChatColor.RED + "Gamemode of " + target.getName() + " is already " + mode.name() + '.');
+            sender.sendMessage(ChatColor.RED + "Gamemode of " + target.getName() + " is already " + mode.name() + '.');
             return true;
         }
         target.setGameMode(mode);
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + (Object)ChatColor.WHITE + mode.name().toString().toLowerCase() + (Object)ChatColor.YELLOW + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + ChatColor.WHITE + mode.name().toString().toLowerCase() + ChatColor.YELLOW + '.');
         return true;
     }
 

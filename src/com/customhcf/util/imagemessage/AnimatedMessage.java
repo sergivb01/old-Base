@@ -19,7 +19,7 @@ public class AnimatedMessage {
         this.images = images;
     }
 
-    public AnimatedMessage(File gifFile, int height, char imgChar) throws IOException {
+    public AnimatedMessage(File gifFile, int height, char imgChar) {
         List<BufferedImage> frames = this.getFrames(gifFile);
         this.images = new ImageMessage[frames.size()];
         for (int i = 0; i < frames.size(); ++i) {

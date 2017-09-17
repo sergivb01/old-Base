@@ -60,7 +60,7 @@ public class FreezeCommand extends BaseCommand implements Listener
         this.setUsage("/(command) <all|player>");
         this.setAliases(new String[] { "ss" });
         this.defaultFreezeDuration = TimeUnit.MINUTES.toMillis(60L);
-        Bukkit.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
     
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
@@ -84,7 +84,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     this.frozenPlayers.put(on.getUniqueId(), this.serverFrozenMillis);
             	}
             }
-            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "The server is " + ((serverFrozenMillis != -1) ? ("now frozen for " + DurationFormatUtils.formatDurationWords((long)freezeTicks, true, true)) : "no longer frozen") + ((reason == null) ? "" : (" with reason " + reason)) + '.');
+            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "The server is " + ((serverFrozenMillis != -1) ? ("now frozen for " + DurationFormatUtils.formatDurationWords(freezeTicks, true, true)) : "no longer frozen") + ((reason == null) ? "" : (" with reason " + reason)) + '.');
             return true;
         }
         final Player target = Bukkit.getServer().getPlayer(args[0]);
@@ -99,7 +99,7 @@ public class FreezeCommand extends BaseCommand implements Listener
         final UUID targetUUID = target.getUniqueId();
         final boolean shouldFreeze = this.getRemainingPlayerFrozenMillis(targetUUID) > 0L;
         final PlayerFreezeEvent playerFreezeEvent = new PlayerFreezeEvent(target, shouldFreeze);
-        Bukkit.getServer().getPluginManager().callEvent((Event)playerFreezeEvent);
+        Bukkit.getServer().getPluginManager().callEvent(playerFreezeEvent);
         if (playerFreezeEvent.isCancelled()) {
             sender.sendMessage(ChatColor.RED + "Unable to freeze " + target.getName() + '.');
             return false;
@@ -115,7 +115,7 @@ public class FreezeCommand extends BaseCommand implements Listener
             ParticleEffect.LAVA_SPARK.sphere(target.getPlayer(), target.getLocation(), 4.0f);
             this.frozen.add(target.getName());
             this.frozenPlayers.put(targetUUID, millis + freezeTicks);
-            final String timeString = DurationFormatUtils.formatDurationWords((long)freezeTicks, true, true);
+            final String timeString = DurationFormatUtils.formatDurationWords(freezeTicks, true, true);
             this.Message(target.getName());
 
 
@@ -165,7 +165,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "You have been frozen by a staff member.");
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "If you logout you will be " + ChatColor.DARK_RED + ChatColor.BOLD + "BANNED" + ChatColor.YELLOW + '.');
                     p.sendMessage(ChatColor.WHITE + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + ChatColor.GOLD + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588 " + ChatColor.YELLOW + "Please connect to our Teamspeak" + ChatColor.YELLOW + '.');
-                    new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + " (ts.veilhcf.us) " + ChatColor.ITALIC + "Click me to download" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "http://www.teamspeak.com/downloads").send((CommandSender)p);
+                    new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + " (ts.veilhcf.us) " + ChatColor.ITALIC + "Click me to download" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "http://www.teamspeak.com/downloads").send(p);
                     p.sendMessage(ChatColor.RED + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
                 }
@@ -173,7 +173,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     this.cancel();
                 }
             }
-        }.runTaskTimerAsynchronously((Plugin)BasePlugin.getPlugin(), 0L, 200L);
+        }.runTaskTimerAsynchronously(BasePlugin.getPlugin(), 0L, 200L);
     }
     
     public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
@@ -184,7 +184,7 @@ public class FreezeCommand extends BaseCommand implements Listener
     public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
         final Entity entity = event.getEntity();
         if (entity instanceof Player) {
-            final Player attacker = BukkitUtils.getFinalAttacker((EntityDamageEvent)event, false);
+            final Player attacker = BukkitUtils.getFinalAttacker(event, false);
             if (attacker == null) {
                 return;
             }
@@ -212,7 +212,7 @@ public class FreezeCommand extends BaseCommand implements Listener
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onDrop (final PlayerDropItemEvent e) {
-        final Player player = (Player)e.getPlayer();
+        final Player player = e.getPlayer();
         if ((this.getRemainingServerFrozenMillis() > 0L || this.getRemainingPlayerFrozenMillis(player.getUniqueId()) > 0L) && !player.hasPermission("base.freeze.bypass")) {
             e.setCancelled(true);
             return;
@@ -254,7 +254,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     this.frozen.remove(p.getName());
                     this.frozenPlayers.remove(p.getUniqueId());
                     online.sendMessage(" ");
-                    new Text(ChatColor.YELLOW + p.getName() + ChatColor.RED + " has logged out while frozen. " + ChatColor.GRAY + "(Click to ban)").setHoverText(ChatColor.YELLOW + "Click to ban " + p.getName()).setClick(ClickAction.RUN_COMMAND, "/ban " + p.getName() + " Disconnected while frozen").send((CommandSender)online);
+                    new Text(ChatColor.YELLOW + p.getName() + ChatColor.RED + " has logged out while frozen. " + ChatColor.GRAY + "(Click to ban)").setHoverText(ChatColor.YELLOW + "Click to ban " + p.getName()).setClick(ClickAction.RUN_COMMAND, "/ban " + p.getName() + " Disconnected while frozen").send(online);
                     online.sendMessage(" ");
 
                 }

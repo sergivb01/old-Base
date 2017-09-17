@@ -35,16 +35,16 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can set kit items.");
+            sender.sendMessage(ChatColor.RED + "Only players can set kit items.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Kit '" + args[1] + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Kit '" + args[1] + "' not found.");
             return true;
         }
         Player player = (Player)sender;
@@ -52,7 +52,7 @@ extends CommandArgument {
         kit.setItems(inventory.getContents());
         kit.setArmour(inventory.getArmorContents());
         kit.setEffects(player.getActivePotionEffects());
-        sender.sendMessage((Object)ChatColor.AQUA + "Set the items of kit " + kit.getDisplayName() + " as your current inventory.");
+        sender.sendMessage(ChatColor.AQUA + "Set the items of kit " + kit.getDisplayName() + " as your current inventory.");
         return true;
     }
 

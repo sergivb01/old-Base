@@ -34,21 +34,21 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
         KitRemoveEvent event = new KitRemoveEvent(kit);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return true;
         }
         this.plugin.getKitManager().removeKit(kit);
-        sender.sendMessage((Object)ChatColor.GRAY + "Removed kit '" + args[1] + "'.");
+        sender.sendMessage(ChatColor.GRAY + "Removed kit '" + args[1] + "'.");
         return true;
     }
 

@@ -46,7 +46,7 @@ extends BaseCommand {
         PlayerInventory targetInventory = target.getInventory();
         targetInventory.clear();
         targetInventory.setArmorContents(new ItemStack[]{new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1)});
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Cleared inventory of player " + target.getName() + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Cleared inventory of player " + target.getName() + '.');
         return true;
     }
 

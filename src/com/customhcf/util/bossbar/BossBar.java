@@ -27,7 +27,7 @@ public class BossBar {
     }
 
     public BossBar(Location location, String title, int percent) {
-        this.dragon = new EntityEnderDragon((net.minecraft.server.v1_7_R4.World)((CraftWorld)location.getWorld()).getHandle());
+        this.dragon = new EntityEnderDragon(((CraftWorld)location.getWorld()).getHandle());
         this.setLocation(location);
         this.setTitle(title);
         this.setHealth((float)percent / 100.0f * 200.0f);
@@ -43,8 +43,8 @@ public class BossBar {
     }
 
     public void setLocation(Location location) {
-        Preconditions.checkNotNull((Object)location, (Object)"Location cannot be null");
-        Preconditions.checkNotNull((Object)location.getWorld(), (Object)"Location world cannot be null");
+        Preconditions.checkNotNull((Object)location, "Location cannot be null");
+        Preconditions.checkNotNull((Object)location.getWorld(), "Location world cannot be null");
         this.location = location;
         this.dragon.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
@@ -54,8 +54,8 @@ public class BossBar {
     }
 
     public void setTitle(String title) {
-        Preconditions.checkNotNull((Object)title, (Object)"Text cannot be null.");
-        Preconditions.checkArgument((boolean)(title.length() < 64), (Object)"Text cannot be longer than 64 characters.");
+        Preconditions.checkNotNull((Object)title, "Text cannot be null.");
+        Preconditions.checkArgument(title.length() < 64, "Text cannot be longer than 64 characters.");
         this.title = title;
         this.dragon.setCustomName(title);
         this.dragon.setCustomNameVisible(true);
@@ -66,15 +66,15 @@ public class BossBar {
     }
 
     public void setHealth(float health) {
-        Preconditions.checkArgument((boolean)(health >= 0.0f), (Object)("Health of " + health + " is less than minimum health: " + 0));
-        Preconditions.checkArgument((boolean)(health <= 200.0f), (Object)("Health of " + health + " is more than maximum health: " + 200));
+        Preconditions.checkArgument(health >= 0.0f, "Health of " + health + " is less than minimum health: " + 0);
+        Preconditions.checkArgument(health <= 200.0f, "Health of " + health + " is more than maximum health: " + 200);
         this.health = health;
         this.dragon.setHealth(health);
     }
 
     private void reloadPackets() {
-        this.spawnPacket = new PacketPlayOutSpawnEntityLiving((EntityLiving)this.dragon);
-        this.destroyPacket = new PacketPlayOutEntityDestroy(new int[]{this.dragon.getId()});
+        this.spawnPacket = new PacketPlayOutSpawnEntityLiving(this.dragon);
+        this.destroyPacket = new PacketPlayOutEntityDestroy(this.dragon.getId());
     }
 }
 

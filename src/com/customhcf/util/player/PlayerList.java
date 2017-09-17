@@ -51,7 +51,7 @@ implements Iterable<Player> {
     public List<Player> getPlayers() {
         this.playerList.clear();
         for (UUID uuid : this.playerUniqueIds) {
-            this.playerList.add(Bukkit.getPlayer((UUID)uuid));
+            this.playerList.add(Bukkit.getPlayer(uuid));
         }
         return this.playerList;
     }

@@ -16,7 +16,7 @@ import org.bukkit.material.MaterialData;
 public final class InventoryUtils
 {
     public static ItemStack[] deepClone(final ItemStack[] origin) {
-        Preconditions.checkNotNull((Object)origin, (Object)"Origin cannot be null");
+        Preconditions.checkNotNull((Object)origin, "Origin cannot be null");
         final ItemStack[] cloned = new ItemStack[origin.length];
         for (int i = 0; i < origin.length; ++i) {
             final ItemStack next = origin[i];
@@ -40,7 +40,7 @@ public final class InventoryUtils
                 final ItemStack content = array[j];
                 if (content != null && content.getType() == type && (!compareDamage || content.getData().getData() == data)) {
                     if (content.getAmount() <= 1) {
-                        inventory.removeItem(new ItemStack[] { content });
+                        inventory.removeItem(content);
                         break;
                     }
                     content.setAmount(content.getAmount() - 1);

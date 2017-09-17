@@ -38,11 +38,11 @@ public class ServerHandler {
     }
 
     public void setServerBorder(World.Environment environment, Integer integer) {
-        if (environment.equals((Object)World.Environment.NORMAL)) {
+        if (environment.equals(World.Environment.NORMAL)) {
             this.worldBorder = integer;
-        } else if (environment.equals((Object)World.Environment.NETHER)) {
+        } else if (environment.equals(World.Environment.NETHER)) {
             this.netherBorder = integer;
-        } else if (environment.equals((Object)World.Environment.THE_END)) {
+        } else if (environment.equals(World.Environment.THE_END)) {
             this.endBorder = integer;
         }
     }
@@ -180,37 +180,37 @@ public class ServerHandler {
         this.announcementDelay = this.config.getInt("announcements.delay", 15);
         this.announcements.clear();
         for (String each : this.config.getStringList("announcements.list")) {
-            this.announcements.add(ChatColor.translateAlternateColorCodes((char)'&', (String)each));
+            this.announcements.add(ChatColor.translateAlternateColorCodes('&', each));
         }
         this.chatDisabledMillis = this.config.getLong("chat.disabled.millis", 0);
         this.chatSlowedMillis = this.config.getLong("chat.slowed.millis", 0);
         this.chatSlowedDelay = this.config.getInt("chat.slowed.delay", 15);
         this.useProtocolLib = this.config.getBoolean("use-protocol-lib", true);
         this.decreasedLagMode = this.config.getBoolean("decreased-lag-mode");
-        this.broadcastFormat = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("broadcast.format", ChatColor.AQUA + " &7%1$s"));
+        this.broadcastFormat = ChatColor.translateAlternateColorCodes('&', this.config.getString("broadcast.format", ChatColor.AQUA + " &7%1$s"));
         this.kitmap = this.config.getBoolean("kit-map");
     }
 
     public void saveServerData() {
-        this.config.set("clearlag.delay", (Object)this.clearlagdelay);
+        this.config.set("clearlag.delay", this.clearlagdelay);
         this.config.set("server-rules", this.serverRules);
-        this.config.set("use-protocol-lib", (Object)this.useProtocolLib);
-        this.config.set("chat.disabled.millis", (Object)this.chatDisabledMillis);
-        this.config.set("chat.slowed.millis", (Object)this.chatSlowedMillis);
-        this.config.set("chat.slowed-delay", (Object)this.chatSlowedDelay);
-        this.config.set("announcements.delay", (Object)this.announcementDelay);
+        this.config.set("use-protocol-lib", this.useProtocolLib);
+        this.config.set("chat.disabled.millis", this.chatDisabledMillis);
+        this.config.set("chat.slowed.millis", this.chatSlowedMillis);
+        this.config.set("chat.slowed-delay", this.chatSlowedDelay);
+        this.config.set("announcements.delay", this.announcementDelay);
         this.config.set("announcements.list", this.announcements);
         this.config.set("kit-map", this.kitmap);
-        this.config.set("decreased-lag-mode", (Object)this.decreasedLagMode);
+        this.config.set("decreased-lag-mode", this.decreasedLagMode);
         this.config.set("end.exitLocation.world", this.endExit.getWorld().getName());
-        this.config.set("end.exitLocation.x", (Object)this.endExit.getX());
-        this.config.set("end.exitLocation.y", (Object)this.endExit.getY());
-        this.config.set("end.exitLocation.z", (Object)this.endExit.getX());
-        this.config.set("donor-only-enter", (Object)this.donorOnly);
-        this.config.set("end-open", (Object)this.end);
-        this.config.set("border.worldBorder", (Object)this.worldBorder);
-        this.config.set("border.netherBorder", (Object)this.netherBorder);
-        this.config.set("border.endBorder", (Object)this.endBorder);
+        this.config.set("end.exitLocation.x", this.endExit.getX());
+        this.config.set("end.exitLocation.y", this.endExit.getY());
+        this.config.set("end.exitLocation.z", this.endExit.getX());
+        this.config.set("donor-only-enter", this.donorOnly);
+        this.config.set("end-open", this.end);
+        this.config.set("border.worldBorder", this.worldBorder);
+        this.config.set("border.netherBorder", this.netherBorder);
+        this.config.set("border.endBorder", this.endBorder);
         this.plugin.saveConfig();
     }
 }

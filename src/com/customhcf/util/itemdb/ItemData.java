@@ -36,14 +36,14 @@ public class ItemData implements ConfigurationSerializable
         super();
         Object object = map.get("itemType");
         if (!(object instanceof String)) {
-            throw new AssertionError((Object)"Incorrectly configurised");
+            throw new AssertionError("Incorrectly configurised");
         }
         this.material = Material.getMaterial((String)object);
         if ((object = map.get("itemData")) instanceof Short) {
             this.itemData = (short)object;
             return;
         }
-        throw new AssertionError((Object)"Incorrectly configurised");
+        throw new AssertionError("Incorrectly configurised");
     }
 
     public static ItemData fromItemName(final String string) {

@@ -60,20 +60,20 @@ TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String permission2;
         if (args.length < 1) {
-            sender.sendMessage((Object)ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-            sender.sendMessage((Object)ChatColor.RED + ChatColor.BOLD.toString() + WordUtils.capitalizeFully((String)label) + ChatColor.RED + ChatColor.BOLD.toString() + " Help" + ChatColor.GRAY + " (Page 1 out of 1)");
+            sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            sender.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + WordUtils.capitalizeFully(label) + ChatColor.RED + ChatColor.BOLD.toString() + " Help" + ChatColor.GRAY + " (Page 1 out of 1)");
             for (CommandArgument argument : this.arguments) {
                 String permission = argument.getPermission();
                 if (permission != null && !sender.hasPermission(permission)) continue;
-                new Text((Object)ChatColor.GOLD + argument.getUsage(label) + (Object)ChatColor.GRAY + " - " + argument.getDescription()).setClick(ClickAction.SUGGEST_COMMAND, "/" + argument.getUsage(label)).setColor(ChatColor.GRAY).send(sender);
+                new Text(ChatColor.GOLD + argument.getUsage(label) + ChatColor.GRAY + " - " + argument.getDescription()).setClick(ClickAction.SUGGEST_COMMAND, "/" + argument.getUsage(label)).setColor(ChatColor.GRAY).send(sender);
             }
-            sender.sendMessage((Object)ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
             return true;
         }
         CommandArgument argument2 = this.getArgument(args[0]);
         String string = permission2 = argument2 == null ? null : argument2.getPermission();
         if (argument2 == null || permission2 != null && !sender.hasPermission(permission2)) {
-            sender.sendMessage((Object)ChatColor.RED + WordUtils.capitalizeFully((String)this.label) + " sub-command " + args[0] + " not found.");
+            sender.sendMessage(ChatColor.RED + WordUtils.capitalizeFully(this.label) + " sub-command " + args[0] + " not found.");
             return true;
         }
         argument2.onCommand(sender, command, label, args);

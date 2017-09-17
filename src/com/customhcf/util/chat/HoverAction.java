@@ -10,7 +10,7 @@ public enum HoverAction {
     
     private final EnumHoverAction hoverAction;
 
-    private HoverAction(EnumHoverAction hoverAction) {
+    HoverAction(EnumHoverAction hoverAction) {
         this.hoverAction = hoverAction;
     }
 

@@ -57,12 +57,12 @@ public class HealCommand extends BaseCommand
             targets = ImmutableSet.of((onlyTarget = (Player)sender));
         }
         final double maxHealth;
-        if (onlyTarget != null && (maxHealth = ((Damageable)onlyTarget).getHealth()) == ((Damageable)onlyTarget).getMaxHealth()) {
+        if (onlyTarget != null && (maxHealth = onlyTarget.getHealth()) == onlyTarget.getMaxHealth()) {
             sender.sendMessage(ChatColor.RED + onlyTarget.getName() + " already has full health (" + maxHealth + ").");
             return true;
         }
         for (final Player target : targets) {
-            target.setHealth(((Damageable)target).getMaxHealth());
+            target.setHealth(target.getMaxHealth());
             for (final PotionEffectType type : HealCommand.HEALING_REMOVEABLE_POTION_EFFECTS) {
                 target.removePotionEffect(type);
             }
@@ -78,6 +78,6 @@ public class HealCommand extends BaseCommand
     }
     
     static {
-        HEALING_REMOVEABLE_POTION_EFFECTS = (Set)ImmutableSet.of(PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.POISON, PotionEffectType.WEAKNESS);
+        HEALING_REMOVEABLE_POTION_EFFECTS = ImmutableSet.of(PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.POISON, PotionEffectType.WEAKNESS);
     }
 }

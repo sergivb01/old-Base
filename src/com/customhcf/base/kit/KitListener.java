@@ -50,15 +50,15 @@ implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
-        if (previewInventory.contains((Object)e.getInventory())) {
-            previewInventory.remove((Object)e.getInventory());
+        if (previewInventory.contains(e.getInventory())) {
+            previewInventory.remove(e.getInventory());
             e.getInventory().clear();
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (previewInventory.contains((Object)event.getInventory())) {
+        if (previewInventory.contains(event.getInventory())) {
             event.setCancelled(true);
             return;
         }
@@ -70,7 +70,7 @@ implements Listener {
         HumanEntity humanEntity = event.getWhoClicked();
         if (title.contains("Kit Selector") && humanEntity instanceof Player) {
             event.setCancelled(true);
-            if (!Objects.equals((Object)event.getView().getTopInventory(), (Object)event.getClickedInventory())) {
+            if (!Objects.equals(event.getView().getTopInventory(), event.getClickedInventory())) {
                 return;
             }
             ItemStack stack = event.getCurrentItem();
@@ -82,7 +82,7 @@ implements Listener {
                 return;
             }
             Player player = (Player)humanEntity;
-            String name = ChatColor.stripColor((String)stack.getItemMeta().getDisplayName());
+            String name = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
             Kit kit = this.plugin.getKitManager().getKit(name);
             if (kit == null) {
                 return;
@@ -111,15 +111,15 @@ implements Listener {
                 String[] fakeLines = Arrays.copyOf(sign.getLines(), 4);
                 boolean applied = kit.applyTo(player, false, false);
                 if (applied) {
-                    fakeLines[0] = (Object)ChatColor.GREEN + "Successfully";
-                    fakeLines[1] = (Object)ChatColor.GREEN + "equipped kit";
+                    fakeLines[0] = ChatColor.GREEN + "Successfully";
+                    fakeLines[1] = ChatColor.GREEN + "equipped kit";
                     fakeLines[2] = kit.getDisplayName();
                     fakeLines[3] = "";
                 } else {
-                    fakeLines[0] = (Object)ChatColor.RED + "Failed to";
-                    fakeLines[1] = (Object)ChatColor.RED + "equip kit";
+                    fakeLines[0] = ChatColor.RED + "Failed to";
+                    fakeLines[1] = ChatColor.RED + "equip kit";
                     fakeLines[2] = kit.getDisplayName();
-                    fakeLines[3] = (Object)ChatColor.RED + "Check chat";
+                    fakeLines[3] = ChatColor.RED + "Check chat";
                 }
                 if (this.plugin.getSignHandler().showLines(player, sign, fakeLines, 100, false) && applied) {
                     ParticleEffect.EXPLODE.display(player, sign.getLocation().clone().add(0.5, 0.5, 0.5), 0.01f, 10);
@@ -138,32 +138,32 @@ implements Listener {
         Kit kit = event.getKit();
         if (!player.isOp() && !kit.isEnabled()) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "The " + kit.getDisplayName() + " kit is currently disabled.");
+            player.sendMessage(ChatColor.RED + "The " + kit.getDisplayName() + " kit is currently disabled.");
             return;
         }
         String kitPermission = kit.getPermissionNode();
         if (kitPermission != null && !player.hasPermission(kitPermission)) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You do not have permission to use this kit.");
+            player.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
             return;
         }
         UUID uuid = player.getUniqueId();
         long minPlaytimeMillis = kit.getMinPlaytimeMillis();
         if (minPlaytimeMillis > 0 && this.plugin.getPlayTimeManager().getTotalPlayTime(uuid) < minPlaytimeMillis) {
-            player.sendMessage((Object)ChatColor.RED + "You need at least " + kit.getMinPlaytimeWords() + " minimum playtime to use kit " + kit.getDisplayName() + '.');
+            player.sendMessage(ChatColor.RED + "You need at least " + kit.getMinPlaytimeWords() + " minimum playtime to use kit " + kit.getDisplayName() + '.');
             event.setCancelled(true);
             return;
         }
         BaseUser baseUser = this.plugin.getUserManager().getUser(uuid);
         long remaining = baseUser.getRemainingKitCooldown(kit);
         if (remaining > 0) {
-            player.sendMessage((Object)ChatColor.RED + "You cannot use the " + kit.getDisplayName() + " kit for " + DurationFormatUtils.formatDurationWords((long)remaining, (boolean)true, (boolean)true) + '.');
+            player.sendMessage(ChatColor.RED + "You cannot use the " + kit.getDisplayName() + " kit for " + DurationFormatUtils.formatDurationWords(remaining, true, true) + '.');
             event.setCancelled(true);
             return;
         }
         int curUses = baseUser.getKitUses(kit);
         if (curUses >= (maxUses = kit.getMaximumUses()) && maxUses != Integer.MAX_VALUE) {
-            player.sendMessage((Object)ChatColor.RED + "You have already used this kit " + curUses + '/' + maxUses + " times.");
+            player.sendMessage(ChatColor.RED + "You have already used this kit " + curUses + '/' + maxUses + " times.");
             event.setCancelled(true);
         }
     }

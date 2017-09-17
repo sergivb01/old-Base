@@ -23,7 +23,7 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can execute this command.");
+            sender.sendMessage(ChatColor.RED + "Only players can execute this command.");
             return true;
         }
         if (args.length < 1) {
@@ -33,7 +33,7 @@ extends BaseCommand {
         Player player = (Player)sender;
         ItemStack stack = player.getItemInHand();
         if (stack == null || stack.getType() == Material.AIR) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not holding anything.");
+            sender.sendMessage(ChatColor.RED + "You are not holding anything.");
             return true;
         }
         ItemMeta meta = stack.getItemMeta();
@@ -41,22 +41,22 @@ extends BaseCommand {
         if (oldName != null) {
             oldName = oldName.trim();
         }
-        String newName = args[0].equalsIgnoreCase("none") || args[0].equalsIgnoreCase("null") ? null : ChatColor.translateAlternateColorCodes((char)'&', (String)StringUtils.join((Object[])args, (char)' ', (int)0, (int)args.length));
+        String newName = args[0].equalsIgnoreCase("none") || args[0].equalsIgnoreCase("null") ? null : ChatColor.translateAlternateColorCodes('&', StringUtils.join(args, ' ', 0, args.length));
         if (oldName == null && newName == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Your held item already has no name.");
+            sender.sendMessage(ChatColor.RED + "Your held item already has no name.");
             return true;
         }
         if (oldName != null && oldName.equals(newName)) {
-            sender.sendMessage((Object)ChatColor.RED + "Your held item is already named this.");
+            sender.sendMessage(ChatColor.RED + "Your held item is already named this.");
             return true;
         }
         meta.setDisplayName(newName);
         stack.setItemMeta(meta);
         if (newName == null) {
-            sender.sendMessage((Object)ChatColor.YELLOW + "Removed name of held item from " + oldName + '.');
+            sender.sendMessage(ChatColor.YELLOW + "Removed name of held item from " + oldName + '.');
             return true;
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Renamed item in hand from " + (oldName == null ? "no name" : oldName) + (Object)ChatColor.YELLOW + " to " + newName + (Object)ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Renamed item in hand from " + (oldName == null ? "no name" : oldName) + ChatColor.YELLOW + " to " + newName + ChatColor.YELLOW + '.');
         return true;
     }
 

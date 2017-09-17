@@ -28,7 +28,7 @@ extends BaseCommand {
         for (World world : Bukkit.getWorlds()) {
             world.setGameRuleValue("doDaylightCycle", newModeString);
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Server is " + (newMode ? new StringBuilder().append((Object)ChatColor.RED).append("not").toString() : new StringBuilder().append((Object)ChatColor.GREEN).append("now").toString()) + (Object)ChatColor.YELLOW + " allowing intensive activity."));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Server is " + (newMode ? new StringBuilder().append(ChatColor.RED).append("not").toString() : new StringBuilder().append(ChatColor.GREEN).append("now").toString()) + ChatColor.YELLOW + " allowing intensive activity.");
         return true;
     }
 }

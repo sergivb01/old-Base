@@ -59,7 +59,7 @@ extends ArgumentExecutor {
         if (this.usage == null) {
             this.usage = "";
         }
-        return (Object)ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(this.name);
+        return ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(this.name);
     }
 
     public void setUsage(String usage) {
@@ -67,7 +67,7 @@ extends ArgumentExecutor {
     }
 
     public String getUsage(String label) {
-        return (Object)ChatColor.RED + "" + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(label);
+        return ChatColor.RED + "" + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(label);
     }
 
     public String[] getAliases() {

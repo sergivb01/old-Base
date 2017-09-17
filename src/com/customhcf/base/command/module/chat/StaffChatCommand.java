@@ -32,20 +32,20 @@ extends BaseCommand {
         ServerParticipator target;
         ServerParticipator participator = this.plugin.getUserManager().getParticipator(sender);
         if (participator == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not allowed to do this.");
+            sender.sendMessage(ChatColor.RED + "You are not allowed to do this.");
             return true;
         }
         if (args.length <= 0) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + " <message|playerName>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <message|playerName>");
                 return true;
             }
             target = participator;
         } else {
-            Player targetPlayer = Bukkit.getPlayerExact((String)args[0]);
+            Player targetPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetPlayer == null || !BaseCommand.canSee(sender, targetPlayer) || !sender.hasPermission(command.getPermission() + ".others")) {
-                String message = StringUtils.join((Object[])args, (char)' ');
-                String format = (Object)ChatColor.AQUA + String.format(Locale.ENGLISH, new StringBuilder().append("%1$s").append((Object)ChatColor.GRAY).append(": ").append((Object)ChatColor.AQUA).append("%2$s").toString(), sender.getName(), message);
+                String message = StringUtils.join(args, ' ');
+                String format = ChatColor.AQUA + String.format(Locale.ENGLISH, new StringBuilder().append("%1$s").append(ChatColor.GRAY).append(": ").append(ChatColor.AQUA).append("%2$s").toString(), sender.getName(), message);
                 Bukkit.getConsoleSender().sendMessage(format);
                 for (Player other : Bukkit.getServer().getOnlinePlayers()) {
                     BaseUser otherUser = this.plugin.getUserManager().getUser(other.getUniqueId());
@@ -58,7 +58,7 @@ extends BaseCommand {
         }
         boolean newStaffChat = !target.isInStaffChat() || args.length >= 2 && Boolean.parseBoolean(args[1]);
         target.setInStaffChat(newStaffChat);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Staff chat mode of " + target.getName() + " set to " + newStaffChat + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Staff chat mode of " + target.getName() + " set to " + newStaffChat + '.');
         return true;
     }
 

@@ -19,15 +19,15 @@ public class MapSorting
     }
 
     public static <T, V> List<Map.Entry<T, V>> sortedValues(final Map<T, V> map, final Comparator<V> valueComparator) {
-        return Ordering.from((Comparator)valueComparator).onResultOf((Function)extractValue()).sortedCopy((Iterable)map.entrySet());
+        return Ordering.from((Comparator)valueComparator).onResultOf(extractValue()).sortedCopy(map.entrySet());
     }
 
     public static <T, V> Iterable<T> keys(final List<Map.Entry<T, V>> entryList) {
-        return Iterables.transform((Iterable)entryList, (Function)extractKey());
+        return Iterables.transform(entryList, extractKey());
     }
 
     public static <T, V> Iterable<V> values(final List<Map.Entry<T, V>> entryList) {
-        return Iterables.transform((Iterable)entryList, (Function)extractValue());
+        return Iterables.transform(entryList, extractValue());
     }
 
     private static <T, V> Function<Map.Entry<T, V>, T> extractKey() {

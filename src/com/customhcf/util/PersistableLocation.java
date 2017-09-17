@@ -24,8 +24,8 @@ Cloneable {
     private float pitch;
 
     public PersistableLocation(Location location) {
-        Preconditions.checkNotNull((Object)location, (Object)"Location cannot be null");
-        Preconditions.checkNotNull((Object)location.getWorld(), (Object)"Locations' world cannot be null");
+        Preconditions.checkNotNull((Object)location, "Location cannot be null");
+        Preconditions.checkNotNull((Object)location.getWorld(), "Locations' world cannot be null");
         this.world = location.getWorld();
         this.worldName = this.world.getName();
         this.worldUID = this.world.getUID();
@@ -98,10 +98,10 @@ Cloneable {
     }
 
     public World getWorld() {
-        Preconditions.checkNotNull((Object)this.worldUID, (Object)"World UUID cannot be null");
-        Preconditions.checkNotNull((Object)this.worldName, (Object)"World name cannot be null");
+        Preconditions.checkNotNull((Object)this.worldUID, "World UUID cannot be null");
+        Preconditions.checkNotNull((Object)this.worldName, "World name cannot be null");
         if (this.world == null) {
-            this.world = Bukkit.getWorld((UUID)this.worldUID);
+            this.world = Bukkit.getWorld(this.worldUID);
         }
         return this.world;
     }
@@ -159,7 +159,7 @@ Cloneable {
         return this.location;
     }
 
-    public PersistableLocation clone() throws CloneNotSupportedException {
+    public PersistableLocation clone() {
         try {
             return (PersistableLocation)super.clone();
         }
@@ -196,7 +196,7 @@ Cloneable {
         if (Float.compare(that.pitch, this.pitch) != 0) {
             return false;
         }
-        if (this.world != null ? !this.world.equals((Object)that.world) : that.world != null) {
+        if (this.world != null ? !this.world.equals(that.world) : that.world != null) {
             return false;
         }
         if (this.worldName != null ? !this.worldName.equals(that.worldName) : that.worldName != null) {

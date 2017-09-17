@@ -33,12 +33,12 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players may open kit GUI's.");
+            sender.sendMessage(ChatColor.RED + "Only players may open kit GUI's.");
             return true;
         }
         List<Kit> kits = this.plugin.getKitManager().getKits();
         if (kits.isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "No kits have been defined.");
+            sender.sendMessage(ChatColor.RED + "No kits have been defined.");
             return true;
         }
         Player player = (Player)sender;

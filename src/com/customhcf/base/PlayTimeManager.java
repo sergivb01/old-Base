@@ -37,7 +37,7 @@ implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
         this.totalPlaytimeMap.put(uuid, this.getTotalPlayTime(uuid));
-        this.sessionTimestamps.remove((Object)uuid);
+        this.sessionTimestamps.remove(uuid);
     }
 
     public void reloadPlaytimeData() {
@@ -45,7 +45,7 @@ implements Listener {
         if (object instanceof MemorySection) {
             MemorySection section = (MemorySection)object;
             for (Object id : section.getKeys(false)) {
-                this.totalPlaytimeMap.put(UUID.fromString((String)id), this.config.getLong("playing-times." + (String)id, 0));
+                this.totalPlaytimeMap.put(UUID.fromString((String)id), this.config.getLong("playing-times." + id, 0));
             }
         }
         long millis = System.currentTimeMillis();
@@ -59,7 +59,7 @@ implements Listener {
             this.totalPlaytimeMap.put(player.getUniqueId(), this.getTotalPlayTime(player.getUniqueId()));
         }
         this.totalPlaytimeMap.forEachEntry((uuid, l) -> {
-            this.config.set("playing-times." + uuid.toString(), (Object)l);
+            this.config.set("playing-times." + uuid.toString(), l);
             return true;
         }
         );
@@ -67,12 +67,12 @@ implements Listener {
     }
 
     public long getSessionPlayTime(UUID uuid) {
-        long session = this.sessionTimestamps.get((Object)uuid);
+        long session = this.sessionTimestamps.get(uuid);
         return session != this.sessionTimestamps.getNoEntryValue() ? System.currentTimeMillis() - session : 0;
     }
 
     public long getPreviousPlayTime(UUID uuid) {
-        long stamp = this.totalPlaytimeMap.get((Object)uuid);
+        long stamp = this.totalPlaytimeMap.get(uuid);
         return stamp == this.totalPlaytimeMap.getNoEntryValue() ? 0 : stamp;
     }
 

@@ -50,7 +50,7 @@ ConfigurationSerializable {
     }
 
     private Cuboid(String worldName, int x1, int y1, int z1, int x2, int y2, int z2) {
-        Preconditions.checkNotNull((Object)worldName, (Object)"World name cannot be null");
+        Preconditions.checkNotNull((Object)worldName, "World name cannot be null");
         this.worldName = worldName;
         this.x1 = Math.min(x1, x2);
         this.y1 = Math.min(y1, y2);
@@ -61,9 +61,9 @@ ConfigurationSerializable {
     }
 
     public Cuboid(Location first, Location second) {
-        Preconditions.checkNotNull((Object)first, (Object)"Location 1 cannot be null");
-        Preconditions.checkNotNull((Object)second, (Object)"Location 2 cannot be null");
-        Preconditions.checkArgument((boolean)first.getWorld().equals((Object)second.getWorld()), (Object)"Locations must be on the same world");
+        Preconditions.checkNotNull((Object)first, "Location 1 cannot be null");
+        Preconditions.checkNotNull((Object)second, "Location 2 cannot be null");
+        Preconditions.checkArgument(first.getWorld().equals(second.getWorld()), "Locations must be on the same world");
         this.worldName = first.getWorld().getName();
         this.x1 = Math.min(first.getBlockX(), second.getBlockX());
         this.y1 = Math.min(first.getBlockY(), second.getBlockY());
@@ -172,7 +172,7 @@ ConfigurationSerializable {
     }
 
     public World getWorld() {
-        return Bukkit.getWorld((String)this.worldName);
+        return Bukkit.getWorld(this.worldName);
     }
 
     public int getSizeX() {
@@ -271,7 +271,7 @@ ConfigurationSerializable {
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2 + amount, this.z2);
             }
         }
-        throw new IllegalArgumentException("invalid direction " + (Object)((Object)dir));
+        throw new IllegalArgumentException("invalid direction " + dir);
     }
 
     public Cuboid shift(CuboidDirection dir, int amount) {
@@ -290,7 +290,7 @@ ConfigurationSerializable {
                 return this.outset(CuboidDirection.HORIZONTAL, amount).outset(CuboidDirection.VERTICAL, amount);
             }
         }
-        throw new IllegalArgumentException("invalid direction " + (Object)((Object)dir));
+        throw new IllegalArgumentException("invalid direction " + dir);
     }
 
     public Cuboid inset(CuboidDirection direction, int amount) {
@@ -306,7 +306,7 @@ ConfigurationSerializable {
     }
 
     public boolean contains(World world, int x, int z) {
-        return (world == null || this.getWorld().equals((Object)world)) && x >= this.x1 && x <= this.x2 && z >= this.z1 && z <= this.z2;
+        return (world == null || this.getWorld().equals(world)) && x >= this.x1 && x <= this.x2 && z >= this.z1 && z <= this.z2;
     }
 
     public boolean contains(int x, int y, int z) {
@@ -410,7 +410,7 @@ ConfigurationSerializable {
                 return new Cuboid(this.worldName, this.x1, this.y1, face.z1, this.x2, this.y2, this.z2);
             }
         }
-        throw new IllegalArgumentException("Invalid direction " + (Object)((Object)direction));
+        throw new IllegalArgumentException("Invalid direction " + direction);
     }
 
     public Cuboid getFace(CuboidDirection direction) {
@@ -434,7 +434,7 @@ ConfigurationSerializable {
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z2, this.x2, this.y2, this.z2);
             }
         }
-        throw new IllegalArgumentException("Invalid direction " + (Object)((Object)direction));
+        throw new IllegalArgumentException("Invalid direction " + direction);
     }
 
     public boolean containsOnly(Material material) {

@@ -38,7 +38,7 @@ public class AdCommand
         long millis = System.currentTimeMillis();
         Long lastAd = this.AdMap.get(uuid);
         if (lastAd != null && lastAd - millis > 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You have already advertised in the last " + DurationFormatUtils.formatDurationWords((long)AD_DELAY_MILLIS, (boolean)true, (boolean)true) + '.');
+            sender.sendMessage(ChatColor.RED + "You have already advertised in the last " + DurationFormatUtils.formatDurationWords(AD_DELAY_MILLIS, true, true) + '.');
             return true;
         }
         this.AdMap.put(uuid, millis + AD_DELAY_MILLIS);

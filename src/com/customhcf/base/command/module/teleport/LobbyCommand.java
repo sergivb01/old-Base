@@ -42,7 +42,7 @@ public class LobbyCommand extends BaseCommand
         long millis = System.currentTimeMillis();
         Long lastReport = this.lobbyMap.get(uuid);
         if (lastReport != null && lastReport - millis > 0) {
-            sender.sendMessage((Object) org.bukkit.ChatColor.RED + "You have already used this command in the last " + DurationFormatUtils.formatDurationWords((long)LOBBY_DELAY, (boolean)true, (boolean)true) + '.');
+            sender.sendMessage(ChatColor.RED + "You have already used this command in the last " + DurationFormatUtils.formatDurationWords(LOBBY_DELAY, true, true) + '.');
             return true;
         }
         this.lobbyMap.put(uuid, millis + LOBBY_DELAY);

@@ -44,12 +44,12 @@ extends BaseCommand {
         long millis = System.currentTimeMillis();
         Long lastReport = this.reportMap.get(uuid);
         if (lastReport != null && lastReport - millis > 0) {
-            sender.sendMessage((Object) org.bukkit.ChatColor.RED + "You have already requested help in the last " + DurationFormatUtils.formatDurationWords((long)REPORT_DELAY_MILLIS, (boolean)true, (boolean)true) + '.');
+            sender.sendMessage(org.bukkit.ChatColor.RED + "You have already requested help in the last " + DurationFormatUtils.formatDurationWords(REPORT_DELAY_MILLIS, true, true) + '.');
             return true;
         }
         this.reportMap.put(uuid, millis + REPORT_DELAY_MILLIS);
 
-        String message = StringUtils.join((Object[])args, (char)' ');
+        String message = StringUtils.join(args, ' ');
         for (Player on : Bukkit.getOnlinePlayers()) {
             if (!on.hasPermission(this.RECIEVE_MESSAGE)) continue;
             new Text(ChatColor.translateAlternateColorCodes('&', "&e[&aRequest&e] &f" + sender.getName() + " &7requested: &e" + message)).setHoverText(ChatColor.translateAlternateColorCodes('&', "&eClick to teleport to &6" + sender.getName())).setClick(ClickAction.RUN_COMMAND, "/tp " + sender.getName()).send(on);

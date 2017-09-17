@@ -36,7 +36,7 @@ implements Listener {
         super("invsee", "View the inventory of a player.");
         this.setAliases(new String[]{"inventorysee", "inventory", "inv"});
         this.setUsage("/(command) <playerName>");
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @Override
@@ -56,10 +56,10 @@ implements Listener {
                 sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "This players inventory contains: ");
+            sender.sendMessage(ChatColor.YELLOW + "This players inventory contains: ");
             for (ItemStack items : target.getInventory().getContents()) {
                 if (items == null) continue;
-                sender.sendMessage((Object)ChatColor.AQUA + items.getType().toString().replace("_", "").toLowerCase() + ": " + items.getAmount());
+                sender.sendMessage(ChatColor.AQUA + items.getType().toString().replace("_", "").toLowerCase() + ": " + items.getAmount());
             }
             return true;
         }
@@ -71,7 +71,7 @@ implements Listener {
         Inventory inventory = null;
         for (InventoryType type : this.types) {
             if (!type.name().equalsIgnoreCase(args[0])) continue;
-            Inventory inventoryRevert = Bukkit.createInventory((InventoryHolder)player, (InventoryType)type);
+            Inventory inventoryRevert = Bukkit.createInventory(player, type);
             inventory = this.inventories.putIfAbsent(type, inventoryRevert);
             if (inventory != null) break;
             inventory = inventoryRevert;
@@ -79,8 +79,8 @@ implements Listener {
         }
         if (inventory == null) {
             Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
-            if (sender.equals((Object)target)) {
-                sender.sendMessage((Object)ChatColor.RED + "You cannot check the inventory of yourself.");
+            if (sender.equals(target)) {
+                sender.sendMessage(ChatColor.RED + "You cannot check the inventory of yourself.");
                 return true;
             }
             if (target == null || !BaseCommand.canSee(sender, target)) {
@@ -89,7 +89,7 @@ implements Listener {
             }
             StaffPriority selfPriority = StaffPriority.of(player);
             if (StaffPriority.of(target).isMoreThan(selfPriority)) {
-                sender.sendMessage((Object)ChatColor.RED + "You do not have access to check the inventory of that player.");
+                sender.sendMessage(ChatColor.RED + "You do not have access to check the inventory of that player.");
                 return true;
             }
             inventory = target.getInventory();

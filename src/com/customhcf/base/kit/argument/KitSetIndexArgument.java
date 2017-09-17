@@ -32,38 +32,38 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Kit '" + args[1] + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Kit '" + args[1] + "' not found.");
             return true;
         }
-        Integer newIndex = Ints.tryParse((String)args[2]);
+        Integer newIndex = Ints.tryParse(args[2]);
         if (newIndex == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a number.");
             return true;
         }
         if (newIndex < 1) {
-            sender.sendMessage((Object)ChatColor.RED + "The kit index cannot be less than " + 1 + '.');
+            sender.sendMessage(ChatColor.RED + "The kit index cannot be less than " + 1 + '.');
             return true;
         }
         List<Kit> kits = this.plugin.getKitManager().getKits();
         int totalKitAmount = kits.size() + 1;
         if (newIndex > totalKitAmount) {
-            sender.sendMessage((Object)ChatColor.RED + "The kit index must be a maximum of " + totalKitAmount + '.');
+            sender.sendMessage(ChatColor.RED + "The kit index must be a maximum of " + totalKitAmount + '.');
             return true;
         }
         int previousIndex = kits.indexOf(kit) + 1;
         if (newIndex == previousIndex) {
-            sender.sendMessage((Object)ChatColor.RED + "Index of kit " + kit.getDisplayName() + " is already " + newIndex + '.');
+            sender.sendMessage(ChatColor.RED + "Index of kit " + kit.getDisplayName() + " is already " + newIndex + '.');
             return true;
         }
         kits.remove(kit);
         newIndex = newIndex - 1;
         kits.add(newIndex, kit);
-        sender.sendMessage((Object)ChatColor.AQUA + "Set the index of kit " + kit.getDisplayName() + " from " + previousIndex + " to " + newIndex + '.');
+        sender.sendMessage(ChatColor.AQUA + "Set the index of kit " + kit.getDisplayName() + " from " + previousIndex + " to " + newIndex + '.');
         return true;
     }
 

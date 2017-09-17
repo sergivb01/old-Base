@@ -37,7 +37,7 @@ extends BaseCommand implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable for players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
 

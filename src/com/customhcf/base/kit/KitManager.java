@@ -8,24 +8,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public interface KitManager {
-    public static final int UNLIMITED_USES = Integer.MAX_VALUE;
+    int UNLIMITED_USES = Integer.MAX_VALUE;
 
-    public List<Kit> getKits();
+    List<Kit> getKits();
 
-    public Kit getKit(String var1);
+    Kit getKit(String var1);
 
-    public Kit getKit(UUID var1);
+    Kit getKit(UUID var1);
 
-    public boolean containsKit(Kit var1);
+    boolean containsKit(Kit var1);
 
-    public void createKit(Kit var1);
+    void createKit(Kit var1);
 
-    public void removeKit(Kit var1);
+    void removeKit(Kit var1);
 
-    public Inventory getGui(Player var1);
+    Inventory getGui(Player var1);
 
-    public void reloadKitData();
+    void reloadKitData();
 
-    public void saveKitData();
+    void saveKitData();
 }
 

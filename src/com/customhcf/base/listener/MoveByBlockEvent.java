@@ -17,7 +17,7 @@ implements Listener {
         if (e.getFrom().getBlockX() == e.getTo().getBlockX() && e.getFrom().getBlockY() == e.getTo().getBlockY() && e.getFrom().getBlockZ() == e.getTo().getBlockZ()) {
             return;
         }
-        Bukkit.getPluginManager().callEvent((Event)new PlayerMoveByBlockEvent(e.getPlayer(), e.getTo(), e.getFrom()));
+        Bukkit.getPluginManager().callEvent(new PlayerMoveByBlockEvent(e.getPlayer(), e.getTo(), e.getFrom()));
     }
 }
 

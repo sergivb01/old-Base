@@ -18,11 +18,11 @@ public class InsiderCommand
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         if(!args[0].equalsIgnoreCase("add") || (!args[0].equalsIgnoreCase("remove"))) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /insider " + ChatColor.AQUA + "<add/remove> " + ChatColor.RED + "<playerName>");
+            sender.sendMessage(ChatColor.RED + "Usage: /insider " + ChatColor.AQUA + "<add/remove> " + ChatColor.RED + "<playerName>");
             return true;
         }
         Player player = (Player) sender;

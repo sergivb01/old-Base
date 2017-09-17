@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 
 public final class JavaUtils {
-    private static final CharMatcher CHAR_MATCHER_ASCII = CharMatcher.inRange((char)'0', (char)'9').or(CharMatcher.inRange((char)'a', (char)'z')).or(CharMatcher.inRange((char)'A', (char)'Z')).or(CharMatcher.WHITESPACE).precomputed();
+    private static final CharMatcher CHAR_MATCHER_ASCII = CharMatcher.inRange('0', '9').or(CharMatcher.inRange('a', 'z')).or(CharMatcher.inRange('A', 'Z')).or(CharMatcher.WHITESPACE).precomputed();
     private static final Pattern UUID_PATTERN = Pattern.compile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
     private static final int DEFAULT_NUMBER_FORMAT_DECIMAL_PLACES = 5;
 
@@ -23,12 +23,12 @@ public final class JavaUtils {
     }
 
     public static boolean isAlphanumeric(String string) {
-        return CHAR_MATCHER_ASCII.matchesAllOf((CharSequence)string);
+        return CHAR_MATCHER_ASCII.matchesAllOf(string);
     }
 
     public static boolean containsIgnoreCase(Iterable<? extends String> elements, String string) {
         for (String element : elements) {
-            if (!StringUtils.containsIgnoreCase((String)element, (String)string)) continue;
+            if (!StringUtils.containsIgnoreCase(element, string)) continue;
             return true;
         }
         return false;
@@ -43,7 +43,7 @@ public final class JavaUtils {
     }
 
     public static String format(Number number, int decimalPlaces, RoundingMode roundingMode) {
-        Preconditions.checkNotNull((Object)number, (Object)"The number cannot be null");
+        Preconditions.checkNotNull((Object)number, "The number cannot be null");
         return new BigDecimal(number.toString()).setScale(decimalPlaces, roundingMode).stripTrailingZeros().toPlainString();
     }
 
@@ -57,7 +57,7 @@ public final class JavaUtils {
         }
         ArrayList<String> contents = new ArrayList<String>(collection);
         String last = contents.remove(contents.size() - 1);
-        StringBuilder builder = new StringBuilder(Joiner.on((String)delimiter).join(contents));
+        StringBuilder builder = new StringBuilder(Joiner.on(delimiter).join(contents));
         if (delimiterBeforeAnd) {
             builder.append(delimiter);
         }

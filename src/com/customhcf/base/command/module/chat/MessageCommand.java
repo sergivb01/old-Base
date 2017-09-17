@@ -28,11 +28,11 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable for players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
@@ -41,10 +41,10 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        String message = StringUtils.join((Object[])args, (char)' ', (int)1, (int)args.length);
+        String message = StringUtils.join(args, ' ', 1, args.length);
         Set<Player> recipients = Collections.singleton(target);
         PlayerMessageEvent playerMessageEvent = new PlayerMessageEvent(player, recipients, message, false);
-        Bukkit.getPluginManager().callEvent((Event)playerMessageEvent);
+        Bukkit.getPluginManager().callEvent(playerMessageEvent);
         if (!playerMessageEvent.isCancelled()) {
             playerMessageEvent.send();
         }

@@ -25,14 +25,14 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable for players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
         Player player = (Player)sender;
         BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         boolean newToggled = !baseUser.isMessagesVisible();
         baseUser.setMessagesVisible(newToggled);
-        sender.sendMessage((Object)ChatColor.YELLOW + "You have turned private messages " + (newToggled ? new StringBuilder().append((Object)ChatColor.GREEN).append("on").toString() : new StringBuilder().append((Object)ChatColor.RED).append("off").toString()) + (Object)ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "You have turned private messages " + (newToggled ? new StringBuilder().append(ChatColor.GREEN).append("on").toString() : new StringBuilder().append(ChatColor.RED).append("off").toString()) + ChatColor.YELLOW + '.');
         return true;
     }
 }

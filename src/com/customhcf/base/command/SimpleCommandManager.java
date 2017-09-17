@@ -43,17 +43,17 @@ public class SimpleCommandManager implements CommandManager
                         console.sendMessage('[' + plugin.getName() + "] " + ChatColor.YELLOW + "Reason: Undefined in plugin.yml.");
                     }
                     else {
-                        pluginCommand.setAliases((List)Arrays.asList(command.getAliases()));
+                        pluginCommand.setAliases(Arrays.asList(command.getAliases()));
                         pluginCommand.setDescription(command.getDescription());
-                        pluginCommand.setExecutor((CommandExecutor)command);
-                        pluginCommand.setTabCompleter((TabCompleter)command);
+                        pluginCommand.setExecutor(command);
+                        pluginCommand.setTabCompleter(command);
                         pluginCommand.setUsage(command.getUsage());
                         pluginCommand.setPermission("base.command." + command.getName());
                         pluginCommand.setPermissionMessage(SimpleCommandManager.PERMISSION_MESSAGE);
                     }
                 }
             }
-        }.runTask((Plugin)plugin);
+        }.runTask(plugin);
     }
 
     @Override

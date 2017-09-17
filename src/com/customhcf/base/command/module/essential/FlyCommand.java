@@ -39,7 +39,7 @@ extends BaseCommand {
         if (newFlight) {
             target.setFlying(true);
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Flight mode of " + target.getName() + " set to " + newFlight + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Flight mode of " + target.getName() + " set to " + newFlight + '.');
         return true;
     }
 

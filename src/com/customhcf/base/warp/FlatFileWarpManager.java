@@ -93,12 +93,12 @@ implements WarpManager {
         }
         this.warpDelayMillis = TimeUnit.SECONDS.toMillis(2);
         this.warpDelayTicks = this.warpDelayMillis / 50;
-        this.warpDelayWords = DurationFormatUtils.formatDurationWords((long)this.warpDelayMillis, (boolean)true, (boolean)true);
+        this.warpDelayWords = DurationFormatUtils.formatDurationWords(this.warpDelayMillis, true, true);
     }
 
     @Override
     public void saveWarpData() {
-        this.plugin.getConfig().set("warp-delay-millis", (Object)this.warpDelayMillis);
+        this.plugin.getConfig().set("warp-delay-millis", this.warpDelayMillis);
         this.plugin.saveConfig();
         this.config.set("warp", this.warp);
         this.config.save();

@@ -32,21 +32,21 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
         long duration = JavaUtils.parse(args[2]);
         if (duration == -1) {
-            sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
+            sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
             return true;
         }
         kit.setMinPlaytimeMillis(duration);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Set minimum playtime to use kit " + kit.getDisplayName() + " at " + kit.getMinPlaytimeWords() + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Set minimum playtime to use kit " + kit.getDisplayName() + " at " + kit.getMinPlaytimeWords() + '.');
         return true;
     }
 

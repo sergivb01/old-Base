@@ -76,7 +76,7 @@ public class ManagedFile
     }
 
     public List<String> getLines() {
-        try (final BufferedReader reader = Files.newBufferedReader(Paths.get(this.file.getPath(), new String[0]), StandardCharsets.UTF_8)) {
+        try (final BufferedReader reader = Files.newBufferedReader(Paths.get(this.file.getPath()), StandardCharsets.UTF_8)) {
             final List<String> lines = new ArrayList<String>();
             String line;
             while ((line = reader.readLine()) != null) {

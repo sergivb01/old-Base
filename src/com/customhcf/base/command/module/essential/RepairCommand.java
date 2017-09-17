@@ -54,7 +54,7 @@ extends BaseCommand {
             if (stack == null || stack.getType() == Material.AIR) continue;
             stack.setDurability((short) 0);
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Repaired " + (toRepair.size() > 1 ? "all" : "item in hand") + " of " + target.getName() + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Repaired " + (toRepair.size() > 1 ? "all" : "item in hand") + " of " + target.getName() + '.');
         return true;
     }
 

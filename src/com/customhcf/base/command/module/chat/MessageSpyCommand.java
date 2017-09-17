@@ -69,25 +69,25 @@ extends BaseCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             ServerParticipator participator = this.plugin.getUserManager().getParticipator(sender);
             if (participator == null) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not able to message spy.");
+                sender.sendMessage(ChatColor.RED + "You are not able to message spy.");
                 return true;
             }
             LinkedHashSet<String> spyingNames = new LinkedHashSet<String>();
             Set<String> messageSpying = participator.getMessageSpying();
             if (messageSpying.size() == 1 && Iterables.getOnlyElement(messageSpying).equals("all")) {
-                sender.sendMessage((Object)ChatColor.GRAY + "You are currently spying on the messages of all players.");
+                sender.sendMessage(ChatColor.GRAY + "You are currently spying on the messages of all players.");
                 return true;
             }
             for (String spyingId : messageSpying) {
-                String name = Bukkit.getOfflinePlayer((UUID)UUID.fromString(spyingId)).getName();
+                String name = Bukkit.getOfflinePlayer(UUID.fromString(spyingId)).getName();
                 if (name == null) continue;
                 spyingNames.add(name);
             }
             if (spyingNames.isEmpty()) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not spying on the messages of any players.");
+                sender.sendMessage(ChatColor.RED + "You are not spying on the messages of any players.");
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.GRAY + "You are currently spying on the messages of (" + spyingNames.size() + " players): " + (Object)ChatColor.RED + StringUtils.join(spyingNames, (String)new StringBuilder().append(ChatColor.GRAY.toString()).append(", ").append((Object)ChatColor.RED).toString()) + (Object)ChatColor.GRAY + '.');
+            sender.sendMessage(ChatColor.GRAY + "You are currently spying on the messages of (" + spyingNames.size() + " players): " + ChatColor.RED + StringUtils.join(spyingNames, new StringBuilder().append(ChatColor.GRAY.toString()).append(", ").append(ChatColor.RED).toString()) + ChatColor.GRAY + '.');
             return true;
         }
     }
@@ -110,11 +110,11 @@ extends BaseCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             ServerParticipator participator = this.plugin.getUserManager().getParticipator(sender);
             if (participator == null) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not able to message spy.");
+                sender.sendMessage(ChatColor.RED + "You are not able to message spy.");
                 return true;
             }
             participator.getMessageSpying().clear();
-            sender.sendMessage((Object)ChatColor.YELLOW + "You are no longer spying the messages of anyone.");
+            sender.sendMessage(ChatColor.YELLOW + "You are no longer spying the messages of anyone.");
             return true;
         }
     }
@@ -137,35 +137,35 @@ extends BaseCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             ServerParticipator participator = this.plugin.getUserManager().getParticipator(sender);
             if (participator == null) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not able to message spy.");
+                sender.sendMessage(ChatColor.RED + "You are not able to message spy.");
                 return true;
             }
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
                 return true;
             }
             Set<String> messageSpying = participator.getMessageSpying();
             boolean all = messageSpying.contains("all");
             if (all || JavaUtils.containsIgnoreCase(messageSpying, args[1])) {
-                sender.sendMessage((Object)ChatColor.RED + "You are already spying on the messages of " + (all ? "all players" : args[1]) + '.');
+                sender.sendMessage(ChatColor.RED + "You are already spying on the messages of " + (all ? "all players" : args[1]) + '.');
                 return true;
             }
             if (args[1].equalsIgnoreCase("all")) {
                 messageSpying.clear();
                 messageSpying.add("all");
-                sender.sendMessage((Object)ChatColor.GREEN + "You are now spying on the messages of all players.");
+                sender.sendMessage(ChatColor.GREEN + "You are now spying on the messages of all players.");
                 return true;
             }
-            OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer((String)args[1]);
+            OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[1]);
             if (!offlineTarget.hasPlayedBefore() && offlineTarget.getPlayer() == null) {
-                sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[1] + (Object)ChatColor.GOLD + "' not found.");
+                sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
                 return true;
             }
-            if (offlineTarget.equals((Object)sender)) {
-                sender.sendMessage((Object)ChatColor.RED + "You cannot spy on the messages of yourself.");
+            if (offlineTarget.equals(sender)) {
+                sender.sendMessage(ChatColor.RED + "You cannot spy on the messages of yourself.");
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "You are " + (messageSpying.add(offlineTarget.getUniqueId().toString()) ? new StringBuilder().append((Object)ChatColor.GREEN).append("now").toString() : new StringBuilder().append((Object)ChatColor.RED).append("already").toString()) + (Object)ChatColor.YELLOW + " spying on the messages of " + offlineTarget.getName() + '.');
+            sender.sendMessage(ChatColor.YELLOW + "You are " + (messageSpying.add(offlineTarget.getUniqueId().toString()) ? new StringBuilder().append(ChatColor.GREEN).append("now").toString() : new StringBuilder().append(ChatColor.RED).append("already").toString()) + ChatColor.YELLOW + " spying on the messages of " + offlineTarget.getName() + '.');
             return true;
         }
 
@@ -194,25 +194,25 @@ extends BaseCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             ServerParticipator participator = this.plugin.getUserManager().getParticipator(sender);
             if (participator == null) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not able to message spy.");
+                sender.sendMessage(ChatColor.RED + "You are not able to message spy.");
                 return true;
             }
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
                 return true;
             }
             Set<String> messageSpying = participator.getMessageSpying();
             if (args[1].equalsIgnoreCase("all")) {
                 messageSpying.remove("all");
-                sender.sendMessage((Object)ChatColor.RED + "You are no longer spying on the messages of all players.");
+                sender.sendMessage(ChatColor.RED + "You are no longer spying on the messages of all players.");
                 return true;
             }
             OfflinePlayer offlineTarget = BukkitUtils.offlinePlayerWithNameOrUUID(args[1]);
             if (!offlineTarget.hasPlayedBefore() && !offlineTarget.isOnline()) {
-                sender.sendMessage((Object)ChatColor.GOLD + "Player named or with UUID '" + (Object)ChatColor.WHITE + args[1] + (Object)ChatColor.GOLD + "' not found.");
+                sender.sendMessage(ChatColor.GOLD + "Player named or with UUID '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
                 return true;
             }
-            sender.sendMessage("You are " + (messageSpying.remove(offlineTarget.getUniqueId().toString()) ? new StringBuilder().append((Object)ChatColor.GREEN).append("no longer").toString() : new StringBuilder().append((Object)ChatColor.RED).append("still not").toString()) + (Object)ChatColor.YELLOW + " spying on the messages of " + offlineTarget.getName() + '.');
+            sender.sendMessage("You are " + (messageSpying.remove(offlineTarget.getUniqueId().toString()) ? new StringBuilder().append(ChatColor.GREEN).append("no longer").toString() : new StringBuilder().append(ChatColor.RED).append("still not").toString()) + ChatColor.YELLOW + " spying on the messages of " + offlineTarget.getName() + '.');
             return true;
         }
 

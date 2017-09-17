@@ -16,11 +16,11 @@ implements Listener {
         if (player != null && player.hasPermission("base.sign.colour")) {
             String[] lines = event.getLines();
             for (int i = 0; i < lines.length; ++i) {
-                if (!player.hasPermission("base.sign.admin") && (event.getLine(i).contains(ChatColor.translateAlternateColorCodes((char)'&', (String)"Sell")) || event.getLine(i).contains("Buy") || event.getLine(i).contains("Kit"))) {
-                    player.sendMessage((Object)ChatColor.RED + "You have used a sign that you're not allowed.");
+                if (!player.hasPermission("base.sign.admin") && (event.getLine(i).contains(ChatColor.translateAlternateColorCodes('&', "Sell")) || event.getLine(i).contains("Buy") || event.getLine(i).contains("Kit"))) {
+                    player.sendMessage(ChatColor.RED + "You have used a sign that you're not allowed.");
                     event.setCancelled(true);
                 }
-                event.setLine(i, ChatColor.translateAlternateColorCodes((char)'&', (String)lines[i]));
+                event.setLine(i, ChatColor.translateAlternateColorCodes('&', lines[i]));
             }
         }
     }

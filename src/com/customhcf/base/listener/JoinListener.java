@@ -38,7 +38,7 @@ implements Listener {
         for (Player player1 : Bukkit.getServer().getOnlinePlayers()) {
             if (!player1.hasPermission("command.staffchat")) continue;
             if (!baseUser.getNotes().isEmpty()) {
-                player1.sendMessage((Object)ChatColor.YELLOW + player.getName() + (Object)ChatColor.BOLD + " has the following notes" + (Object)ChatColor.RED + '\u2193');
+                player1.sendMessage(ChatColor.YELLOW + player.getName() + ChatColor.BOLD + " has the following notes" + ChatColor.RED + '\u2193');
             }
             for (String notes : baseUser.getNotes()) {
                 player1.sendMessage(notes);

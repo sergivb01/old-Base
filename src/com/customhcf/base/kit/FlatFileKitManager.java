@@ -43,7 +43,7 @@ Listener {
     public FlatFileKitManager(BasePlugin plugin) {
         this.plugin = plugin;
         this.reloadKitData();
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
@@ -91,7 +91,7 @@ Listener {
     @Override
     public Inventory getGui(Player player) {
         UUID uuid = player.getUniqueId();
-        Inventory inventory = Bukkit.createInventory((InventoryHolder)player, (int)((this.kits.size() + 9 - 1) / 9 * 9), (String)((Object)ChatColor.BLUE + "Kit Selector"));
+        Inventory inventory = Bukkit.createInventory(player, (this.kits.size() + 9 - 1) / 9 * 9, ChatColor.BLUE + "Kit Selector");
         for (Kit kit : this.kits) {
             ArrayList lore;
             ItemStack stack = kit.getImage();
@@ -102,29 +102,29 @@ Listener {
                 lore = new ArrayList();
                 if (kit.isEnabled()) {
                     if (kit.getDelayMillis() > 0) {
-                        lore.add((Object)ChatColor.YELLOW + kit.getDelayWords() + " cooldown");
+                        lore.add(ChatColor.YELLOW + kit.getDelayWords() + " cooldown");
                     }
                 } else {
-                    lore.add((String)((Object)ChatColor.RED + "Disabled"));
+                    lore.add(ChatColor.RED + "Disabled");
                 }
                 if ((maxUses = kit.getMaximumUses()) != Integer.MAX_VALUE) {
-                    lore.add((Object)ChatColor.YELLOW + "Used " + this.plugin.getUserManager().getUser(uuid).getKitUses(kit) + '/' + maxUses + " times.");
+                    lore.add(ChatColor.YELLOW + "Used " + this.plugin.getUserManager().getUser(uuid).getKitUses(kit) + '/' + maxUses + " times.");
                 }
                 if (description != null) {
                     lore.add(" ");
-                    for (String part : ChatPaginator.wordWrap((String)description, (int)24)) {
-                        lore.add((Object)ChatColor.WHITE + part);
+                    for (String part : ChatPaginator.wordWrap(description, 24)) {
+                        lore.add(ChatColor.WHITE + part);
                     }
                 }
             } else {
-                lore = Lists.newArrayList((Object[])new String[]{(Object)ChatColor.RED + "You do not own this kit."});
+                lore = Lists.newArrayList((Object[])new String[]{ChatColor.RED + "You do not own this kit."});
             }
             ItemStack cloned = stack.clone();
             ItemMeta meta = cloned.getItemMeta();
-            meta.setDisplayName((Object)ChatColor.GREEN + kit.getName());
-            meta.setLore((List)lore);
+            meta.setDisplayName(ChatColor.GREEN + kit.getName());
+            meta.setLore(lore);
             cloned.setItemMeta(meta);
-            inventory.addItem(new ItemStack[]{cloned});
+            inventory.addItem(cloned);
         }
         return inventory;
     }

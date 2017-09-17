@@ -32,22 +32,22 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + this.getName() + " <warpName>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + this.getName() + " <warpName>");
             return true;
         }
         if (this.plugin.getWarpManager().getWarp(args[1]) != null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is already a warp named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is already a warp named " + args[1] + '.');
             return true;
         }
         Player player = (Player)sender;
         Location location = player.getLocation();
         Warp warp = new Warp(args[1], location);
         this.plugin.getWarpManager().createWarp(warp);
-        sender.sendMessage((Object)ChatColor.GRAY + "Created a global warp named " + (Object)ChatColor.BLUE + warp.getName() + (Object)ChatColor.GRAY + " with permission " + (Object)ChatColor.BLUE + warp.getPermission() + (Object)ChatColor.GRAY + '.');
+        sender.sendMessage(ChatColor.GRAY + "Created a global warp named " + ChatColor.BLUE + warp.getName() + ChatColor.GRAY + " with permission " + ChatColor.BLUE + warp.getPermission() + ChatColor.GRAY + '.');
         return true;
     }
 

@@ -35,26 +35,26 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This argument is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This argument is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         ItemStack stack = player.getItemInHand();
         if (stack == null || stack.getType() == Material.AIR) {
-            player.sendMessage((Object)ChatColor.RED + "You are not holding anything.");
+            player.sendMessage(ChatColor.RED + "You are not holding anything.");
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
         kit.setImage(stack.clone());
-        sender.sendMessage((Object)ChatColor.AQUA + "Set image of kit " + (Object)ChatColor.YELLOW + kit.getDisplayName() + (Object)ChatColor.AQUA + " to " + (Object)ChatColor.YELLOW + this.plugin.getItemDb().getName(stack) + (Object)ChatColor.AQUA + '.');
+        sender.sendMessage(ChatColor.AQUA + "Set image of kit " + ChatColor.YELLOW + kit.getDisplayName() + ChatColor.AQUA + " to " + ChatColor.YELLOW + this.plugin.getItemDb().getName(stack) + ChatColor.AQUA + '.');
         return true;
     }
 

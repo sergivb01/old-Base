@@ -23,13 +23,13 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(ItemStack stack) {
-        Preconditions.checkNotNull((Object)stack, (Object)"ItemStack cannot be null");
+        Preconditions.checkNotNull((Object)stack, "ItemStack cannot be null");
         this.stack = stack;
     }
 
     public ItemBuilder(Material material, int amount, byte data) {
-        Preconditions.checkNotNull((Object)material, (Object)"Material cannot be null");
-        Preconditions.checkArgument((boolean)(amount > 0), (Object)"Amount must be positive");
+        Preconditions.checkNotNull((Object)material, "Material cannot be null");
+        Preconditions.checkArgument(amount > 0, "Amount must be positive");
         this.stack = new ItemStack(material, amount, (short)data);
     }
 

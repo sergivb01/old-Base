@@ -46,7 +46,7 @@ public class UserManager
     }
 
     public ServerParticipator getParticipator(final CommandSender sender) {
-        Preconditions.checkNotNull((Object)sender, (Object)"CommandSender cannot be null");
+        Preconditions.checkNotNull((Object)sender, "CommandSender cannot be null");
         if (sender instanceof ConsoleCommandSender) {
             return this.console;
         }
@@ -57,7 +57,7 @@ public class UserManager
     }
 
     public ServerParticipator getParticipator(final UUID uuid) {
-        Preconditions.checkNotNull((Object)uuid, (Object)"Unique ID cannot be null");
+        Preconditions.checkNotNull((Object)uuid, "Unique ID cannot be null");
         return this.participators.get(uuid);
     }
 
@@ -78,7 +78,7 @@ public class UserManager
         final Object object = this.userConfig.get("participators");
         if (object instanceof MemorySection) {
             final MemorySection section = (MemorySection)object;
-            final Set<String> keys = (Set<String>)section.getKeys(false);
+            final Set<String> keys = section.getKeys(false);
             this.participators = new HashMap<UUID, ServerParticipator>(keys.size());
             for (final String id : keys) {
                 this.participators.put(UUID.fromString(id), (ServerParticipator)this.userConfig.get("participators." + id));
@@ -94,7 +94,7 @@ public class UserManager
         for (final Map.Entry<UUID, ServerParticipator> entry : this.participators.entrySet()) {
             saveMap.put(entry.getKey().toString(), entry.getValue());
         }
-        this.userConfig.set("participators", (Object)saveMap);
+        this.userConfig.set("participators", saveMap);
         this.userConfig.save();
     }
 }

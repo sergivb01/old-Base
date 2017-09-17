@@ -6,13 +6,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.google.common.primitives.Ints;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.Village;
-import net.minecraft.server.v1_7_R4.WorldServer;
 import net.minecraft.util.gnu.trove.iterator.TObjectIntIterator;
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
@@ -22,7 +15,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,14 +22,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
-import org.bukkit.event.player.PlayerBreedEntityEvent;
-import org.bukkit.event.player.PlayerTemptEntityEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class MobstackListener
-        extends BukkitRunnable
-        implements Listener
-{
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class MobstackListener extends BukkitRunnable implements Listener {
     private static final int NATURAL_STACK_RADIUS = 81;
     private static final int MAX_STACKED_QUANTITY = 200;
     private static final List<LivingEntity> markedMobs = new ArrayList();

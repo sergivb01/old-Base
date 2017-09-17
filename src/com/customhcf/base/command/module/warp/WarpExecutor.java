@@ -50,7 +50,7 @@ public class WarpExecutor extends BaseCommand implements Listener
         this.arguments.add(new WarpListArgument(plugin));
         this.arguments.add(new WarpRemoveArgument(plugin));
         this.arguments.add(new WarpSetArgument(plugin));
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
@@ -85,7 +85,7 @@ public class WarpExecutor extends BaseCommand implements Listener
         }
         List<String> results;
         if (args.length == 1) {
-            results = (List<String>)Lists.newArrayList(Iterables.concat((Iterable)CommandWrapper.getAccessibleArgumentNames(sender, this.arguments), (Iterable)this.plugin.getWarpManager().getWarpNames()));
+            results = (List<String>)Lists.newArrayList(Iterables.concat(CommandWrapper.getAccessibleArgumentNames(sender, this.arguments), (Iterable)this.plugin.getWarpManager().getWarpNames()));
         }
         else {
             final CommandArgument argument = CommandWrapper.matchArgument(args[0], sender, this.arguments);
@@ -122,7 +122,7 @@ public class WarpExecutor extends BaseCommand implements Listener
                 WarpExecutor.this.warpPlayer(player, warp);
             }
         };
-        runnable.runTaskLater((Plugin)this.plugin, warpDelayTicks);
+        runnable.runTaskLater(this.plugin, warpDelayTicks);
         this.taskMap.put(player.getUniqueId(), runnable);
         sender.sendMessage(ChatColor.GRAY + "Warping to " + ChatColor.BLUE + warp.getName() + ChatColor.GRAY + " you will teleport in " + ChatColor.BLUE + this.plugin.getWarpManager().getWarpDelayWords() + ChatColor.GRAY + '.');
         return true;

@@ -31,17 +31,17 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "No kit named " + args[1] + " found.");
+            sender.sendMessage(ChatColor.RED + "No kit named " + args[1] + " found.");
             return true;
         }
         boolean newEnabled = !kit.isEnabled();
         kit.setEnabled(newEnabled);
-        sender.sendMessage((Object)ChatColor.AQUA + "Kit " + kit.getDisplayName() + " has been " + (newEnabled ? new StringBuilder().append((Object)ChatColor.GREEN).append("enabled").toString() : new StringBuilder().append((Object)ChatColor.RED).append("disabled").toString()) + (Object)ChatColor.AQUA + '.');
+        sender.sendMessage(ChatColor.AQUA + "Kit " + kit.getDisplayName() + " has been " + (newEnabled ? new StringBuilder().append(ChatColor.GREEN).append("enabled").toString() : new StringBuilder().append(ChatColor.RED).append("disabled").toString()) + ChatColor.AQUA + '.');
         return true;
     }
 

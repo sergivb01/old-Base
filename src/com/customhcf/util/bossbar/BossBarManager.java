@@ -27,14 +27,14 @@ public class BossBarManager {
     private static JavaPlugin plugin;
 
     public static void hook() {
-        Preconditions.checkArgument((boolean)(plugin == null), (Object)"BossBarManager is already hooked");
+        Preconditions.checkArgument(plugin == null, "BossBarManager is already hooked");
         plugin = BasePlugin.getPlugin();
     }
 
     public static void unhook() {
-        Preconditions.checkArgument((boolean)(plugin != null), (Object)"BossBarManager is already unhooked");
+        Preconditions.checkArgument(plugin != null, "BossBarManager is already unhooked");
         for (UUID uuid : bossBars.keySet()) {
-            Player player = Bukkit.getPlayer((UUID)uuid);
+            Player player = Bukkit.getPlayer(uuid);
             if (player == null) continue;
             BossBarManager.hideBossBar(player);
         }
@@ -65,7 +65,7 @@ public class BossBarManager {
         if (bukkitTask != null) {
             bukkitTask.cancel();
         }
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)bossBar.destroyPacket);
+        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(bossBar.destroyPacket);
         bossBars.remove(player.getUniqueId());
         return bossBar;
     }
@@ -84,20 +84,20 @@ public class BossBarManager {
             BossBarManager.hideBossBar(player);
         }
         PlayerConnection connection = ((CraftPlayer)player).getHandle().playerConnection;
-        connection.sendPacket((Packet)bossBar.spawnPacket);
+        connection.sendPacket(bossBar.spawnPacket);
         if (ticks <= 0) {
             bukkitTask = null;
         } else {
-            Preconditions.checkArgument((boolean)(plugin != null), (Object)"Cannot start destroy runnable as plugin wasn't hooked correctly.");
+            Preconditions.checkArgument(plugin != null, "Cannot start destroy runnable as plugin wasn't hooked correctly.");
             bukkitTask = new BukkitRunnable(){
 
                 public void run() {
                     BossBarManager.hideBossBar(player);
                 }
-            }.runTaskLater((Plugin)plugin, ticks);
+            }.runTaskLater(plugin, ticks);
         }
         bossBars.put(player.getUniqueId(), new BossBarEntry(bossBar, bukkitTask));
-        connection.sendPacket((Packet)bossBar.spawnPacket);
+        connection.sendPacket(bossBar.spawnPacket);
     }
 
 }

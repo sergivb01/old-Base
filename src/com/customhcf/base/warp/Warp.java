@@ -15,8 +15,8 @@ implements ConfigurationSerializable {
 
     public Warp(String name, Location location) {
         super(location);
-        Preconditions.checkNotNull((Object)name, (Object)"Warp name cannot be null");
-        Preconditions.checkNotNull((Object)location, (Object)"Warp location cannot be null");
+        Preconditions.checkNotNull((Object)name, "Warp name cannot be null");
+        Preconditions.checkNotNull((Object)location, "Warp location cannot be null");
         this.name = name;
         this.permission = "warp." + name;
     }
@@ -40,7 +40,7 @@ implements ConfigurationSerializable {
     }
 
     public void setName(String name) {
-        Preconditions.checkNotNull((Object)name, (Object)"Warp name cannot be null");
+        Preconditions.checkNotNull((Object)name, "Warp name cannot be null");
         this.name = name;
     }
 

@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 public class Trans
 extends ChatMessage {
     public Trans() {
-        super("", new Object[0]);
+        super("");
     }
 
     public  Trans(String string, Object ... objects) {
@@ -55,11 +55,11 @@ extends ChatMessage {
     }
 
     public Trans appendItem(ItemStack stack) {
-        return this.append((IChatBaseComponent)ChatUtil.fromItemStack(stack));
+        return this.append(ChatUtil.fromItemStack(stack));
     }
 
     public Trans localText(ItemStack stack) {
-        return this.append((IChatBaseComponent)ChatUtil.localFromItem(stack));
+        return this.append(ChatUtil.localFromItem(stack));
     }
 
     public Trans setBold(boolean bold) {
@@ -88,7 +88,7 @@ extends ChatMessage {
     }
 
     public Trans setColor(ChatColor color) {
-        this.getChatModifier().setColor(EnumChatFormat.valueOf((String)color.name()));
+        this.getChatModifier().setColor(EnumChatFormat.valueOf(color.name()));
         return this;
     }
 
@@ -103,11 +103,11 @@ extends ChatMessage {
     }
 
     public Trans setHoverText(String text) {
-        return this.setHover(HoverAction.SHOW_TEXT, (IChatBaseComponent)new Text(text));
+        return this.setHover(HoverAction.SHOW_TEXT, new Text(text));
     }
 
     public Trans reset() {
-        ChatUtil.reset((IChatBaseComponent)this);
+        ChatUtil.reset(this);
         return this;
     }
 
@@ -116,7 +116,7 @@ extends ChatMessage {
     }
 
     public void send(CommandSender sender) {
-        ChatUtil.send(sender, (IChatBaseComponent)this);
+        ChatUtil.send(sender, this);
     }
 }
 

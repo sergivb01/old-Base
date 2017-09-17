@@ -23,34 +23,34 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable for players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
         String amount = "";
         Player p = (Player)sender;
         if (args.length == 0) {
-            p.sendMessage((Object)ChatColor.RED + this.getUsage());
+            p.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
         if (BasePlugin.getPlugin().getItemDb().getItem(args[0]) == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Item or ID not found.");
+            sender.sendMessage(ChatColor.RED + "Item or ID not found.");
             return true;
         }
         if (args.length == 1) {
             if (!p.getInventory().addItem(new ItemStack[]{BasePlugin.getPlugin().getItemDb().getItem(args[0], BasePlugin.getPlugin().getItemDb().getItem(args[0]).getMaxStackSize())}).isEmpty()) {
-                p.sendMessage((Object)ChatColor.RED + "Your inventory is full.");
+                p.sendMessage(ChatColor.RED + "Your inventory is full.");
                 return true;
             }
             amount = "" + BasePlugin.getPlugin().getItemDb().getItem(args[0]).getMaxStackSize() + "";
         }
         if (args.length == 2) {
             if (!p.getInventory().addItem(new ItemStack[]{BasePlugin.getPlugin().getItemDb().getItem(args[0], Integer.parseInt(args[1]))}).isEmpty()) {
-                p.sendMessage((Object)ChatColor.RED + "Your inventory is full.");
+                p.sendMessage(ChatColor.RED + "Your inventory is full.");
                 return true;
             }
             amount = args[1];
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + p.getName() + " gave himself " + amount + ", " + BasePlugin.getPlugin().getItemDb().getName(BasePlugin.getPlugin().getItemDb().getItem(args[0]))), (boolean)true);
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + p.getName() + " gave himself " + amount + ", " + BasePlugin.getPlugin().getItemDb().getName(BasePlugin.getPlugin().getItemDb().getItem(args[0])), true);
         return true;
     }
 }

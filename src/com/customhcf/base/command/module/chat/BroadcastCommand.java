@@ -42,17 +42,17 @@ extends BaseCommand {
             position = 0;
             raw = false;
         }
-        String message = StringUtils.join((Object[])args, (char)' ', (int)position, (int)args.length);
+        String message = StringUtils.join(args, ' ', position, args.length);
         if (raw) {
             if (message.length() < 3) {
-                sender.sendMessage((Object)ChatColor.RED + "Character limit not met, must have atleast 3 characters.");
+                sender.sendMessage(ChatColor.RED + "Character limit not met, must have atleast 3 characters.");
                 return true;
             }
         } else if (message.length() < 4) {
-            sender.sendMessage((Object)ChatColor.RED + "Character limit not met, must have atleast 4 characters.");
+            sender.sendMessage(ChatColor.RED + "Character limit not met, must have atleast 4 characters.");
             return true;
         }
-        message = !raw ? ChatColor.translateAlternateColorCodes((char)'&', (String)String.format(Locale.ENGLISH, this.plugin.getServerHandler().getBroadcastFormat(), message)) : ChatColor.translateAlternateColorCodes((char)'&', (String)message);
+        message = !raw ? ChatColor.translateAlternateColorCodes('&', String.format(Locale.ENGLISH, this.plugin.getServerHandler().getBroadcastFormat(), message)) : ChatColor.translateAlternateColorCodes('&', message);
         Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Veil " + ChatColor.GRAY + "»" + ChatColor.YELLOW + message);
         return true;
     }

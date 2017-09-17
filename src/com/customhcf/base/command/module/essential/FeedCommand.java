@@ -5,17 +5,16 @@ import com.customhcf.base.BaseConstants;
 import com.customhcf.base.command.BaseCommand;
 import com.customhcf.util.BukkitUtils;
 import com.google.common.collect.ImmutableSet;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class FeedCommand
 extends BaseCommand {
@@ -32,7 +31,7 @@ extends BaseCommand {
         Collection<Player> targets;
         if (args.length > 0 && sender.hasPermission(command.getPermission() + ".others")) {
             if (args[0].equalsIgnoreCase("all") && sender.hasPermission(command.getPermission() + ".all")) {
-                targets = ImmutableSet.copyOf(Arrays.asList(Bukkit.getOnlinePlayers()));
+                targets = ImmutableSet.copyOf(Bukkit.getOnlinePlayers());
             }
             else {
                 if ((onlyTarget = BukkitUtils.playerWithNameOrUUID(args[0])) == null || !BaseCommand.canSee(sender, onlyTarget)) {
@@ -57,7 +56,7 @@ extends BaseCommand {
             target.removePotionEffect(PotionEffectType.HUNGER);
             target.setFoodLevel(20);
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Fed " + (onlyTarget == null ? "all online players" : onlyTarget.getName()) + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Fed " + (onlyTarget == null ? "all online players" : onlyTarget.getName()) + '.');
         return true;
     }
 

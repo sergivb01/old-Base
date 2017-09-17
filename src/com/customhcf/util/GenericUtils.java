@@ -17,7 +17,7 @@ public final class GenericUtils {
                 if (value == null || value.getClass() == null) continue;
                 if (!type.isAssignableFrom(value.getClass())) {
                     String simpleName = type.getSimpleName();
-                    throw new AssertionError((Object)("Cannot cast to list! Key " + value + " is not a " + simpleName));
+                    throw new AssertionError("Cannot cast to list! Key " + value + " is not a " + simpleName);
                 }
                 E e = type.cast(value);
                 output.add(e);
@@ -34,7 +34,7 @@ public final class GenericUtils {
                 if (value == null || value.getClass() == null) continue;
                 if (!type.isAssignableFrom(value.getClass())) {
                     String simpleName = type.getSimpleName();
-                    throw new AssertionError((Object)("Cannot cast to list! Key " + value + " is not a " + simpleName));
+                    throw new AssertionError("Cannot cast to list! Key " + value + " is not a " + simpleName);
                 }
                 E e = type.cast(value);
                 output.add(e);
@@ -51,11 +51,11 @@ public final class GenericUtils {
             String valueClassName = valueClass.getSimpleName();
             for (Object key : input.keySet().toArray()) {
                 if (key != null && !keyClass.isAssignableFrom(key.getClass())) {
-                    throw new AssertionError((Object)("Cannot cast to HashMap: " + keyClassName + ", " + keyClassName + ". Value " + valueClassName + " is not a " + keyClassName));
+                    throw new AssertionError("Cannot cast to HashMap: " + keyClassName + ", " + keyClassName + ". Value " + valueClassName + " is not a " + keyClassName);
                 }
                 Object value = input.get(key);
                 if (value != null && !valueClass.isAssignableFrom(value.getClass())) {
-                    throw new AssertionError((Object)("Cannot cast to HashMap: " + valueClassName + ", " + valueClassName + ". Key " + key + " is not a " + valueClassName));
+                    throw new AssertionError("Cannot cast to HashMap: " + valueClassName + ", " + valueClassName + ". Key " + key + " is not a " + valueClassName);
                 }
                 output.put(keyClass.cast(key), valueClass.cast(value));
             }

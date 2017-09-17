@@ -48,38 +48,38 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        Enchantment enchantment = Enchantment.getByName((String)args[0]);
+        Enchantment enchantment = Enchantment.getByName(args[0]);
         if (enchantment == null) {
-            sender.sendMessage((Object)ChatColor.RED + "No enchantment named '" + args[0] + "' found.");
+            sender.sendMessage(ChatColor.RED + "No enchantment named '" + args[0] + "' found.");
             return true;
         }
         ItemStack stack = target.getItemInHand();
         if (stack == null || stack.getType() == Material.AIR) {
-            sender.sendMessage((Object)ChatColor.RED + target.getName() + " is not holding an item.");
+            sender.sendMessage(ChatColor.RED + target.getName() + " is not holding an item.");
             return true;
         }
-        Integer level = Ints.tryParse((String)args[1]);
+        Integer level = Ints.tryParse(args[1]);
         if (level == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a number.");
             return true;
         }
         int maxLevel = enchantment.getMaxLevel();
         if (level > maxLevel && !sender.hasPermission(command.getPermission() + ".abovemaxlevel")) {
-            sender.sendMessage((Object)ChatColor.RED + "The maximum enchantment level for " + enchantment.getName() + " is " + maxLevel + '.');
+            sender.sendMessage(ChatColor.RED + "The maximum enchantment level for " + enchantment.getName() + " is " + maxLevel + '.');
             return true;
         }
         if (!enchantment.canEnchantItem(stack) && !sender.hasPermission(command.getPermission() + ".anyitem")) {
-            sender.sendMessage((Object)ChatColor.RED + "Enchantment " + enchantment.getName() + " cannot be applied to that item.");
+            sender.sendMessage(ChatColor.RED + "Enchantment " + enchantment.getName() + " cannot be applied to that item.");
             return true;
         }
         stack.addUnsafeEnchantment(enchantment, level.intValue());
         try {
-            itemName = CraftItemStack.asNMSCopy((ItemStack)stack).getName();
+            itemName = CraftItemStack.asNMSCopy(stack).getName();
         }
         catch (Error ex) {
             itemName = stack.getType().name();
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Enchanted " + enchantment.getName() + " at level " + level + " onto " + itemName + " of " + target.getName() + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Enchanted " + enchantment.getName() + " at level " + level + " onto " + itemName + " of " + target.getName() + '.');
         return true;
     }
 

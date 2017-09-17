@@ -66,14 +66,14 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+                sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
                 return true;
             }
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "You are " + (this.plugin.getUserManager().getUser(((Player)sender).getUniqueId()).getIgnoring().remove(args[1]) ? new StringBuilder().append((Object)ChatColor.RED).append("not").toString() : new StringBuilder().append((Object)ChatColor.GREEN).append("no longer").toString()) + (Object)ChatColor.YELLOW + " ignoring " + args[1] + '.');
+            sender.sendMessage(ChatColor.YELLOW + "You are " + (this.plugin.getUserManager().getUser(((Player)sender).getUniqueId()).getIgnoring().remove(args[1]) ? new StringBuilder().append(ChatColor.RED).append("not").toString() : new StringBuilder().append(ChatColor.GREEN).append("no longer").toString()) + ChatColor.YELLOW + " ignoring " + args[1] + '.');
             return true;
         }
 
@@ -100,15 +100,15 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+                sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
                 return true;
             }
             Set<String> ignoring = this.plugin.getUserManager().getUser(((Player)sender).getUniqueId()).getIgnoring();
             if (ignoring.isEmpty()) {
-                sender.sendMessage((Object)ChatColor.YELLOW + "You are not ignoring anyone.");
+                sender.sendMessage(ChatColor.YELLOW + "You are not ignoring anyone.");
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "You are ignoring (" + ignoring.size() + ") members: " + '[' + (Object)ChatColor.WHITE + StringUtils.join(ignoring, (String)", ") + (Object)ChatColor.YELLOW + ']');
+            sender.sendMessage(ChatColor.YELLOW + "You are ignoring (" + ignoring.size() + ") members: " + '[' + ChatColor.WHITE + StringUtils.join(ignoring, ", ") + ChatColor.YELLOW + ']');
             return true;
         }
 
@@ -135,16 +135,16 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+                sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
                 return true;
             }
             Set<String> ignoring = this.plugin.getUserManager().getUser(((Player)sender).getUniqueId()).getIgnoring();
             if (ignoring.isEmpty()) {
-                sender.sendMessage((Object)ChatColor.RED + "Your ignore list is already empty.");
+                sender.sendMessage(ChatColor.RED + "Your ignore list is already empty.");
                 return true;
             }
             ignoring.clear();
-            sender.sendMessage((Object)ChatColor.YELLOW + "Your ignore list has been cleared.");
+            sender.sendMessage(ChatColor.YELLOW + "Your ignore list has been cleared.");
             return true;
         }
 
@@ -171,7 +171,7 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+                sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
                 return true;
             }
             if (args.length < 2) {
@@ -187,24 +187,24 @@ extends BaseCommand {
                 sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[1]));
                 return true;
             }
-            if (sender.equals((Object)target)) {
-                sender.sendMessage((Object)ChatColor.RED + "You may not ignore yourself.");
+            if (sender.equals(target)) {
+                sender.sendMessage(ChatColor.RED + "You may not ignore yourself.");
                 return true;
             }
             StaffPriority selfPriority = StaffPriority.of(player);
             if (StaffPriority.of(target).isMoreThan(selfPriority)) {
-                sender.sendMessage((Object)ChatColor.RED + "You cannot ignore this player.");
+                sender.sendMessage(ChatColor.RED + "You cannot ignore this player.");
                 return true;
             }
             if (target.hasPermission("command.ignore.exempt")) {
-                sender.sendMessage((Object)ChatColor.RED + "You do not have permission to ignore this player.");
+                sender.sendMessage(ChatColor.RED + "You do not have permission to ignore this player.");
                 return true;
             }
             String targetName = target.getName();
             if (ignoring.add(target.getName())) {
-                sender.sendMessage((Object)ChatColor.GOLD + "You are now ignoring " + targetName + '.');
+                sender.sendMessage(ChatColor.GOLD + "You are now ignoring " + targetName + '.');
             } else {
-                sender.sendMessage((Object)ChatColor.RED + "You are already ignoring someone named " + targetName + '.');
+                sender.sendMessage(ChatColor.RED + "You are already ignoring someone named " + targetName + '.');
             }
             return true;
         }

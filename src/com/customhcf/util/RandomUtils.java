@@ -21,9 +21,9 @@ public class RandomUtils {
             Random random = new Random();
             Integer rand = random.nextInt(alphaText.size());
             if (randomName == null) {
-                randomName = (String)alphaText.get(rand);
+                randomName = alphaText.get(rand);
             }
-            randomName = randomName + (String)alphaText.get(rand);
+            randomName = randomName + alphaText.get(rand);
         }
         return randomName;
     }
@@ -38,9 +38,9 @@ public class RandomUtils {
             Random random = new Random();
             Integer rand = random.nextInt(alphaText.size());
             if (randomName == null) {
-                randomName = (String)alphaText.get(rand);
+                randomName = alphaText.get(rand);
             }
-            randomName = randomName + (String)alphaText.get(rand);
+            randomName = randomName + alphaText.get(rand);
         }
         return Integer.parseInt(randomName);
     }
@@ -55,9 +55,9 @@ public class RandomUtils {
             Random random = new Random();
             Integer rand = random.nextInt(alphaText.size());
             if (randomName == null) {
-                randomName = (String)alphaText.get(rand);
+                randomName = alphaText.get(rand);
             }
-            randomName = randomName + (String)alphaText.get(rand);
+            randomName = randomName + alphaText.get(rand);
         }
         return randomName;
     }

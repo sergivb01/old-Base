@@ -33,21 +33,21 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
         long duration = JavaUtils.parse(args[2]);
         if (duration == -1) {
-            sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
+            sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
             return true;
         }
         kit.setDelayMillis(duration);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Set delay of kit " + kit.getName() + " to " + DurationFormatUtils.formatDurationWords((long)duration, (boolean)true, (boolean)true) + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Set delay of kit " + kit.getName() + " to " + DurationFormatUtils.formatDurationWords(duration, true, true) + '.');
         return true;
     }
 

@@ -20,25 +20,25 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         ItemStack stack = player.getItemInHand();
         if (stack == null || stack.getType() == Material.AIR) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not holding anything.");
+            sender.sendMessage(ChatColor.RED + "You are not holding anything.");
 
 
             return true;
         }
         if (stack.getType().getMaxDurability() != 0) {
-            sender.sendMessage((Object)ChatColor.RED + "The item you are holding is not suitable to wear for a hat.");
+            sender.sendMessage(ChatColor.RED + "The item you are holding is not suitable to wear for a hat.");
             return true;
         }
         PlayerInventory inventory = player.getInventory();
         ItemStack helmet = inventory.getHelmet();
         if (helmet != null && helmet.getType() != Material.AIR) {
-            sender.sendMessage((Object)ChatColor.RED + "You are already wearing something as your hat.");
+            sender.sendMessage(ChatColor.RED + "You are already wearing something as your hat.");
             return true;
         }
         int amount = stack.getAmount();

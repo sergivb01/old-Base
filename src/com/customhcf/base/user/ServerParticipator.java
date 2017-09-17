@@ -106,7 +106,7 @@ implements ConfigurationSerializable {
     }
 
     public Player getLastRepliedToPlayer() {
-        return Bukkit.getPlayer((UUID)this.lastRepliedTo);
+        return Bukkit.getPlayer(this.lastRepliedTo);
     }
 
     public boolean isInStaffChat() {

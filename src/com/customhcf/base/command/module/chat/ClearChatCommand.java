@@ -27,13 +27,13 @@ extends BaseCommand {
             sender.sendMessage(this.getUsage());
             return true;
         }
-        String reason = StringUtils.join((Object[])args, (char)' ');
+        String reason = StringUtils.join(args, ' ');
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.hasPermission(BYPASS_PERMISSION)) continue;
             player.sendMessage(CLEAR_MESSAGE);
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Cleared in-game chat for: " + reason), (boolean)true);
-        Bukkit.getConsoleSender().sendMessage((Object)ChatColor.YELLOW + sender.getName() + " cleared in-game chat.");
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Cleared in-game chat for: " + reason, true);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + sender.getName() + " cleared in-game chat.");
         return true;
     }
 }

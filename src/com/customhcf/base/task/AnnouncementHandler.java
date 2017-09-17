@@ -20,7 +20,7 @@ extends BukkitRunnable {
         List<String> announcements = this.plugin.getServerHandler().getAnnouncements();
         if (!announcements.isEmpty()) {
             String next = announcements.get(0);
-            Bukkit.broadcastMessage((String)next);
+            Bukkit.broadcastMessage(next);
             Collections.rotate(announcements, -1);
         }
     }

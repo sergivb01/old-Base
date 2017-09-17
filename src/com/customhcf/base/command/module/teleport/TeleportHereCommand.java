@@ -22,7 +22,7 @@ extends BaseCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 1) {
@@ -33,7 +33,7 @@ extends BaseCommand {
             return true;
         }
         Player player = (Player)sender;
-        BukkitUtils.playerWithNameOrUUID(args[0]).teleport((Entity)player);
+        BukkitUtils.playerWithNameOrUUID(args[0]).teleport(player);
         return true;
     }
 

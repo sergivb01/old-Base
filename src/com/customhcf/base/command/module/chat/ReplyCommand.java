@@ -36,30 +36,30 @@ extends BaseCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player target;
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable for players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
         Player player = (Player)sender;
         UUID uuid = player.getUniqueId();
         BaseUser baseUser = this.plugin.getUserManager().getUser(uuid);
         UUID lastReplied = baseUser.getLastRepliedTo();
-        Player player2 = target = lastReplied == null ? null : Bukkit.getPlayer((UUID)lastReplied);
+        Player player2 = target = lastReplied == null ? null : Bukkit.getPlayer(lastReplied);
         if (args.length < 1) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             if (lastReplied != null && BaseCommand.canSee(sender, target)) {
-                sender.sendMessage((Object)ChatColor.RED + "You are in a conversation with " + target.getName() + '.');
+                sender.sendMessage(ChatColor.RED + "You are in a conversation with " + target.getName() + '.');
             }
             return true;
         }
         long millis = System.currentTimeMillis();
         if (target == null || !BaseCommand.canSee(sender, target) && millis - baseUser.getLastReceivedMessageMillis() > VANISH_REPLY_TIMEOUT) {
-            sender.sendMessage((Object)ChatColor.GOLD + "There is no player to reply to.");
+            sender.sendMessage(ChatColor.GOLD + "There is no player to reply to.");
             return true;
         }
-        String message = StringUtils.join((Object[])args, (char)' ');
+        String message = StringUtils.join(args, ' ');
         HashSet recipients = Sets.newHashSet((Object[])new Player[]{target});
         PlayerMessageEvent playerMessageEvent = new PlayerMessageEvent(player, recipients, message, false);
-        Bukkit.getPluginManager().callEvent((Event)playerMessageEvent);
+        Bukkit.getPluginManager().callEvent(playerMessageEvent);
         if (!playerMessageEvent.isCancelled()) {
             playerMessageEvent.send();
         }

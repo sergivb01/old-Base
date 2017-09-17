@@ -73,7 +73,7 @@ public class ImageMessage {
                 ChatColor color;
                 line = line + ((color = colors[x][y]) != null ? new StringBuilder().append(colors[x][y].toString()).append(imgchar).toString() : Character.valueOf(' '));
             }
-            lines[y] = line + (Object)ChatColor.RESET;
+            lines[y] = line + ChatColor.RESET;
         }
         return lines;
     }

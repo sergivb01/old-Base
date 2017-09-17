@@ -2,21 +2,15 @@
 package com.customhcf.base.listener;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.event.PlayerMessageEvent;
 import com.customhcf.base.user.BaseUser;
 import com.customhcf.base.user.ServerParticipator;
-import com.customhcf.base.user.UserManager;
 import com.customhcf.util.BukkitUtils;
 import com.google.common.collect.Sets;
-
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,9 +18,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.permissions.Permissible;
 
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 public class ChatListener
 implements Listener {
-    private static final String MESSAGE_SPY_FORMAT = (Object)ChatColor.GRAY + "[" + (Object)ChatColor.GOLD + "SS: " + (Object)ChatColor.AQUA + "%1$s" + (Object)ChatColor.GRAY + " -> " + (Object)ChatColor.AQUA + "%2$s" + (Object)ChatColor.GRAY + "] %3$s";
+    private static final String MESSAGE_SPY_FORMAT = ChatColor.GRAY + "[" + ChatColor.GOLD + "SS: " + ChatColor.AQUA + "%1$s" + ChatColor.GRAY + " -> " + ChatColor.AQUA + "%2$s" + ChatColor.GRAY + "] %3$s";
     private static final String STAFF_CHAT_NOTIFY = "rank.staff";
     private static final String SLOWED_CHAT_BYPASS = "rank.staff";
     private static final String TOGGLED_CHAT_BYPASS = "rank.staff";
@@ -89,7 +86,7 @@ implements Listener {
         }
         if ((remainingChatDisabled = this.plugin.getServerHandler().getRemainingChatDisabledMillis()) > 0 && !player.hasPermission("rank.staff")) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "Global chat is currently disabled for another " + (Object)ChatColor.RED + DurationFormatUtils.formatDurationWords((long)remainingChatDisabled, (boolean)true, (boolean)true) + (Object)ChatColor.RED + '.');
+            player.sendMessage(ChatColor.RED + "Global chat is currently disabled for another " + ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingChatDisabled, true, true) + ChatColor.RED + '.');
             return;
         }
         long remainingChatSlowed = this.plugin.getServerHandler().getRemainingChatSlowedMillis();
@@ -101,7 +98,7 @@ implements Listener {
             }
             event.setCancelled(true);
             long delayMillis = (long)this.plugin.getServerHandler().getChatSlowedDelay() * 1000;
-            player.sendMessage((Object)ChatColor.YELLOW + "Chat is currently in slow mode with a " + (Object)ChatColor.GOLD + DurationFormatUtils.formatDurationWords((long)delayMillis, (boolean)true, (boolean)true) + " cooldown." + ChatColor.YELLOW + " You have to wait " + (Object)ChatColor.GOLD + DurationFormatUtils.formatDurationWords((long)speakTimeRemaining, (boolean)true, (boolean)true));
+            player.sendMessage(ChatColor.YELLOW + "Chat is currently in slow mode with a " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(delayMillis, true, true) + " cooldown." + ChatColor.YELLOW + " You have to wait " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(speakTimeRemaining, true, true));
         }
     }
 
@@ -114,14 +111,14 @@ implements Listener {
             BaseUser recipientUser = this.plugin.getUserManager().getUser(recipientUUID);
             if (!recipientUser.isMessagesVisible() || recipientUser.getIgnoring().contains(sender.getName())) {
                 event.setCancelled(true);
-                sender.sendMessage((Object)ChatColor.RED + recipient.getName() + " has private messaging toggled.");
+                sender.sendMessage(ChatColor.RED + recipient.getName() + " has private messaging toggled.");
             }
             return;
         }
-        ServerParticipator senderParticipator = this.plugin.getUserManager().getParticipator((CommandSender)sender);
+        ServerParticipator senderParticipator = this.plugin.getUserManager().getParticipator(sender);
         if (!senderParticipator.isMessagesVisible()) {
             event.setCancelled(true);
-            sender.sendMessage((Object)ChatColor.RED + "You have private messages toggled.");
+            sender.sendMessage(ChatColor.RED + "You have private messages toggled.");
         }
     }
 
@@ -131,12 +128,12 @@ implements Listener {
         Player recipient = event.getRecipient();
         String message = event.getMessage();
         if (BukkitUtils.getIdleTime(recipient) > AUTO_IDLE_TIME) {
-            sender.sendMessage((Object)ChatColor.RED + recipient.getName() + " may not respond as their idle time is over " + DurationFormatUtils.formatDurationWords((long)AUTO_IDLE_TIME, (boolean)true, (boolean)true) + '.');
+            sender.sendMessage(ChatColor.RED + recipient.getName() + " may not respond as their idle time is over " + DurationFormatUtils.formatDurationWords(AUTO_IDLE_TIME, true, true) + '.');
         }
         final UUID senderUUID = sender.getUniqueId();
         final String senderId = senderUUID.toString();
         final String recipientId = recipient.getUniqueId().toString();
-        final Collection<CommandSender> recipients = new HashSet<CommandSender>(Arrays.asList(Bukkit.getOnlinePlayers()));
+        final Collection<CommandSender> recipients = new HashSet<CommandSender>(Bukkit.getOnlinePlayers());
         recipients.remove(sender);
         recipients.remove(recipient);
         recipients.add(Bukkit.getConsoleSender());

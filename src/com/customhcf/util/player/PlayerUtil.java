@@ -46,10 +46,10 @@ public class PlayerUtil
     
     public static void wipe(final Player player) {
         player.getInventory().clear();
-        player.getInventory().setArmorContents((ItemStack[])null);
+        player.getInventory().setArmorContents(null);
         player.setExp(0.0f);
         player.setLevel(0);
-        ((Damageable)player).setHealth( ((Damageable)player).getMaxHealth());
+        player.setHealth( player.getMaxHealth());
         player.setFoodLevel(20);
         player.setRemainingAir(player.getMaximumAir());
         player.setFireTicks(0);
@@ -91,8 +91,8 @@ public class PlayerUtil
     static {
         frozen = new HashMap<Player, Location>();
         playerCaches = new HashMap<Player, PlayerCache>();
-        lastSent = (TObjectLongMap<Player>)new TObjectLongHashMap<Player>();
-        Bukkit.getPluginManager().registerEvents((Listener)new Listener() {
+        lastSent = new TObjectLongHashMap<Player>();
+        Bukkit.getPluginManager().registerEvents(new Listener() {
             @EventHandler
             public void onMove(final PlayerMoveEvent event) {
                 final Location from = event.getFrom();
@@ -125,6 +125,6 @@ public class PlayerUtil
                     playerCache.apply(player);
                 }
             }
-        }, (Plugin)BasePlugin.getPlugin());
+        }, BasePlugin.getPlugin());
     }
 }

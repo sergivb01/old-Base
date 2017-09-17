@@ -28,18 +28,18 @@ TabCompleter {
     }
 
     public static void printUsage(CommandSender sender, String label, Collection<CommandArgument> arguments) {
-        sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage((Object)ChatColor.GOLD + ChatColor.BOLD.toString() + WordUtils.capitalizeFully((String)label) + " Help");
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + WordUtils.capitalizeFully(label) + " Help");
         Integer amount = 0;
         for (CommandArgument argument : arguments) {
             String permission = argument.getPermission();
             if (permission != null && !sender.hasPermission(permission)) continue;
-            sender.sendMessage((Object)ChatColor.YELLOW + argument.getUsage(label) + (Object)ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription());
+            sender.sendMessage(ChatColor.YELLOW + argument.getUsage(label) + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription());
             Integer n = amount;
             Integer n2 = amount = Integer.valueOf(amount + 1);
         }
         if (amount > 0) {
-            sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         }
     }
 

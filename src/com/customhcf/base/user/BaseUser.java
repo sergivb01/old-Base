@@ -2,25 +2,14 @@
 package com.customhcf.base.user;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.StaffPriority;
 import com.customhcf.base.event.PlayerVanishEvent;
 import com.customhcf.base.kit.Kit;
-import com.customhcf.base.user.NameHistory;
-import com.customhcf.base.user.ServerParticipator;
 import com.customhcf.util.GenericUtils;
 import com.customhcf.util.PersistableLocation;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.net.InetAddresses;
-
-import java.util.*;
-
-import net.minecraft.server.v1_7_R4.DataWatcher;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
-import net.minecraft.server.v1_7_R4.ItemStack;
-import net.minecraft.server.v1_7_R4.Packet;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_7_R4.PlayerConnection;
@@ -33,14 +22,14 @@ import net.minecraft.util.gnu.trove.procedure.TObjectLongProcedure;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.*;
 
 public class BaseUser extends ServerParticipator
 {
@@ -108,7 +97,7 @@ public class BaseUser extends ServerParticipator
             this.lastGlintUse = Long.parseLong((String)object);
         }
         for (final Map.Entry<String, Integer> entry : GenericUtils.castMap(map.get("kit-use-map"), String.class, Integer.class).entrySet()) {
-            this.kitUseMap.put(UUID.fromString(entry.getKey()), (int)entry.getValue());
+            this.kitUseMap.put(UUID.fromString(entry.getKey()), entry.getValue());
         }
         for (final Map.Entry<String, String> entry2 : GenericUtils.castMap(map.get("kit-cooldown-map"), String.class, String.class).entrySet()) {
             this.kitCooldownMap.put(UUID.fromString(entry2.getKey()), Long.parseLong(entry2.getValue()));
@@ -158,7 +147,7 @@ public class BaseUser extends ServerParticipator
     }
 
     public long getRemainingKitCooldown(final Kit kit) {
-        final long remaining = this.kitCooldownMap.get((Object)kit.getUniqueID());
+        final long remaining = this.kitCooldownMap.get(kit.getUniqueID());
         if (remaining == this.kitCooldownMap.getNoEntryValue()) {
             return 0L;
         }
@@ -170,7 +159,7 @@ public class BaseUser extends ServerParticipator
     }
 
     public int getKitUses(final Kit kit) {
-        final int result = this.kitUseMap.get((Object)kit.getUniqueID());
+        final int result = this.kitUseMap.get(kit.getUniqueID());
         return (result == this.kitUseMap.getNoEntryValue()) ? 0 : result;
     }
 
@@ -188,7 +177,7 @@ public class BaseUser extends ServerParticipator
     }
 
     public void tryLoggingName(final Player player) {
-        Preconditions.checkNotNull((Object)player, (Object)"Cannot log null player");
+        Preconditions.checkNotNull((Object)player, "Cannot log null player");
         final String playerName = player.getName();
         for (final NameHistory nameHistory : this.nameHistories) {
             if (nameHistory.getName().contains(playerName)) {
@@ -232,9 +221,9 @@ public class BaseUser extends ServerParticipator
     }
 
     public void tryLoggingAddress(final String address) {
-        Preconditions.checkNotNull((Object)address, (Object)"Cannot log null address");
+        Preconditions.checkNotNull((Object)address, "Cannot log null address");
         if (!this.addressHistories.contains(address)) {
-            Preconditions.checkArgument(InetAddresses.isInetAddress(address), (Object)"Not an Inet address");
+            Preconditions.checkArgument(InetAddresses.isInetAddress(address), "Not an Inet address");
             this.addressHistories.add(address);
         }
     }
@@ -274,7 +263,7 @@ public class BaseUser extends ServerParticipator
     public boolean setVanished(final Player player, final boolean vanished, final boolean notifyPlayerList) {
         if (this.vanished != vanished) {
             if (player != null) {
-                final PlayerVanishEvent event = new PlayerVanishEvent(player, notifyPlayerList ? new HashSet<>(Arrays.asList(Bukkit.getOnlinePlayers())) : Collections.emptySet(), vanished);
+                final PlayerVanishEvent event = new PlayerVanishEvent(player, notifyPlayerList ? new HashSet<>(Bukkit.getOnlinePlayers()) : Collections.emptySet(), vanished);
                 Bukkit.getPluginManager().callEvent(event);
                 if (event.isCancelled()) {
                     return false;
@@ -290,12 +279,12 @@ public class BaseUser extends ServerParticipator
     }
     
     public void updateVanishedState(final Player player, final boolean vanished) {
-        this.updateVanishedState(player, new HashSet<Player>(Arrays.asList(Bukkit.getOnlinePlayers())), vanished);
+        this.updateVanishedState(player, new HashSet<Player>(Bukkit.getOnlinePlayers()), vanished);
     }
 
     public void updateVanishedState(final Player player, final Collection<Player> viewers, final boolean vanished) {
         player.spigot().setCollidesWithEntities(!vanished);
-        player.showInvisibles(vanished);
+        //player.showInvisibles(vanished);
         final StaffPriority playerPriority = StaffPriority.of(player);
         for (final Player target : viewers) {
             if (player.equals(target)) {
@@ -333,7 +322,7 @@ public class BaseUser extends ServerParticipator
                     if (!(item instanceof CraftItem)) {
                         continue;
                     }
-                    connection.sendPacket((Packet)new PacketPlayOutEntityMetadata(entity.getEntityId(), ((CraftItem)item).getHandle().getDataWatcher(), true));
+                    connection.sendPacket(new PacketPlayOutEntityMetadata(entity.getEntityId(), ((CraftItem)item).getHandle().getDataWatcher(), true));
                 }
                 else {
                     if (!(entity instanceof Player)) {
@@ -349,7 +338,7 @@ public class BaseUser extends ServerParticipator
                     for (int i = 0; i < armour.length; ++i) {
                         final org.bukkit.inventory.ItemStack stack = armour[i];
                         if (stack != null && stack.getType() != Material.AIR) {
-                            connection.sendPacket((Packet)new PacketPlayOutEntityEquipment(entityID, i + 1, CraftItemStack.asNMSCopy(stack)));
+                            connection.sendPacket(new PacketPlayOutEntityEquipment(entityID, i + 1, CraftItemStack.asNMSCopy(stack)));
                         }
                     }
                     final org.bukkit.inventory.ItemStack stack2 = inventory.getItemInHand();
@@ -359,7 +348,7 @@ public class BaseUser extends ServerParticipator
                     if (stack2.getType() == Material.AIR) {
                         continue;
                     }
-                    connection.sendPacket((Packet)new PacketPlayOutEntityEquipment(entityID, 0, CraftItemStack.asNMSCopy(stack2)));
+                    connection.sendPacket(new PacketPlayOutEntityEquipment(entityID, 0, CraftItemStack.asNMSCopy(stack2)));
                 }
             }
         }

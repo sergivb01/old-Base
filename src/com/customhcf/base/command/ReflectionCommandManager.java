@@ -33,40 +33,40 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class ReflectionCommandManager
 implements CommandManager {
-    private static final String PERMISSION_MESSAGE = (Object)ChatColor.RED + "You do not have permission for this command.";
+    private static final String PERMISSION_MESSAGE = ChatColor.RED + "You do not have permission for this command.";
     private final Map<String, BaseCommand> commandMap = new HashMap<String, BaseCommand>();
 
     public ReflectionCommandManager(final BasePlugin plugin) {
         final ConsoleCommandSender console = Bukkit.getConsoleSender();
         final Server server = Bukkit.getServer();
-        server.getScheduler().runTaskLater((Plugin)plugin, new Runnable(){
+        server.getScheduler().runTaskLater(plugin, new Runnable(){
 
             @Override
             public void run() {
                 Optional optionalCommandMap = ReflectionCommandManager.this.getCommandMap(server);
                 if (!optionalCommandMap.isPresent()) {
-                    Bukkit.broadcastMessage((String)("" + '[' + plugin.getDescription().getFullName() + "] Command map not found"));
+                    Bukkit.broadcastMessage("" + '[' + plugin.getDescription().getFullName() + "] Command map not found");
                     console.sendMessage("" + '[' + plugin.getDescription().getFullName() + "] Command map not found");
                     return;
                 }
                 CommandMap bukkitCommandMap = (CommandMap)optionalCommandMap.get();
                 for (BaseCommand command : ReflectionCommandManager.this.commandMap.values()) {
                     String commandName = command.getName();
-                    Optional optional = ReflectionCommandManager.this.getPluginCommand(commandName, (Plugin)plugin);
+                    Optional optional = ReflectionCommandManager.this.getPluginCommand(commandName, plugin);
                     if (optional.isPresent()) {
                         PluginCommand pluginCommand = (PluginCommand)optional.get();
                         pluginCommand.setAliases(Arrays.asList(command.getAliases()));
                         pluginCommand.setDescription(command.getDescription());
-                        pluginCommand.setExecutor((CommandExecutor)command);
-                        pluginCommand.setTabCompleter((TabCompleter)command);
+                        pluginCommand.setExecutor(command);
+                        pluginCommand.setTabCompleter(command);
                         pluginCommand.setUsage(command.getUsage());
                         pluginCommand.setPermission(command.getPermission());
                         pluginCommand.setPermissionMessage(PERMISSION_MESSAGE);
-                        bukkitCommandMap.register(plugin.getDescription().getName(), (Command)pluginCommand);
+                        bukkitCommandMap.register(plugin.getDescription().getName(), pluginCommand);
                         continue;
                     }
-                    Bukkit.broadcastMessage((String)("" + '[' + plugin.getName() + "] " + (Object)ChatColor.YELLOW + "Failed to register command '" + commandName + "'."));
-                    console.sendMessage("" + '[' + plugin.getName() + "] " + (Object)ChatColor.YELLOW + "Failed to register command '" + commandName + "'.");
+                    Bukkit.broadcastMessage("" + '[' + plugin.getName() + "] " + ChatColor.YELLOW + "Failed to register command '" + commandName + "'.");
+                    console.sendMessage("" + '[' + plugin.getName() + "] " + ChatColor.YELLOW + "Failed to register command '" + commandName + "'.");
                 }
             }
         }, 1);
@@ -128,7 +128,7 @@ implements CommandManager {
             try {
                 Field field = SimplePluginManager.class.getDeclaredField("commandMap");
                 field.setAccessible(true);
-                return Optional.of((CommandMap)field.get((Object)pluginManager));
+                return Optional.of((CommandMap)field.get(pluginManager));
             }
             catch (IllegalAccessException | IllegalArgumentException | NoSuchFieldException | SecurityException ex) {
                 ex.printStackTrace();

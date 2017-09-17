@@ -12,7 +12,7 @@ public class TextUtils {
         Text result = new Text();
         Text prefix = new Text();
         for (Text text : textCollection) {
-            result.append((IChatBaseComponent)prefix).append((IChatBaseComponent)text);
+            result.append(prefix).append(text);
             prefix = new Text(", ");
         }
         return result;
@@ -22,13 +22,13 @@ public class TextUtils {
         Text text = new Text();
         for (ItemStack stack : collection) {
             if (stack == null) continue;
-            text.append((IChatBaseComponent)new Text(delimiter));
+            text.append(new Text(delimiter));
             if (showQuantity) {
-                text.append((IChatBaseComponent)new Text("[").setColor(ChatColor.YELLOW));
+                text.append(new Text("[").setColor(ChatColor.YELLOW));
             }
             text.appendItem(stack);
             if (!showQuantity) continue;
-            text.append((IChatBaseComponent)new Text(" x" + stack.getAmount()).setColor(ChatColor.YELLOW)).append((IChatBaseComponent)new Text("]").setColor(ChatColor.YELLOW));
+            text.append(new Text(" x" + stack.getAmount()).setColor(ChatColor.YELLOW)).append(new Text("]").setColor(ChatColor.YELLOW));
         }
         return text;
     }

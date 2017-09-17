@@ -22,13 +22,13 @@ extends BaseCommand {
         if (sender instanceof Player) {
             Player p = (Player)sender;
             if (p.getInventory().getItemInHand() != null && p.getItemInHand().getType() != Material.AIR) {
-                p.sendMessage((Object)ChatColor.YELLOW + "The ID of: " + p.getItemInHand().getType().toString().replace("_", "").toLowerCase() + " is " + p.getItemInHand().getTypeId());
+                p.sendMessage(ChatColor.YELLOW + "The ID of: " + p.getItemInHand().getType().toString().replace("_", "").toLowerCase() + " is " + p.getItemInHand().getTypeId());
                 return true;
             }
-            p.sendMessage((Object)ChatColor.RED + "Put something in your hand.");
+            p.sendMessage(ChatColor.RED + "Put something in your hand.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.RED + "You must be a player to execute this.");
+        sender.sendMessage(ChatColor.RED + "You must be a player to execute this.");
         return true;
     }
 }

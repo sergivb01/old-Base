@@ -9,20 +9,12 @@ import com.customhcf.base.command.module.InventoryModule;
 import com.customhcf.base.command.module.TeleportModule;
 import com.customhcf.base.command.module.essential.ReportCommand;
 import com.customhcf.base.command.module.teleport.WorldCommand;
-import com.customhcf.base.kit.FlatFileKitManager;
-import com.customhcf.base.kit.Kit;
-import com.customhcf.base.kit.KitExecutor;
-import com.customhcf.base.kit.KitListener;
-import com.customhcf.base.kit.KitManager;
+import com.customhcf.base.kit.*;
 import com.customhcf.base.listener.*;
 import com.customhcf.base.task.AnnouncementHandler;
 import com.customhcf.base.task.AutoRestartHandler;
 import com.customhcf.base.task.ClearEntityHandler;
-import com.customhcf.base.user.BaseUser;
-import com.customhcf.base.user.ConsoleUser;
-import com.customhcf.base.user.NameHistory;
-import com.customhcf.base.user.ServerParticipator;
-import com.customhcf.base.user.UserManager;
+import com.customhcf.base.user.*;
 import com.customhcf.base.warp.FlatFileWarpManager;
 import com.customhcf.base.warp.Warp;
 import com.customhcf.base.warp.WarpManager;
@@ -35,55 +27,50 @@ import com.customhcf.util.cuboid.Cuboid;
 import com.customhcf.util.cuboid.NamedCuboid;
 import com.customhcf.util.itemdb.ItemDb;
 import com.customhcf.util.itemdb.SimpleItemDb;
-import java.io.IOException;
-import java.util.Random;
-import java.util.UUID;
-
+import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.IOException;
+import java.util.Random;
+
 public class BasePlugin
 extends JavaPlugin {
     private static BasePlugin instance;
-    private static BasePlugin plugin;
-    private ItemDb itemDb;
-    private Random random = new Random();
-    private WarpManager warpManager;
-    private RandomUtils randomUtils;
-    private AutoRestartHandler autoRestartHandler;
-    public BukkitRunnable clearEntityHandler;
-    public BukkitRunnable announcementTask;
-    private CommandManager commandManager;
-    private KitManager kitManager;
-    private PlayTimeManager playTimeManager;
-    private ServerHandler serverHandler;
-    private SignHandler signHandler;
-    private UserManager userManager;
-    private KitExecutor kitExecutor;
+    @Getter private static BasePlugin plugin;
+    @Getter private ItemDb itemDb;
+    @Getter private Random random = new Random();
+    @Getter private WarpManager warpManager;
+    @Getter private RandomUtils randomUtils;
+    @Getter private AutoRestartHandler autoRestartHandler;
+    @Getter private BukkitRunnable clearEntityHandler;
+    @Getter private BukkitRunnable announcementTask;
+    @Getter private CommandManager commandManager;
+    @Getter private KitManager kitManager;
+    @Getter private PlayTimeManager playTimeManager;
+    @Getter private ServerHandler serverHandler;
+    @Getter private SignHandler signHandler;
+    @Getter private UserManager userManager;
+    @Getter private KitExecutor kitExecutor;
 
-    public static BasePlugin getPlugin() {
-        return plugin;
-    }
+    //public static BasePlugin getPlugin(){ return plugin; }
 
     public void onEnable() {
         plugin = this;
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        ConfigurationSerialization.registerClass((Class)Warp.class);
-        ConfigurationSerialization.registerClass((Class)ServerParticipator.class);
-        ConfigurationSerialization.registerClass((Class)BaseUser.class);
-        ConfigurationSerialization.registerClass((Class)ConsoleUser.class);
-        ConfigurationSerialization.registerClass((Class)NameHistory.class);
-        ConfigurationSerialization.registerClass((Class)PersistableLocation.class);
-        ConfigurationSerialization.registerClass((Class)Cuboid.class);
-        ConfigurationSerialization.registerClass((Class)NamedCuboid.class);
-        ConfigurationSerialization.registerClass((Class)Kit.class);
+        ConfigurationSerialization.registerClass(Warp.class);
+        ConfigurationSerialization.registerClass(ServerParticipator.class);
+        ConfigurationSerialization.registerClass(BaseUser.class);
+        ConfigurationSerialization.registerClass(ConsoleUser.class);
+        ConfigurationSerialization.registerClass(NameHistory.class);
+        ConfigurationSerialization.registerClass(PersistableLocation.class);
+        ConfigurationSerialization.registerClass(Cuboid.class);
+        ConfigurationSerialization.registerClass(NamedCuboid.class);
+        ConfigurationSerialization.registerClass(Kit.class);
         this.registerManagers();
         this.registerCommands();
         this.registerListeners();
@@ -139,7 +126,7 @@ extends JavaPlugin {
         this.commandManager.registerAll(new InventoryModule(this));
         this.commandManager.registerAll(new TeleportModule(this));
         this.kitExecutor = new KitExecutor(this);
-        this.getCommand("kit").setExecutor((CommandExecutor)this.kitExecutor);
+        this.getCommand("kit").setExecutor(this.kitExecutor);
     }
 
     public KitExecutor getKitExecutor() {
@@ -148,21 +135,21 @@ extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
-        manager.registerEvents((Listener)new WorldCommand(), this);
-        manager.registerEvents((Listener)new ChatListener(this), (Plugin)this);
-        manager.registerEvents((Listener)new ColouredSignListener(), (Plugin)this);
-        manager.registerEvents((Listener)new DecreasedLagListener(this), (Plugin)this);
-        manager.registerEvents((Listener)new JoinListener(this), (Plugin)this);
-        manager.registerEvents((Listener)new ReportCommand(), (Plugin)this);
-        manager.registerEvents((Listener)new KitListener(this), (Plugin)this);
-        manager.registerEvents((Listener)new MoveByBlockEvent(), (Plugin)this);
-        manager.registerEvents((Listener)new MobstackListener(this), (Plugin)this);
-        manager.registerEvents((Listener)new StaffListener(), (Plugin)this);
-        manager.registerEvents((Listener)new NameVerifyListener(this), (Plugin)this);
+        manager.registerEvents(new WorldCommand(), this);
+        manager.registerEvents(new ChatListener(this), this);
+        manager.registerEvents(new ColouredSignListener(), this);
+        manager.registerEvents(new DecreasedLagListener(this), this);
+        manager.registerEvents(new JoinListener(this), this);
+        manager.registerEvents(new ReportCommand(), this);
+        manager.registerEvents(new KitListener(this), this);
+        manager.registerEvents(new MoveByBlockEvent(), this);
+        manager.registerEvents(new MobstackListener(this), this);
+        manager.registerEvents(new StaffListener(), this);
+        manager.registerEvents(new NameVerifyListener(this), this);
         this.playTimeManager = new PlayTimeManager(this);
-        manager.registerEvents((Listener)this.playTimeManager, (Plugin)this);
-        manager.registerEvents((Listener)new PlayerLimitListener(), (Plugin)this);
-        manager.registerEvents((Listener)new VanishListener(this), (Plugin)this);
+        manager.registerEvents(this.playTimeManager, this);
+        manager.registerEvents(new PlayerLimitListener(), this);
+        manager.registerEvents(new VanishListener(this), this);
     }
 
     public void reloadSchedulers() {
@@ -179,53 +166,10 @@ extends JavaPlugin {
         this.announcementTask = announcementTask = new AnnouncementHandler(this);
         MobstackListener mobstackListener = new MobstackListener(this);
         this.clearEntityHandler = clearEntityHandler = new ClearEntityHandler();
-        mobstackListener.runTaskTimerAsynchronously((Plugin)this, 20, 20);
-        clearEntityHandler.runTaskTimer((Plugin)this, claggdelay, claggdelay);
-        announcementTask.runTaskTimer((Plugin)this, announcementDelay, announcementDelay);
+        mobstackListener.runTaskTimerAsynchronously(this, 20, 20);
+        clearEntityHandler.runTaskTimer(this, claggdelay, claggdelay);
+        announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
     }
 
-    public WarpManager getWarpManager() {
-        return this.warpManager;
-    }
-
-    public RandomUtils getRandomUtils() {
-        return this.randomUtils;
-    }
-
-    public Random getRandom() {
-        return this.random;
-    }
-
-    public AutoRestartHandler getAutoRestartHandler() {
-        return this.autoRestartHandler;
-    }
-
-    public CommandManager getCommandManager() {
-        return this.commandManager;
-    }
-
-    public ItemDb getItemDb() {
-        return this.itemDb;
-    }
-
-    public KitManager getKitManager() {
-        return this.kitManager;
-    }
-
-    public PlayTimeManager getPlayTimeManager() {
-        return this.playTimeManager;
-    }
-
-    public ServerHandler getServerHandler() {
-        return this.serverHandler;
-    }
-
-    public SignHandler getSignHandler() {
-        return this.signHandler;
-    }
-
-    public UserManager getUserManager() {
-        return this.userManager;
-    }
 }
 

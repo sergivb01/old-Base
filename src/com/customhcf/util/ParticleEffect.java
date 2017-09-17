@@ -3,11 +3,9 @@ package com.customhcf.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.MathHelper;
 import net.minecraft.server.v1_7_R4.Packet;
 import net.minecraft.server.v1_7_R4.PacketPlayOutWorldParticles;
-import net.minecraft.server.v1_7_R4.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -56,7 +54,7 @@ public enum ParticleEffect {
     @Deprecated
     private final int id;
 
-    private ParticleEffect(String name, int id) {
+    ParticleEffect(String name, int id) {
         this.name = name;
         this.id = id;
     }
@@ -77,7 +75,7 @@ public enum ParticleEffect {
 
     public void display(Player player, float x, float y, float z, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         PacketPlayOutWorldParticles packet = this.createPacket(x, y, z, offsetX, offsetY, offsetZ, speed, amount);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)packet);
+        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
     }
 
     public void display(Player player, Location location, float speed, int amount) {
@@ -86,13 +84,13 @@ public enum ParticleEffect {
 
     public void display(Player player, Location location, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         PacketPlayOutWorldParticles packet = this.createPacket(location, offsetX, offsetY, offsetZ, speed, amount);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)packet);
+        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
     }
 
     public void broadcast(float x, float y, float z, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         PacketPlayOutWorldParticles packet = this.createPacket(x, y, z, offsetX, offsetY, offsetZ, speed, amount);
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)packet);
+            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
         }
     }
 
@@ -104,11 +102,12 @@ public enum ParticleEffect {
         this.broadcast(location, offsetX, offsetY, offsetZ, speed, amount, source, null);
     }
 
-    public void broadcast(Location location, float offsetX, float offsetY, float offsetZ, float speed, int amount, Entity source, Predicate<Player> predicate) {
-        PacketPlayOutWorldParticles packet = this.createPacket(location, offsetX, offsetY, offsetZ, speed, amount);
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            if (source != null && !player.canSee(source) || predicate != null && !predicate.apply(player)) continue;
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)packet);
+    public void broadcast(final Location location, final float offsetX, final float offsetY, final float offsetZ, final float speed, final int amount, final Entity source, final Predicate<Player> predicate) {
+        final Packet packet = this.createPacket(location, offsetX, offsetY, offsetZ, speed, amount);
+        for (final Player player : Bukkit.getOnlinePlayers()) {
+            if ((source == null || player.canSee((Player) source)) && (predicate == null || predicate.apply(player))) {
+                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+            }
         }
     }
 
@@ -117,10 +116,10 @@ public enum ParticleEffect {
     }
 
     public void sphere(Player player, Location location, float radius, float density, int intensity) {
-        Preconditions.checkNotNull((Object)location, (Object)"Location cannot be null");
-        Preconditions.checkArgument((boolean)(radius >= 0.0f), (Object)"Radius must be positive");
-        Preconditions.checkArgument((boolean)(density >= 0.0f), (Object)"Density must be positive");
-        Preconditions.checkArgument((boolean)(intensity >= 0), (Object)"Intensity must be positive");
+        Preconditions.checkNotNull((Object)location, "Location cannot be null");
+        Preconditions.checkArgument(radius >= 0.0f, "Radius must be positive");
+        Preconditions.checkArgument(density >= 0.0f, "Density must be positive");
+        Preconditions.checkArgument(intensity >= 0, "Intensity must be positive");
         float deltaPitch = 180.0f / density;
         float deltaYaw = 360.0f / density;
         World world = location.getWorld();
@@ -130,9 +129,9 @@ public enum ParticleEffect {
             while ((float)j < density) {
                 float pitch = -90.0f + (float)j * deltaPitch;
                 float yaw = -180.0f + (float)i * deltaYaw;
-                float x = radius * MathHelper.sin((float)((- yaw) * 0.017453292f - 3.1415927f)) * (- MathHelper.cos((float)((- pitch) * 0.017453292f))) + (float)location.getX();
-                float y = radius * MathHelper.sin((float)((- pitch) * 0.017453292f)) + (float)location.getY();
-                float z = radius * MathHelper.cos((float)((- yaw) * 0.017453292f - 3.1415927f)) * (- MathHelper.cos((float)((- pitch) * 0.017453292f))) + (float)location.getZ();
+                float x = radius * MathHelper.sin((- yaw) * 0.017453292f - 3.1415927f) * (- MathHelper.cos((- pitch) * 0.017453292f)) + (float)location.getX();
+                float y = radius * MathHelper.sin((- pitch) * 0.017453292f) + (float)location.getY();
+                float z = radius * MathHelper.cos((- yaw) * 0.017453292f - 3.1415927f) * (- MathHelper.cos((- pitch) * 0.017453292f)) + (float)location.getZ();
                 Location target = new Location(world, (double)x, (double)y, (double)z);
                 if (player == null) {
                     this.broadcast(target, 0.0f, 0.0f, 0.0f, 0.0f, intensity);
@@ -150,8 +149,8 @@ public enum ParticleEffect {
     }
 
     private PacketPlayOutWorldParticles createPacket(float x, float y, float z, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
-        Preconditions.checkArgument((boolean)(speed >= 0.0f), (Object)"Speed must be positive");
-        Preconditions.checkArgument((boolean)(amount > 0), (Object)"Cannot use less than one particle.");
+        Preconditions.checkArgument(speed >= 0.0f, "Speed must be positive");
+        Preconditions.checkArgument(amount > 0, "Cannot use less than one particle.");
         return new PacketPlayOutWorldParticles(this.name, x, y, z, offsetX, offsetY, offsetZ, speed, amount);
     }
 }

@@ -40,18 +40,18 @@ public class ChatUtil {
     public static Trans localFromItem(ItemStack stack) {
         PotionType type;
         Potion potion;
-        if (stack.getType() == Material.POTION && stack.getData().getData() == 0 && (potion = Potion.fromItemStack((ItemStack)stack)) != null && (type = potion.getType()) != null && type != PotionType.WATER) {
-            String effectName = (potion.isSplash() ? "Splash " : "") + WordUtils.capitalizeFully((String)type.name().replace('_', ' ')) + " L" + potion.getLevel();
+        if (stack.getType() == Material.POTION && stack.getData().getData() == 0 && (potion = Potion.fromItemStack(stack)) != null && (type = potion.getType()) != null && type != PotionType.WATER) {
+            String effectName = (potion.isSplash() ? "Splash " : "") + WordUtils.capitalizeFully(type.name().replace('_', ' ')) + " L" + potion.getLevel();
             return ChatUtil.fromItemStack(stack).append(" of " + effectName);
         }
         return ChatUtil.fromItemStack(stack);
     }
 
     public static Trans fromItemStack(ItemStack stack) {
-        net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy((ItemStack)stack);
+        net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy(stack);
         NBTTagCompound tag = new NBTTagCompound();
         nms.save(tag);
-        return new Trans(ChatUtil.getName(nms), new Object[0]).setColor(ChatColor.getByChar((char)nms.w().e.getChar())).setHover(HoverAction.SHOW_ITEM, (IChatBaseComponent)new ChatComponentText(tag.toString()));
+        return new Trans(ChatUtil.getName(nms)).setColor(ChatColor.getByChar(nms.w().e.getChar())).setHover(HoverAction.SHOW_ITEM, new ChatComponentText(tag.toString()));
     }
 
     public static void reset(IChatBaseComponent text) {
@@ -71,7 +71,7 @@ public class ChatUtil {
             Player player = (Player)sender;
             PacketPlayOutChat packet = new PacketPlayOutChat(text, true);
             EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
-            entityPlayer.playerConnection.sendPacket((Packet)packet);
+            entityPlayer.playerConnection.sendPacket(packet);
         } else {
             sender.sendMessage(text.c());
         }

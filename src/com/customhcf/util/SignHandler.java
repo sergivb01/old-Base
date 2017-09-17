@@ -75,19 +75,19 @@ public class SignHandler implements Listener
             final BlockState previous = block.getState();
             final BukkitRunnable runnable = new BukkitRunnable() {
                 public void run() {
-                    if (SignHandler.this.signUpdateMap.remove((Object)player.getUniqueId(), (Object)signChange2) && previous.equals(block.getState())) {
+                    if (SignHandler.this.signUpdateMap.remove(player.getUniqueId(), signChange2) && previous.equals(block.getState())) {
                         player.sendSignChange(location, lines);
                     }
                 }
             };
-            runnable.runTaskLater((Plugin)this.plugin, ticks);
+            runnable.runTaskLater(this.plugin, ticks);
             signChange2.runnable = runnable;
         }
         return true;
     }
 
     public Collection<SignChange> getSignChanges(final Player player) {
-        return (Collection<SignChange>)this.signUpdateMap.get(player.getUniqueId());
+        return this.signUpdateMap.get(player.getUniqueId());
     }
 
     public void cancelTasks(final Sign sign) {

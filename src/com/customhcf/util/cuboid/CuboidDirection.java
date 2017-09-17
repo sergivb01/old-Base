@@ -16,7 +16,7 @@ public enum CuboidDirection {
     UNKNOWN;
     
 
-    private CuboidDirection() {
+    CuboidDirection() {
     }
 
     public CuboidDirection opposite() {

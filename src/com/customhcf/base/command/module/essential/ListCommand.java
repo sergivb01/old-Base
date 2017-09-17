@@ -4,14 +4,14 @@ package com.customhcf.base.command.module.essential;
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.BaseCommand;
 import com.customhcf.util.BukkitUtils;
-import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+
+import java.util.ArrayList;
 
 public class ListCommand
 extends BaseCommand {
@@ -36,15 +36,15 @@ extends BaseCommand {
                 }
             }
         }
-        sender.sendMessage((Object) ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage((Object) ChatColor.YELLOW + "There are currently " + (Object) ChatColor.GREEN + Bukkit.getOnlinePlayers().length + (Object) ChatColor.GREEN + "/" + (Object) ChatColor.GREEN + Bukkit.getMaxPlayers() + (Object) ChatColor.YELLOW + " players online.");
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.YELLOW + "There are currently " + ChatColor.GREEN + Bukkit.getOnlinePlayers().size() + ChatColor.GREEN + "/" + ChatColor.GREEN + Bukkit.getMaxPlayers() + ChatColor.YELLOW + " players online.");
         sender.sendMessage(" ");
         if (list.isEmpty()) {
             sender.sendMessage(ChatColor.YELLOW + "Staff:" + " " + ChatColor.RED + "Not avaliable");
         } else {
             sender.sendMessage(ChatColor.YELLOW + "Staff: " + ChatColor.GRAY + "(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ","));
         }
-        sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
 

@@ -5,26 +5,26 @@ import com.customhcf.base.warp.Warp;
 import java.util.Collection;
 
 public interface WarpManager {
-    public Collection<String> getWarpNames();
+    Collection<String> getWarpNames();
 
-    public Collection<Warp> getWarps();
+    Collection<Warp> getWarps();
 
-    public Warp getWarp(String var1);
+    Warp getWarp(String var1);
 
-    public boolean containsWarp(Warp var1);
+    boolean containsWarp(Warp var1);
 
-    public void createWarp(Warp var1);
+    void createWarp(Warp var1);
 
-    public void removeWarp(Warp var1);
+    void removeWarp(Warp var1);
 
-    public String getWarpDelayWords();
+    String getWarpDelayWords();
 
-    public long getWarpDelayMillis();
+    long getWarpDelayMillis();
 
-    public long getWarpDelayTicks();
+    long getWarpDelayTicks();
 
-    public void reloadWarpData();
+    void reloadWarpData();
 
-    public void saveWarpData();
+    void saveWarpData();
 }
 

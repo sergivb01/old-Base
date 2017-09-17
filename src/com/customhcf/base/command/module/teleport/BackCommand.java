@@ -32,7 +32,7 @@ implements Listener {
         super("back", "Go to a players last known location.");
         this.setUsage("/(command) [playerName]");
         this.plugin = plugin;
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)this.plugin);
+        Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
     @Override
@@ -41,7 +41,7 @@ implements Listener {
         Player target;
         BaseUser targetUser;
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length > 0 && sender.hasPermission(command.getPermission() + ".others")) {
@@ -54,11 +54,11 @@ implements Listener {
             target = (Player)sender;
         }
         if ((previous = (targetUser = this.plugin.getUserManager().getUser(target.getUniqueId())).getBackLocation()) == null) {
-            sender.sendMessage((Object)ChatColor.RED + target.getName() + " doesn't have a back location.");
+            sender.sendMessage(ChatColor.RED + target.getName() + " doesn't have a back location.");
             return true;
         }
         ((Player)sender).teleport(previous);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
         return true;
     }
 

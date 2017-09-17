@@ -62,10 +62,10 @@ extends BaseCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             String reason;
             if (!this.plugin.getAutoRestartHandler().isPendingRestart()) {
-                sender.sendMessage((Object)ChatColor.RED + "There is not a restart task pending.");
+                sender.sendMessage(ChatColor.RED + "There is not a restart task pending.");
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "Automatic restart task occurring in " + DurationFormatUtils.formatDurationWords((long)this.plugin.getAutoRestartHandler().getRemainingMilliseconds(), (boolean)true, (boolean)true) + (Strings.nullToEmpty((String)(reason = this.plugin.getAutoRestartHandler().getReason())).isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.');
+            sender.sendMessage(ChatColor.YELLOW + "Automatic restart task occurring in " + DurationFormatUtils.formatDurationWords(this.plugin.getAutoRestartHandler().getRemainingMilliseconds(), true, true) + (Strings.nullToEmpty(reason = this.plugin.getAutoRestartHandler().getReason()).isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.');
             return true;
         }
     }
@@ -88,17 +88,17 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <time> [reason]");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <time> [reason]");
                 return true;
             }
             long millis = JavaUtils.parse(args[1]);
             if (millis == -1) {
-                sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
+                sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
                 return true;
             }
-            String reason = StringUtils.join((Object[])args, (char)' ', (int)2, (int)args.length);
+            String reason = StringUtils.join(args, ' ', 2, args.length);
             this.plugin.getAutoRestartHandler().scheduleRestart(millis, reason);
-            Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Scheduled a restart to occur in " + DurationFormatUtils.formatDurationWords((long)millis, (boolean)true, (boolean)true) + (reason.isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.'));
+            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Scheduled a restart to occur in " + DurationFormatUtils.formatDurationWords(millis, true, true) + (reason.isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.');
             return true;
         }
     }
@@ -120,11 +120,11 @@ extends BaseCommand {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!this.plugin.getAutoRestartHandler().isPendingRestart()) {
-                sender.sendMessage((Object)ChatColor.RED + "There is not a restart task pending.");
+                sender.sendMessage(ChatColor.RED + "There is not a restart task pending.");
                 return true;
             }
             this.plugin.getAutoRestartHandler().cancelRestart();
-            sender.sendMessage((Object)ChatColor.YELLOW + "Automatic restart task cancelled.");
+            sender.sendMessage(ChatColor.YELLOW + "Automatic restart task cancelled.");
             return true;
         }
     }

@@ -79,7 +79,7 @@ implements Listener {
         if (chestInventory instanceof DoubleChestInventory) {
             chest = (Chest)((DoubleChestInventory)chestInventory).getHolder().getLeftSide();
         }
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket((Packet)new PacketPlayOutBlockAction(chest.getX(), chest.getY(), chest.getZ(), (net.minecraft.server.v1_7_R4.Block)Blocks.CHEST, 1, open ? 1 : 0));
+        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutBlockAction(chest.getX(), chest.getY(), chest.getZ(), Blocks.CHEST, 1, open ? 1 : 0));
         player.playSound(chest.getLocation(), open ? Sound.CHEST_OPEN : Sound.CHEST_CLOSE, 1.0f, 1.0f);
     }
 
@@ -96,10 +96,10 @@ implements Listener {
         }
         if ((baseUser = this.plugin.getUserManager().getUser(player.getUniqueId())).isVanished()) {
             this.onlineVanishedPlayers.add(player);
-            player.sendMessage((Object)ChatColor.YELLOW + "You have joined vanished.");
+            player.sendMessage(ChatColor.YELLOW + "You have joined vanished.");
             ArrayList<String> vanished = new ArrayList<String>();
             for (Player on : Bukkit.getServer().getOnlinePlayers()) {
-                if (!on.hasPermission("vanish.chestinteract") || player.equals((Object)on) || !this.plugin.getUserManager().getUser(on.getUniqueId()).isVanished() || !player.canSee(on)) continue;
+                if (!on.hasPermission("vanish.chestinteract") || player.equals(on) || !this.plugin.getUserManager().getUser(on.getUniqueId()).isVanished() || !player.canSee(on)) continue;
                 vanished.add(on.getName());
             }
             baseUser.updateVanishedState(player, true);
@@ -109,7 +109,7 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (this.plugin.getUserManager().getUser(event.getPlayer().getUniqueId()).isVanished()) {
-            this.onlineVanishedPlayers.remove((Object)event.getPlayer());
+            this.onlineVanishedPlayers.remove(event.getPlayer());
             event.setQuitMessage(null);
         }
     }
@@ -119,7 +119,7 @@ implements Listener {
         if (event.isVanished()) {
             this.onlineVanishedPlayers.add(event.getPlayer());
         } else {
-            this.onlineVanishedPlayers.remove((Object)event.getPlayer());
+            this.onlineVanishedPlayers.remove(event.getPlayer());
         }
     }
 
@@ -128,7 +128,7 @@ implements Listener {
         Player player;
         Entity entity = event.getRightClicked();
         if (entity instanceof Player && !(player = event.getPlayer()).isSneaking() && player.hasPermission("vanish.inventorysee") && this.plugin.getUserManager().getUser(player.getUniqueId()).isVanished()) {
-            player.openInventory((Inventory)((Player)entity).getInventory());
+            player.openInventory(((Player)entity).getInventory());
             event.setCancelled(true);
         }
     }
@@ -179,13 +179,13 @@ implements Listener {
             Player attacker = BukkitUtils.getFinalAttacker(event, true);
             if (attackedUser.isVanished()) {
                 if (attacker != null && StaffPriority.of(attacked) != StaffPriority.NONE) {
-                    attacker.sendMessage((Object)ChatColor.RED + "That player is vanished.");
+                    attacker.sendMessage(ChatColor.RED + "That player is vanished.");
                 }
                 event.setCancelled(true);
                 return;
             }
             if (attacker != null && this.plugin.getUserManager().getUser(attacker.getUniqueId()).isVanished()) {
-                attacker.sendMessage((Object)ChatColor.RED + "You cannot attack players whilst vanished.");
+                attacker.sendMessage(ChatColor.RED + "You cannot attack players whilst vanished.");
                 event.setCancelled(true);
             }
         }
@@ -197,7 +197,7 @@ implements Listener {
         BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         if (baseUser.isVanished() && !player.hasPermission("vanish.build")) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot build whilst vanished.");
+            player.sendMessage(ChatColor.RED + "You cannot build whilst vanished.");
         }
     }
 
@@ -207,7 +207,7 @@ implements Listener {
         BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         if (baseUser.isVanished() && !player.hasPermission("vanish.build")) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot build whilst vanished.");
+            player.sendMessage(ChatColor.RED + "You cannot build whilst vanished.");
         }
     }
 
@@ -217,7 +217,7 @@ implements Listener {
         BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         if (baseUser.isVanished() && !player.hasPermission("vanish.build")) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot build whilst vanished.");
+            player.sendMessage(ChatColor.RED + "You cannot build whilst vanished.");
         }
     }
 
@@ -240,7 +240,7 @@ implements Listener {
                 InventoryType type = chest.getInventory().getType();
                 if (type != InventoryType.CHEST || this.fakeChestLocationMap.putIfAbsent(uuid, chestLocation) != null) break;
                 ItemStack[] contents = chest.getInventory().getContents();
-                Inventory fakeInventory = Bukkit.createInventory((InventoryHolder)null, (int)contents.length, (String)("[F] " + type.getDefaultTitle()));
+                Inventory fakeInventory = Bukkit.createInventory(null, contents.length, "[F] " + type.getDefaultTitle());
                 player.sendMessage(ChatColor.RED + "Opening chest silently...");
                 fakeInventory.setContents(contents);
                 event.setCancelled(true);
@@ -269,7 +269,7 @@ implements Listener {
         HumanEntity humanEntity = event.getWhoClicked();
         if (humanEntity instanceof Player && this.fakeChestLocationMap.containsKey((player = (Player)humanEntity).getUniqueId()) && (stack = event.getCurrentItem()) != null && stack.getType() != Material.AIR && !player.hasPermission("vanish.chestinteract")) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot interact with fake chest inventories.");
+            player.sendMessage(ChatColor.RED + "You cannot interact with fake chest inventories.");
         }
     }
 

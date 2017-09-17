@@ -1,41 +1,22 @@
 
 package com.customhcf.base.kit;
 
-import com.customhcf.base.BaseConstants;
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.kit.event.KitApplyEvent;
-import com.customhcf.hcf.HCF;
-import com.customhcf.util.Config;
 import com.customhcf.util.GenericUtils;
 import com.customhcf.util.InventoryUtils;
 import com.google.common.base.Preconditions;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permission;
 import org.bukkit.potion.PotionEffect;
+
+import java.util.*;
 
 public class Kit
 implements ConfigurationSerializable {
@@ -55,7 +36,7 @@ implements ConfigurationSerializable {
     protected int maximumUses;
 
     public Kit(String name, String description, PlayerInventory inventory, Collection<PotionEffect> effects) {
-        this(name, description, (Inventory)inventory, effects, 0);
+        this(name, description, inventory, effects, 0);
     }
 
     public Kit(String name, String description, Inventory inventory, Collection<PotionEffect> effects, long milliseconds) {
@@ -98,16 +79,16 @@ implements ConfigurationSerializable {
         map.put("effects", this.effects);
         map.put("items", this.items);
         map.put("armour", this.armour);
-        map.put("image", (Object)this.image);
+        map.put("image", this.image);
         map.put("delay", Long.toString(this.delayMillis));
         map.put("maxUses", this.maximumUses);
         return map;
     }
 
     public Inventory getPreview(Player player) {
-        Inventory inventory = Bukkit.createInventory((InventoryHolder)player, (int)InventoryUtils.getSafestInventorySize(this.items.length), (String)((Object)ChatColor.GREEN + this.name + " Preview"));
+        Inventory inventory = Bukkit.createInventory(player, InventoryUtils.getSafestInventorySize(this.items.length), ChatColor.GREEN + this.name + " Preview");
         for (ItemStack itemStack : this.items) {
-            inventory.addItem(new ItemStack[]{itemStack});
+            inventory.addItem(itemStack);
         }
         return inventory;
     }
@@ -195,14 +176,14 @@ implements ConfigurationSerializable {
 
     public void setDelayMillis(long delayMillis) {
         if (this.delayMillis != delayMillis) {
-            Preconditions.checkArgument((boolean)(this.minPlaytimeMillis >= 0), (Object)"Minimum delay millis cannot be negative");
+            Preconditions.checkArgument(this.minPlaytimeMillis >= 0, "Minimum delay millis cannot be negative");
             this.delayMillis = delayMillis;
-            this.delayWords = DurationFormatUtils.formatDurationWords((long)delayMillis, (boolean)true, (boolean)true);
+            this.delayWords = DurationFormatUtils.formatDurationWords(delayMillis, true, true);
         }
     }
 
     public String getDelayWords() {
-        return DurationFormatUtils.formatDurationWords((long)this.delayMillis, (boolean)true, (boolean)true);
+        return DurationFormatUtils.formatDurationWords(this.delayMillis, true, true);
     }
 
     public long getMinPlaytimeMillis() {
@@ -211,9 +192,9 @@ implements ConfigurationSerializable {
 
     public void setMinPlaytimeMillis(long minPlaytimeMillis) {
         if (this.minPlaytimeMillis != minPlaytimeMillis) {
-            Preconditions.checkArgument((boolean)(minPlaytimeMillis >= 0), (Object)"Minimum playtime millis cannot be negative");
+            Preconditions.checkArgument(minPlaytimeMillis >= 0, "Minimum playtime millis cannot be negative");
             this.minPlaytimeMillis = minPlaytimeMillis;
-            this.minPlaytimeWords = DurationFormatUtils.formatDurationWords((long)minPlaytimeMillis, (boolean)true, (boolean)true);
+            this.minPlaytimeWords = DurationFormatUtils.formatDurationWords(minPlaytimeMillis, true, true);
         }
     }
 
@@ -226,7 +207,7 @@ implements ConfigurationSerializable {
     }
 
     public void setMaximumUses(int maximumUses) {
-        Preconditions.checkArgument((boolean)(maximumUses >= 0), (Object)"Maximum uses cannot be negative");
+        Preconditions.checkArgument(maximumUses >= 0, "Maximum uses cannot be negative");
         this.maximumUses = maximumUses;
     }
 
@@ -241,7 +222,7 @@ implements ConfigurationSerializable {
 
     public boolean applyTo(Player player, boolean force, boolean inform) {
         KitApplyEvent event = new KitApplyEvent(this, player, force);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return false;
         }
@@ -270,7 +251,7 @@ implements ConfigurationSerializable {
             }
         }
         if (this.armour != null) {
-            for (int i = java.lang.Math.min((int)3, (int)this.armour.length); i >= 0; --i) {
+            for (int i = java.lang.Math.min(3, this.armour.length); i >= 0; --i) {
                 ItemStack stack = this.armour[i];
                 if (stack == null || stack.getType() == Material.AIR) continue;
                 int armourSlot = i + 36;
@@ -285,7 +266,7 @@ implements ConfigurationSerializable {
             }
         }
         if (inform) {
-            player.sendMessage((Object)ChatColor.YELLOW + "Kit " + (Object)ChatColor.AQUA + this.name + (Object)ChatColor.YELLOW + " has been applied.");
+            player.sendMessage(ChatColor.YELLOW + "Kit " + ChatColor.AQUA + this.name + ChatColor.YELLOW + " has been applied.");
         }
         return true;
     }

@@ -68,12 +68,12 @@ extends YamlConfiguration {
         if (!(o instanceof Config)) {
             return false;
         }
-        Config config = (Config)((Object)o);
+        Config config = (Config) o;
         if (this.fileName != null ? !this.fileName.equals(config.fileName) : config.fileName != null) {
             return false;
         }
         if (this.plugin != null) {
-            return this.plugin.equals((Object)config.plugin);
+            return this.plugin.equals(config.plugin);
         }
         return config.plugin == null;
     }

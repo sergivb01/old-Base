@@ -76,11 +76,11 @@ public class AutoRestartHandler {
                     return;
                 }
                 long remainingMillis = remainingTicks * 50;
-                if (Ints.contains((int[])ALERT_SECONDS, (int)((int)(remainingMillis / 1000)))) {
+                if (Ints.contains(ALERT_SECONDS, (int)(remainingMillis / 1000))) {
                     Bukkit.broadcastMessage(" ");
                     Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + " Server Restart");
                     Bukkit.broadcastMessage(" ");
-                    Bukkit.broadcastMessage(ChatColor.YELLOW + "   Time: " + ChatColor.WHITE + DurationFormatUtils.formatDurationWords((long)remainingMillis, (boolean)true, (boolean)true));
+                    Bukkit.broadcastMessage(ChatColor.YELLOW + "   Time: " + ChatColor.WHITE + DurationFormatUtils.formatDurationWords(remainingMillis, true, true));
                     if(reason == null) {
                         Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + "None specified");
                     } else {
@@ -91,7 +91,7 @@ public class AutoRestartHandler {
 
                 }
             }
-        }.runTaskTimer((Plugin)this.plugin, 20, 20);
+        }.runTaskTimer(this.plugin, 20, 20);
     }
 
 }

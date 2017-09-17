@@ -29,11 +29,11 @@ extends BaseCommand {
         ChatColor colour = tps >= 18.0 ? ChatColor.GREEN : (tps >= 15.0 ? ChatColor.YELLOW : ChatColor.RED);
         Double tpsF = Math.round(tps * 10000.0) / 10000.0;
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Server TPS: ");
-        sender.sendMessage(ChatColor.YELLOW + "  " + (Object)colour + df.format(tpsF));
+        sender.sendMessage(ChatColor.YELLOW + "  " + colour + df.format(tpsF));
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Server Lag: ");
-        sender.sendMessage(ChatColor.YELLOW + "  " + (Object)colour + (double)Math.round(lag * 10000.0) / 10000.0 + '%');
+        sender.sendMessage(ChatColor.YELLOW + "  " + colour + (double)Math.round(lag * 10000.0) / 10000.0 + '%');
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Players: ");
-        sender.sendMessage(ChatColor.YELLOW + "  " + Bukkit.getOnlinePlayers().length + "/" + Bukkit.getMaxPlayers());
+        sender.sendMessage(ChatColor.YELLOW + "  " + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Uptime: ");
         sender.sendMessage(ChatColor.YELLOW + "  " + serverUptime);
         return true;

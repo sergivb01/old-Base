@@ -9,7 +9,7 @@ public enum ImageChar {
     
     private char c;
 
-    private ImageChar(char c) {
+    ImageChar(char c) {
         this.c = c;
     }
 

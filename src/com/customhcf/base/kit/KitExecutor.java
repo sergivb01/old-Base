@@ -60,7 +60,7 @@ extends ArgumentExecutor {
         String permission;
         if (args.length < 1) {
             CommandWrapper.printUsage(sender, label, this.arguments);
-            sender.sendMessage((Object)ChatColor.GREEN + "/" + label + " <kitName> " + (Object)ChatColor.GRAY + "- Applies a kit.");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " <kitName> " + ChatColor.GRAY + "- Applies a kit.");
             return true;
         }
         CommandArgument argument = this.getArgument(args[0]);
@@ -73,7 +73,7 @@ extends ArgumentExecutor {
                 kit.applyTo(player, false, true);
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.RED + "Kit or command " + args[0] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Kit or command " + args[0] + " not found.");
             return true;
         }
         argument.onCommand(sender, command, label, args);

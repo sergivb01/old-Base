@@ -42,7 +42,7 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " is " + ((vanished = this.plugin.getUserManager().getUser(target.getUniqueId()).isVanished()) ? "in vanish" : "not in vanish") + '.');
+        sender.sendMessage(ChatColor.YELLOW + target.getName() + " is " + ((vanished = this.plugin.getUserManager().getUser(target.getUniqueId()).isVanished()) ? "in vanish" : "not in vanish") + '.');
         return true;
     }
 

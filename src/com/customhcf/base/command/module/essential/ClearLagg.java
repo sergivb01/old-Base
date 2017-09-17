@@ -2,16 +2,12 @@
 package com.customhcf.base.command.module.essential;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.command.BaseCommand;
 import com.customhcf.base.task.ClearEntityHandler;
 import com.google.common.primitives.Ints;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public class ClearLagg
 extends BaseCommand {
@@ -29,15 +25,14 @@ extends BaseCommand {
         }
         if (args.length == 1) {
             ClearEntityHandler clearEntityHandler;
-            if (Ints.tryParse((String)args[0]) == null) {
-                sender.sendMessage((Object)ChatColor.RED + "Must be a number");
+            if (Ints.tryParse(args[0]) == null) {
+                sender.sendMessage(ChatColor.RED + "Must be a number");
                 return true;
             }
-            BasePlugin.getPlugin().clearEntityHandler.cancel();
-            BasePlugin.getPlugin().clearEntityHandler = clearEntityHandler = new ClearEntityHandler();
-            clearEntityHandler.runTaskTimer((Plugin)BasePlugin.getPlugin(), (long)Ints.tryParse((String)args[0]).intValue(), (long)Ints.tryParse((String)args[0]).intValue());
-            Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Changed the Clear Lag From " + BasePlugin.getPlugin().getServerHandler().getClaggDelay() + " To " + Ints.tryParse((String)args[0])), (boolean)true);
-            BasePlugin.getPlugin().getServerHandler().setClearlagdelay(Ints.tryParse((String)args[0]));
+            BasePlugin.getPlugin().getClearEntityHandler().cancel();
+            BasePlugin.getPlugin().getClearEntityHandler().runTaskTimer(BasePlugin.getPlugin(), (long) Ints.tryParse(args[0]), (long) Ints.tryParse(args[0]));
+            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Changed the Clear Lag From " + BasePlugin.getPlugin().getServerHandler().getClaggDelay() + " To " + Ints.tryParse(args[0]), true);
+            BasePlugin.getPlugin().getServerHandler().setClearlagdelay(Ints.tryParse(args[0]));
             return true;
         }
         return true;

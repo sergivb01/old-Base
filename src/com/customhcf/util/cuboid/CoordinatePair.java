@@ -25,7 +25,7 @@ public class CoordinatePair {
     }
 
     public World getWorld() {
-        return Bukkit.getWorld((String)this.worldName);
+        return Bukkit.getWorld(this.worldName);
     }
 
     public int getX() {

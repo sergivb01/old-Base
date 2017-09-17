@@ -34,14 +34,14 @@ extends BaseCommand {
         } else if (args.length < 1) {
             newTicks = DEFAULT_DELAY;
         } else {
-            newTicks = JavaUtils.parse(StringUtils.join((Object[])args, (char)' ', (int)0, (int)args.length));
+            newTicks = JavaUtils.parse(StringUtils.join(args, ' ', 0, args.length));
             if (newTicks == -1) {
-                sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
+                sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
                 return true;
             }
         }
         this.plugin.getServerHandler().setChatDisabledMillis(newTicks);
-        Bukkit.broadcastMessage((String)((Object)ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("disabled for ").append(DurationFormatUtils.formatDurationWords((long)newTicks, (boolean)true, (boolean)true)).toString() : "no longer disabled") + (Object)ChatColor.YELLOW + '.'));
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("disabled for ").append(DurationFormatUtils.formatDurationWords(newTicks, true, true)).toString() : "no longer disabled") + ChatColor.YELLOW + '.');
         return true;
     }
 }

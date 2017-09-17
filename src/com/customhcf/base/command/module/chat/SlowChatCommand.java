@@ -35,12 +35,12 @@ extends BaseCommand {
         } else {
             newTicks = JavaUtils.parse(args[0]);
             if (newTicks == -1) {
-                sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
+                sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
                 return true;
             }
         }
         this.plugin.getServerHandler().setChatSlowedMillis(newTicks);
-        Bukkit.broadcastMessage((String)((Object)ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("has slowed down for ").append(DurationFormatUtils.formatDurationWords((long)newTicks, (boolean)true, (boolean)true)).toString() : new StringBuilder().append((Object)ChatColor.YELLOW).append("no longer slowed").toString()) + (Object)ChatColor.YELLOW + '.'));
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("has slowed down for ").append(DurationFormatUtils.formatDurationWords(newTicks, true, true)).toString() : new StringBuilder().append(ChatColor.YELLOW).append("no longer slowed").toString()) + ChatColor.YELLOW + '.');
         return true;
     }
 }

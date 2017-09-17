@@ -34,21 +34,21 @@ extends BaseCommand {
             sender.sendMessage(this.getUsage());
             return true;
         }
-        String executingCommand = StringUtils.join((Object[])args, (char)' ', (int)2, (int)args.length);
+        String executingCommand = StringUtils.join(args, ' ', 2, args.length);
         if (args[1].equalsIgnoreCase("all")) {
             for (Player target : Bukkit.getOnlinePlayers()) {
                 this.executeCommand(target, executingCommand, force);
             }
-            sender.sendMessage((Object)ChatColor.RED + "Forcing all players to run " + executingCommand + (force ? " with permission bypasses" : "") + '.');
+            sender.sendMessage(ChatColor.RED + "Forcing all players to run " + executingCommand + (force ? " with permission bypasses" : "") + '.');
             return true;
         }
-        Player target2 = Bukkit.getPlayer((String)args[1]);
+        Player target2 = Bukkit.getPlayer(args[1]);
         if (SudoCommand.checkNull(sender, args[1])) {
             return true;
         }
         this.executeCommand(target2, executingCommand, force);
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.RED + sender.getName() + (Object)ChatColor.RED + " made " + target2.getName() + " run " + executingCommand + (force ? " with permission bypasses" : "") + '.'));
-        sender.sendMessage((Object)ChatColor.RED + "Making " + target2.getName() + " to run " + executingCommand + (force ? " with permission bypasses" : "") + '.');
+        Command.broadcastCommandMessage(sender, ChatColor.RED + sender.getName() + ChatColor.RED + " made " + target2.getName() + " run " + executingCommand + (force ? " with permission bypasses" : "") + '.');
+        sender.sendMessage(ChatColor.RED + "Making " + target2.getName() + " to run " + executingCommand + (force ? " with permission bypasses" : "") + '.');
         return true;
     }
 

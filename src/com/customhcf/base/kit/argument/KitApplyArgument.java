@@ -32,24 +32,24 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
-        Player target = Bukkit.getPlayer((String)args[2]);
+        Player target = Bukkit.getPlayer(args[2]);
         if (target == null || sender instanceof Player && !((Player)sender).canSee(target)) {
-            sender.sendMessage((Object)ChatColor.RED + "Player '" + (Object)ChatColor.GRAY + args[2] + (Object)ChatColor.RED + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Player '" + ChatColor.GRAY + args[2] + ChatColor.RED + "' not found.");
             return true;
         }
         if (kit.applyTo(target, true, true)) {
-            sender.sendMessage((Object)ChatColor.GRAY + "Applied kit '" + kit.getDisplayName() + "' to '" + target.getName() + "'.");
+            sender.sendMessage(ChatColor.GRAY + "Applied kit '" + kit.getDisplayName() + "' to '" + target.getName() + "'.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.RED + "Failed to apply kit " + kit.getDisplayName() + " to " + target.getName() + '.');
+        sender.sendMessage(ChatColor.RED + "Failed to apply kit " + kit.getDisplayName() + " to " + target.getName() + '.');
         return true;
     }
 

@@ -41,7 +41,7 @@ public class PlayerCache
         this.flying = player.isFlying();
         this.inventory = player.getInventory().getContents();
         this.armor = player.getInventory().getArmorContents();
-        this.health =  ((Damageable)player).getHealth();
+        this.health =  player.getHealth();
         this.food = player.getFoodLevel();
         this.level = player.getLevel();
         this.xp = player.getExp();

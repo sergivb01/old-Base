@@ -38,7 +38,7 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         List<Kit> kits = this.plugin.getKitManager().getKits();
         if (kits.isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "No kits have been defined.");
+            sender.sendMessage(ChatColor.RED + "No kits have been defined.");
             return true;
         }
         ArrayList<String> kitNames = new ArrayList<String>();
@@ -47,14 +47,14 @@ extends CommandArgument {
             if (permission != null && !sender.hasPermission(permission)) continue;
             BaseUser user = this.plugin.getUserManager().getUser(((Player)sender).getUniqueId());
             ChatColor color = user.getKitUses(kit) >= kit.getMaximumUses() || user.getRemainingKitCooldown(kit) >= (long)kit.getMaximumUses() || this.plugin.getPlayTimeManager().getTotalPlayTime(((Player)sender).getUniqueId()) <= kit.getMinPlaytimeMillis() ? ChatColor.RED : ChatColor.GREEN;
-            kitNames.add((Object)color + kit.getDisplayName());
+            kitNames.add(color + kit.getDisplayName());
         }
-        String kitList = StringUtils.join(kitNames, (String)((Object)ChatColor.GRAY + ", "));
-        sender.sendMessage((Object)ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage((Object)ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "Kit List" + (Object)ChatColor.GREEN + "[" + kitNames.size() + '/' + kits.size() + "]");
-        sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage((Object)ChatColor.GRAY + "[" + (Object)ChatColor.RED + kitList + (Object)ChatColor.GRAY + ']');
-        sender.sendMessage((Object)ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        String kitList = StringUtils.join(kitNames, ChatColor.GRAY + ", ");
+        sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "Kit List" + ChatColor.GREEN + "[" + kitNames.size() + '/' + kits.size() + "]");
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.GRAY + "[" + ChatColor.RED + kitList + ChatColor.GRAY + ']');
+        sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
 

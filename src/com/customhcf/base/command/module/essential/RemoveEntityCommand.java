@@ -38,26 +38,26 @@ extends BaseCommand {
             sender.sendMessage(this.getUsage(label));
             return true;
         }
-        World world = Bukkit.getWorld((String)args[0]);
-        Optional optionalType = Enums.getIfPresent((Class)EntityType.class, (String)args[1].toUpperCase());
+        World world = Bukkit.getWorld(args[0]);
+        Optional optionalType = Enums.getIfPresent((Class)EntityType.class, args[1].toUpperCase());
         if (!optionalType.isPresent()) {
-            sender.sendMessage((Object)ChatColor.RED + "Not an entity named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "Not an entity named '" + args[1] + "'.");
             return true;
         }
         EntityType entityType = (EntityType)optionalType.get();
         if (entityType == EntityType.PLAYER) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot remove " + entityType.name() + " entities!");
+            sender.sendMessage(ChatColor.RED + "You cannot remove " + entityType.name() + " entities!");
             return true;
         }
         boolean bl = removeCustomNamed = args.length > 2 && Boolean.parseBoolean(args[2]);
         if (args.length > 3) {
-            radius = Ints.tryParse((String)args[3]);
+            radius = Ints.tryParse(args[3]);
             if (radius == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[3] + "' is not a number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[3] + "' is not a number.");
                 return true;
             }
             if (radius <= 0) {
-                sender.sendMessage((Object)ChatColor.RED + "Radius must be positive.");
+                sender.sendMessage(ChatColor.RED + "Radius must be positive.");
                 return true;
             }
         } else {
@@ -73,7 +73,7 @@ extends BaseCommand {
                 ++removed;
             }
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Removed " + removed + " of " + entityType.getName() + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Removed " + removed + " of " + entityType.getName() + '.');
         return true;
     }
 
@@ -82,7 +82,7 @@ extends BaseCommand {
         List<String> results = null;
         switch (args.length) {
             case 1: {
-                final Collection<World> worlds = (Collection<World>)Bukkit.getWorlds();
+                final Collection<World> worlds = Bukkit.getWorlds();
                 results = new ArrayList<String>(worlds.size());
                 for (final World world : worlds) {
                     results.add(world.getName());

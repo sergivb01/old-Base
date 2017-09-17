@@ -4,12 +4,15 @@ package com.customhcf.base.command.module.essential;
 import com.customhcf.base.BaseConstants;
 import com.customhcf.base.command.BaseCommand;
 import com.customhcf.util.BukkitUtils;
-import java.util.Collections;
-import java.util.List;
+import net.minecraft.server.v1_7_R4.EntityPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class PingCommand
 extends BaseCommand {
@@ -34,7 +37,7 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        sender.sendMessage((target.equals((Object)sender) ? new StringBuilder().append((Object)ChatColor.YELLOW).append("Your ping is").toString() : new StringBuilder().append((Object)ChatColor.YELLOW).append("Ping of ").append(target.getName()).toString()) + (Object)ChatColor.GRAY + ": " + (Object)ChatColor.WHITE + target.getPing());
+        sender.sendMessage((target.equals(sender) ? new StringBuilder().append(ChatColor.YELLOW).append("Your ping is").toString() : new StringBuilder().append(ChatColor.YELLOW).append("Ping of ").append(target.getName()).toString()) + ChatColor.GRAY + ": " + ChatColor.WHITE + getPing(target));
         return true;
     }
 
@@ -42,5 +45,12 @@ extends BaseCommand {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         return args.length == 1 && sender.hasPermission(command.getPermission() + ".others") ? null : Collections.emptyList();
     }
+
+    private int getPing(Player p) {
+        CraftPlayer cp = (CraftPlayer) p;
+        EntityPlayer ep = cp.getHandle();
+        return ep.ping;
+    }
+
 }
 

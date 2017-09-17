@@ -54,8 +54,8 @@ implements Cancellable {
     }
 
     public void send() {
-        Preconditions.checkNotNull((Object)this.sender, (Object)"The sender cannot be null");
-        Preconditions.checkNotNull((Object)this.recipient, (Object)"The recipient cannot be null");
+        Preconditions.checkNotNull((Object)this.sender, "The sender cannot be null");
+        Preconditions.checkNotNull((Object)this.recipient, "The recipient cannot be null");
         BasePlugin plugin = BasePlugin.getPlugin();
         BaseUser sendingUser = plugin.getUserManager().getUser(this.sender.getUniqueId());
         BaseUser recipientUser = plugin.getUserManager().getUser(this.recipient.getUniqueId());
@@ -63,12 +63,12 @@ implements Cancellable {
         recipientUser.setLastRepliedTo(sendingUser.getUniqueId());
         long millis = System.currentTimeMillis();
         recipientUser.setLastReceivedMessageMillis(millis);
-        String rank = ChatColor.translateAlternateColorCodes((char)'&', (String)("&f" + PermissionsEx.getUser((Player)this.sender).getPrefix())).replace("_", " ");
+        String rank = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.sender).getPrefix()).replace("_", " ");
         String displayName = rank + this.sender.getDisplayName();
-        String rank1 = ChatColor.translateAlternateColorCodes((char)'&', (String)("&f" + PermissionsEx.getUser((Player)this.recipient).getPrefix())).replace("_", " ");
+        String rank1 = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.recipient).getPrefix()).replace("_", " ");
         String displayName1 = rank1 + this.recipient.getDisplayName();
-        this.sender.sendMessage((Object)ChatColor.GRAY + "(" + (Object)ChatColor.GRAY + "To " + displayName1 + (Object)ChatColor.GRAY + ") " + (Object)ChatColor.GRAY + this.message);
-        this.recipient.sendMessage((Object)ChatColor.GRAY + "(" + (Object)ChatColor.GRAY + "From " + displayName + (Object)ChatColor.GRAY + ") " + (Object)ChatColor.GRAY + this.message);
+        this.sender.sendMessage(ChatColor.GRAY + "(" + ChatColor.GRAY + "To " + displayName1 + ChatColor.GRAY + ") " + ChatColor.GRAY + this.message);
+        this.recipient.sendMessage(ChatColor.GRAY + "(" + ChatColor.GRAY + "From " + displayName + ChatColor.GRAY + ") " + ChatColor.GRAY + this.message);
     }
 
     public boolean isCancelled() {

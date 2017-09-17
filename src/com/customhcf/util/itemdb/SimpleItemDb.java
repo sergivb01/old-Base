@@ -4,33 +4,27 @@
 
 package com.customhcf.util.itemdb;
 
+import net.minecraft.util.com.google.common.collect.Ordering;
+import net.minecraft.util.com.google.common.collect.TreeMultimap;
 import net.minecraft.util.com.google.common.primitives.Ints;
+import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+import net.minecraft.util.gnu.trove.map.TObjectShortMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectShortHashMap;
 import org.apache.commons.lang.StringUtils;
-import java.util.Collection;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import java.util.ArrayList;
-import org.bukkit.entity.Player;
-import java.util.regex.Matcher;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
-import org.bukkit.Material;
-import java.util.Locale;
-import net.minecraft.util.gnu.trove.map.hash.TObjectShortHashMap;
-import java.util.HashMap;
-import net.minecraft.util.com.google.common.collect.Ordering;
-import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
-import org.bukkit.plugin.java.JavaPlugin;
-import net.minecraft.util.gnu.trove.map.TObjectShortMap;
-import java.util.Map;
-import com.google.common.collect.TreeMultimap;
-import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Comparator;
 
 public class SimpleItemDb implements ItemDb
 {
@@ -46,8 +40,8 @@ public class SimpleItemDb implements ItemDb
     public SimpleItemDb(final JavaPlugin plugin) {
         super();
         this.items = (TObjectIntMap<String>)new TObjectIntHashMap();
-        this.names = (TreeMultimap<ItemData, String>)TreeMultimap.create((Comparator)Ordering.allEqual(), (Comparator)SimpleItemDb.STRING_LENGTH_COMPARATOR);
-        this.primaryName = new HashMap<ItemData, String>();
+        this.names = (TreeMultimap<ItemData, String>)TreeMultimap.create(Ordering.allEqual(), (Comparator)SimpleItemDb.STRING_LENGTH_COMPARATOR);
+        this.primaryName = new HashMap<>();
         this.durabilities = (TObjectShortMap<String>)new TObjectShortHashMap();
         this.splitPattern = Pattern.compile("((.*)[:+',;.](\\d+))");
         this.file = new ManagedFile("items.csv", plugin);
@@ -89,7 +83,7 @@ public class SimpleItemDb implements ItemDb
             this.durabilities.put(itemName, data);
             this.items.put(itemName, material.getId());
             final ItemData itemData = new ItemData(material, data);
-            if (this.names.containsKey((Object)itemData)) {
+            if (this.names.containsKey(itemData)) {
                 this.names.get(itemData).add(itemName);
             }
             else {
@@ -184,7 +178,7 @@ public class SimpleItemDb implements ItemDb
             return null;
         }
         final Potion potion = new Potion(type);
-        potion.setLevel((int)level);
+        potion.setLevel(level);
         potion.setSplash(splash);
         potion.setHasExtendedDuration(extended);
         final ItemStack result = potion.toItemStack(quantity);
@@ -230,10 +224,10 @@ public class SimpleItemDb implements ItemDb
             itemName = itemName.toLowerCase(Locale.ENGLISH);
         }
         if (itemId < 1) {
-            if (this.items.containsKey((Object)itemName)) {
-                itemId = this.items.get((Object)itemName);
-                if (this.durabilities.containsKey((Object)itemName) && metaData == 0) {
-                    metaData = this.durabilities.get((Object)itemName);
+            if (this.items.containsKey(itemName)) {
+                itemId = this.items.get(itemName);
+                if (this.durabilities.containsKey(itemName) && metaData == 0) {
+                    metaData = this.durabilities.get(itemName);
                 }
             }
             else if (Material.getMaterial(itemName.toUpperCase(Locale.ENGLISH)) != null) {
@@ -316,10 +310,10 @@ public class SimpleItemDb implements ItemDb
     @Override
     public String getNames(final ItemStack item) {
         ItemData itemData = new ItemData(item.getType(), item.getDurability());
-        Collection<String> nameList = (Collection<String>)this.names.get(itemData);
+        Collection<String> nameList = this.names.get(itemData);
         if (nameList == null) {
             itemData = new ItemData(item.getType(), (short) 0);
-            nameList = (Collection<String>)this.names.get(itemData);
+            nameList = this.names.get(itemData);
             if (nameList == null) {
                 return null;
             }
@@ -328,7 +322,7 @@ public class SimpleItemDb implements ItemDb
         if (nameList.size() > 15) {
             list = list.subList(0, 14);
         }
-        return StringUtils.join((Collection) list, ", ");
+        return StringUtils.join(list, ", ");
     }
 
     static {

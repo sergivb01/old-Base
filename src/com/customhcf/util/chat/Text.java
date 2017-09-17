@@ -57,11 +57,11 @@ extends ChatComponentText {
     }
 
     public Text localText(ItemStack stack) {
-        return this.append((IChatBaseComponent)ChatUtil.localFromItem(stack));
+        return this.append(ChatUtil.localFromItem(stack));
     }
 
     public Text appendItem(ItemStack stack) {
-        return this.append((IChatBaseComponent)ChatUtil.fromItemStack(stack));
+        return this.append(ChatUtil.fromItemStack(stack));
     }
 
     public Text setBold(boolean bold) {
@@ -90,7 +90,7 @@ extends ChatComponentText {
     }
 
     public Text setColor(ChatColor color) {
-        this.getChatModifier().setColor(EnumChatFormat.valueOf((String)color.name()));
+        this.getChatModifier().setColor(EnumChatFormat.valueOf(color.name()));
         return this;
     }
 
@@ -105,11 +105,11 @@ extends ChatComponentText {
     }
 
     public Text setHoverText(String text) {
-        return this.setHover(HoverAction.SHOW_TEXT, (IChatBaseComponent)new Text(text));
+        return this.setHover(HoverAction.SHOW_TEXT, new Text(text));
     }
 
     public Text reset() {
-        ChatUtil.reset((IChatBaseComponent)this);
+        ChatUtil.reset(this);
         return this;
     }
 
@@ -122,7 +122,7 @@ extends ChatComponentText {
     }
 
     public void send(CommandSender sender) {
-        ChatUtil.send(sender, (IChatBaseComponent)this);
+        ChatUtil.send(sender, this);
     }
 
     public void broadcast() {
@@ -132,9 +132,9 @@ extends ChatComponentText {
     public void broadcast(String permission) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (permission != null && !player.hasPermission(permission)) continue;
-            this.send((CommandSender)player);
+            this.send(player);
         }
-        this.send((CommandSender)Bukkit.getConsoleSender());
+        this.send(Bukkit.getConsoleSender());
     }
 }
 

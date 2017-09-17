@@ -45,7 +45,7 @@ extends BaseCommand {
         BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         boolean newVanished = !baseUser.isVanished() || args.length > 1 && Boolean.parseBoolean(args[1]);
         baseUser.setVanished(target, newVanished, true);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
         return true;
     }
 

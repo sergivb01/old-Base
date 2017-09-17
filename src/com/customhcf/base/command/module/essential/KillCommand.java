@@ -35,22 +35,22 @@ extends BaseCommand {
             target = (Player)sender;
         }
         if (target.isDead()) {
-            sender.sendMessage((Object)ChatColor.RED + target.getName() + " is already dead.");
+            sender.sendMessage(ChatColor.RED + target.getName() + " is already dead.");
             return true;
         }
-        EntityDamageEvent event = new EntityDamageEvent((Entity)target, EntityDamageEvent.DamageCause.SUICIDE, 10000);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        EntityDamageEvent event = new EntityDamageEvent(target, EntityDamageEvent.DamageCause.SUICIDE, 10000);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot kill " + target.getName() + '.');
+            sender.sendMessage(ChatColor.RED + "You cannot kill " + target.getName() + '.');
             return true;
         }
         target.setLastDamageCause(event);
         target.setHealth(0.0);
-        if (sender.equals((Object)target)) {
-            sender.sendMessage((Object)ChatColor.GOLD + "You have been killed.");
+        if (sender.equals(target)) {
+            sender.sendMessage(ChatColor.GOLD + "You have been killed.");
             return true;
         }
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Slain player " + target.getName() + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Slain player " + target.getName() + '.');
         return true;
     }
 

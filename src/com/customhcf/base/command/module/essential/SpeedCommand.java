@@ -5,12 +5,13 @@ import com.customhcf.base.command.BaseCommand;
 import com.customhcf.util.BukkitUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Floats;
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SpeedCommand
 extends BaseCommand {
@@ -31,7 +32,7 @@ extends BaseCommand {
             Player target;
             Float multiplier;
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
                 return true;
             }
             if (args.length > 2 && sender.hasPermission(command.getPermission() + ".others")) {
@@ -55,9 +56,9 @@ extends BaseCommand {
             if (args[1].equalsIgnoreCase("reset")) {
                 multiplier = Float.valueOf(flight != false ? 2.0f : 1.0f);
             } else {
-                multiplier = Floats.tryParse((String)args[1]);
+                multiplier = Floats.tryParse(args[1]);
                 if (multiplier == null) {
-                    sender.sendMessage((Object)ChatColor.RED + "Invalid speed multiplier: '" + args[1] + "'.");
+                    sender.sendMessage(ChatColor.RED + "Invalid speed multiplier: '" + args[1] + "'.");
                     return true;
                 }
             }
@@ -65,14 +66,14 @@ extends BaseCommand {
                 float flySpeed = 0.1f * multiplier.floatValue();
                 try {
                     target.setFlySpeed(flySpeed);
-                    Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Flight speed of " + target.getName() + " has been set to " + multiplier + '.'));
+                    Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Flight speed of " + target.getName() + " has been set to " + multiplier + '.');
                     return true;
                 }
                 catch (IllegalArgumentException ex) {
                     if (flySpeed < 0.1f) {
-                        sender.sendMessage((Object)ChatColor.RED + "Speed multiplier too low: " + multiplier);
+                        sender.sendMessage(ChatColor.RED + "Speed multiplier too low: " + multiplier);
                     } else if (flySpeed > 0.1f) {
-                        sender.sendMessage((Object)ChatColor.RED + "Speed multiplier too high: " + multiplier);
+                        sender.sendMessage(ChatColor.RED + "Speed multiplier too high: " + multiplier);
                     }
                     break block19;
                 }
@@ -80,15 +81,15 @@ extends BaseCommand {
             float walkSpeed = 0.2f * multiplier.floatValue();
             try {
                 target.setWalkSpeed(walkSpeed);
-                Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Walking speed of " + target.getName() + " has been set to " + multiplier + '.'));
+                Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Walking speed of " + target.getName() + " has been set to " + multiplier + '.');
                 return true;
             }
             catch (IllegalArgumentException ex) {
                 if (walkSpeed < 0.2f) {
-                    sender.sendMessage((Object)ChatColor.RED + "Speed multiplier too low: " + multiplier);
+                    sender.sendMessage(ChatColor.RED + "Speed multiplier too low: " + multiplier);
                 }
                 if (walkSpeed <= 0.2f) break block19;
-                sender.sendMessage((Object)ChatColor.RED + "Speed multiplier too high: " + multiplier);
+                sender.sendMessage(ChatColor.RED + "Speed multiplier too high: " + multiplier);
             }
         }
         return true;

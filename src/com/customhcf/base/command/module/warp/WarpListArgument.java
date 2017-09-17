@@ -37,8 +37,8 @@ extends CommandArgument {
             if (!sender.hasPermission(warp.getPermission())) continue;
             warpNames.add(warp.getName());
         }
-        sender.sendMessage((Object)ChatColor.DARK_AQUA + "Global Warps (" + warpNames.size() + ")");
-        sender.sendMessage((Object)ChatColor.GRAY + "[" + StringUtils.join(warpNames, (String)", ") + ']');
+        sender.sendMessage(ChatColor.DARK_AQUA + "Global Warps (" + warpNames.size() + ")");
+        sender.sendMessage(ChatColor.GRAY + "[" + StringUtils.join(warpNames, ", ") + ']');
         return true;
     }
 

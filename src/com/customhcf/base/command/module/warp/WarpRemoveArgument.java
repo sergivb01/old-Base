@@ -34,20 +34,20 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can delete warps.");
+            sender.sendMessage(ChatColor.RED + "Only players can delete warps.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + this.getName() + " <warpName>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + this.getName() + " <warpName>");
             return true;
         }
         Warp warp = this.plugin.getWarpManager().getWarp(args[1]);
         if (warp == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a warp named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a warp named " + args[1] + '.');
             return true;
         }
         this.plugin.getWarpManager().removeWarp(warp);
-        sender.sendMessage((Object)ChatColor.GRAY + "Removed global warp named " + warp.getName() + '.');
+        sender.sendMessage(ChatColor.GRAY + "Removed global warp named " + warp.getName() + '.');
         return true;
     }
 

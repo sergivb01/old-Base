@@ -33,30 +33,30 @@ extends CommandArgument {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Kit kit = this.plugin.getKitManager().getKit(args[2]);
         if (kit != null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is already a kit named " + kit.getName() + '.');
+            sender.sendMessage(ChatColor.RED + "There is already a kit named " + kit.getName() + '.');
             return true;
         }
         kit = this.plugin.getKitManager().getKit(args[1]);
         if (kit == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a kit named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a kit named " + args[1] + '.');
             return true;
         }
         KitRenameEvent event = new KitRenameEvent(kit, kit.getName(), args[2]);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return true;
         }
         if (event.getOldName().equals(event.getNewName())) {
-            sender.sendMessage((Object)ChatColor.RED + "This kit is already called " + event.getNewName() + '.');
+            sender.sendMessage(ChatColor.RED + "This kit is already called " + event.getNewName() + '.');
             return true;
         }
         kit.setName(event.getNewName());
-        sender.sendMessage((Object)ChatColor.AQUA + "Renamed kit " + event.getOldName() + " to " + event.getNewName() + '.');
+        sender.sendMessage(ChatColor.AQUA + "Renamed kit " + event.getOldName() + " to " + event.getNewName() + '.');
         return true;
     }
 

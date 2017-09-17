@@ -140,7 +140,7 @@ public class StaffUtilitiesCommand extends BaseCommand
 		final Player player = (Player)sender;
 		final BaseUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
 		final StaffModeEvent playerFreezeEvent = new StaffModeEvent(player, !user.isStaffUtil());
-		Bukkit.getServer().getPluginManager().callEvent((Event)playerFreezeEvent);
+		Bukkit.getServer().getPluginManager().callEvent(playerFreezeEvent);
 		player.sendMessage(ChatColor.YELLOW + "Staff Mode has been set to " + !user.isStaffUtil() + ChatColor.YELLOW + ".");
 		if(!user.isStaffUtil())
 		{
@@ -176,8 +176,8 @@ public class StaffUtilitiesCommand extends BaseCommand
 			Player p = (Player)sender;
 			p.getInventory().clear();
 			if(staffitems.contains(player)){
-				p.getInventory().setContents(staffitems.remove((Player)sender));
-				p.getInventory().setArmorContents(staffarmor.remove((Player)sender));
+				p.getInventory().setContents(staffitems.remove(sender));
+				p.getInventory().setArmorContents(staffarmor.remove(sender));
 			}
 		//	user.setVanished(true);
 			p.setGameMode(GameMode.SURVIVAL);

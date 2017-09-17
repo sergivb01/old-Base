@@ -16,12 +16,12 @@ public enum StaffPriority {
     private static final ImmutableMap<Integer, StaffPriority> BY_ID;
     private final int priorityLevel;
 
-    private StaffPriority(int priorityLevel) {
+    StaffPriority(int priorityLevel) {
         this.priorityLevel = priorityLevel;
     }
 
     public static StaffPriority of(int level) {
-        return (StaffPriority)((Object)BY_ID.get((Object)level));
+        return (StaffPriority) BY_ID.get(level);
     }
 
     public static StaffPriority of(Player player) {
@@ -43,7 +43,7 @@ public enum StaffPriority {
     static {
         ImmutableMap.Builder builder = new ImmutableMap.Builder();
         for (StaffPriority staffPriority : StaffPriority.values()) {
-            builder.put((Object)staffPriority.priorityLevel, (Object)staffPriority);
+            builder.put(staffPriority.priorityLevel, staffPriority);
         }
         BY_ID = builder.build();
     }

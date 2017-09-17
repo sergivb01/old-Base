@@ -13,7 +13,7 @@ public class ExperienceManager {
     private final String playerName;
 
     public ExperienceManager(Player player) {
-        Preconditions.checkNotNull((Object)player, (Object)"Player cannot be null");
+        Preconditions.checkNotNull((Object)player, "Player cannot be null");
         this.player = new WeakReference<Player>(player);
         this.playerName = player.getName();
     }
@@ -110,19 +110,19 @@ public class ExperienceManager {
         }
         if (exp > xpTotalToReachLevel[xpTotalToReachLevel.length - 1]) {
             int newMax = ExperienceManager.calculateLevelForExp(exp) * 2;
-            Preconditions.checkArgument((boolean)(newMax <= hardMaxLevel), (Object)("Level for exp " + exp + " > hard max level " + hardMaxLevel));
+            Preconditions.checkArgument(newMax <= hardMaxLevel, "Level for exp " + exp + " > hard max level " + hardMaxLevel);
             ExperienceManager.initLookupTables(newMax);
         }
         return (pos = Arrays.binarySearch(xpTotalToReachLevel, exp)) < 0 ? - pos - 2 : pos;
     }
 
     public int getXpNeededToLevelUp(int level) {
-        Preconditions.checkArgument((boolean)(level >= 0), (Object)"Level may not be negative.");
+        Preconditions.checkArgument(level >= 0, "Level may not be negative.");
         return level > 30 ? 62 + (level - 30) * 7 : (level >= 16 ? 17 + (level - 15) * 3 : 17);
     }
 
     public int getXpForLevel(int level) {
-        Preconditions.checkArgument((boolean)(level >= 0 && level <= hardMaxLevel), (Object)("Invalid level " + level + "(must be in range 0.." + hardMaxLevel + ')'));
+        Preconditions.checkArgument(level >= 0 && level <= hardMaxLevel, "Invalid level " + level + "(must be in range 0.." + hardMaxLevel + ')');
         if (level >= xpTotalToReachLevel.length) {
             ExperienceManager.initLookupTables(level * 2);
         }

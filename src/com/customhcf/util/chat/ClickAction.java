@@ -11,7 +11,7 @@ public enum ClickAction {
     
     private final EnumClickAction clickAction;
 
-    private ClickAction(EnumClickAction action) {
+    ClickAction(EnumClickAction action) {
         this.clickAction = action;
     }
 

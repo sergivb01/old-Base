@@ -2,22 +2,13 @@
 package com.customhcf.base.listener;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.command.BaseCommand;
-import com.customhcf.base.command.CommandManager;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockFormEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.block.BlockSpreadEvent;
-import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
@@ -37,7 +28,7 @@ implements Listener {
         Player player;
         BaseCommand baseCommand;
         if (this.plugin.getServerHandler().isDecreasedLagMode() && (player = event.getPlayer()).hasPermission((baseCommand = this.plugin.getCommandManager().getCommand(COMMAND)).getPermission())) {
-            event.getPlayer().sendMessage((Object)ChatColor.YELLOW + "Intensive server activity is currently prevented. Use /" + baseCommand.getName() + " to toggle.");
+            event.getPlayer().sendMessage(ChatColor.YELLOW + "Intensive server activity is currently prevented. Use /" + baseCommand.getName() + " to toggle.");
         }
     }
 

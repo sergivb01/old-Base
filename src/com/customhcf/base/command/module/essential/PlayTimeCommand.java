@@ -45,9 +45,9 @@ extends BaseCommand {
         }
        // sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " has been playing for " + (Object)ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords((long)this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + " this map.");
         if(sender.hasPermission("rank.staff") && target.isOnline()) {
-            sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " has been playing for " + (Object)ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords((long)this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + " this map and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true));
+            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true));
         } else {
-            sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " has been playing for " + (Object)ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords((long)this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + " this map.");
+            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map.");
         }
         return true;
     }

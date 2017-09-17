@@ -63,14 +63,14 @@ public class Lang {
     }
 
     public static String translatableFromStack(ItemStack stack) {
-        net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy((ItemStack)stack);
+        net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy(stack);
         Item item = nms.getItem();
         return item.a(nms) + ".name";
     }
 
     public static String fromStack(ItemStack stack) {
         String node = Lang.translatableFromStack(stack);
-        return (String)MoreObjects.firstNonNull((Object)translations.get(node), (Object)node);
+        return (String)MoreObjects.firstNonNull(translations.get(node), node);
     }
 
     public static String translatableFromEnchantment(Enchantment ench) {
@@ -80,11 +80,11 @@ public class Lang {
 
     public static String fromEnchantment(Enchantment ench) {
         String node = Lang.translatableFromEnchantment(ench);
-        return (String)MoreObjects.firstNonNull((Object)translations.get(node), (Object)node);
+        return (String)MoreObjects.firstNonNull(translations.get(node), node);
     }
 
     public static String translatableFromPotionEffectType(PotionEffectType effectType) {
-        CraftPotionEffectType craftType = (CraftPotionEffectType)PotionEffectType.getById((int)effectType.getId());
+        CraftPotionEffectType craftType = (CraftPotionEffectType)PotionEffectType.getById(effectType.getId());
         return craftType.getHandle().a();
     }
 

@@ -61,7 +61,7 @@ public class WhoisCommand extends BaseCommand
         final BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         sender.sendMessage(ChatColor.GREEN + " [" + target.getDisplayName() + ChatColor.GREEN + ']');
-        sender.sendMessage(ChatColor.YELLOW + "  Health: " + ChatColor.AQUA + ((Damageable) target).getHealth() + '/' + ((Damageable) target).getMaxHealth());
+        sender.sendMessage(ChatColor.YELLOW + "  Health: " + ChatColor.AQUA + target.getHealth() + '/' + target.getMaxHealth());
         sender.sendMessage(ChatColor.YELLOW + "  Hunger: " + ChatColor.AQUA + target.getFoodLevel() + '/' + 20 + " (" + target.getSaturation() + " saturation)");
         sender.sendMessage(ChatColor.YELLOW + "  Exp/Level: " + ChatColor.AQUA + target.getExp() + '/' + target.getLevel());
         sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.AQUA + world.getName() + ' ' + ChatColor.GRAY + '[' + WordUtils.capitalizeFully(world.getEnvironment().name().replace('_', ' ')) + "] " + ChatColor.GOLD + '(' + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + ')');
@@ -89,7 +89,7 @@ public class WhoisCommand extends BaseCommand
             sender.sendMessage(ChatColor.YELLOW + "  Notes: " + ChatColor.RED + "none");
         }
         final int version = ((CraftPlayer) target).getHandle().playerConnection.networkManager.getVersion();
-        sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + (String) MoreObjects.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
+        sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + MoreObjects.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
@@ -102,6 +102,6 @@ public class WhoisCommand extends BaseCommand
     }
     
     static {
-        CLIENT_PROTOCOL_IDS = (Map)ImmutableMap.of(4, "1.7.5", 5, "1.7.10", 47, "1.8");
+        CLIENT_PROTOCOL_IDS = ImmutableMap.of(4, "1.7.5", 5, "1.7.10", 47, "1.8");
     }
 }

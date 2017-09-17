@@ -3,11 +3,11 @@ package com.customhcf.base.listener;
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.module.essential.StaffUtilitiesCommand;
 import com.customhcf.base.user.BaseUser;
-import com.customhcf.util.chat.Text;
-import org.bukkit.*;
-import org.bukkit.craftbukkit.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,13 +22,19 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.*;
+import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getBookTool;
+import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getVanishTool;
 
 public class StaffListener implements Listener {
-    public Inventory inv;
+    private Random r = new Random();
+    private ArrayList<Player> onPlayers = new ArrayList<>();
+
+    private Inventory inv;
+
     @EventHandler
     public void staff(PlayerInteractEvent event) {
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -45,8 +51,8 @@ public class StaffListener implements Listener {
                             ItemStack xSkull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
                             ItemMeta xSkullMeta = xSkull.getItemMeta();
                             xSkullMeta.setDisplayName(ChatColor.GOLD + players.getName());
-                            xSkullMeta.setLore(Arrays.asList(new String[] { ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY() }));
-                            xSkullMeta.setLore(Arrays.asList(new String[] { ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE) }));
+                            xSkullMeta.setLore(Arrays.asList(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY()));
+                            xSkullMeta.setLore(Arrays.asList(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
                             xSkull.setItemMeta(xSkullMeta);
                             inv.addItem(xSkull);
                         }
@@ -63,14 +69,20 @@ public class StaffListener implements Listener {
                     return;
                 }
 
-                int random = new Random().nextInt(Bukkit.getOnlinePlayers().length);
-                Player player = Bukkit.getOnlinePlayers()[random];
-                if (p.equals(player)) {
-                    random++;
+                onPlayers.clear();
+                for (Player on : Bukkit.getOnlinePlayers()) {
+                    if(!on.equals(p)) onPlayers.add(on);
+                }
+
+                if (onPlayers.size() == 0) {
+                    p.sendMessage(ChatColor.RED + "There are no players to teleport to.");
                     return;
                 }
-                p.teleport(player);
-                p.sendMessage(ChatColor.YELLOW + "You have been teleported to " + ChatColor.GREEN + player.getName());
+
+                final Player target = onPlayers.get(r.nextInt());
+
+                p.teleport(target);
+                p.sendMessage(ChatColor.YELLOW + "You have been teleported to " + ChatColor.GREEN + target.getName());
                 event.setCancelled(true);
             }
             if (hand.equals(getVanishTool(true))) {
