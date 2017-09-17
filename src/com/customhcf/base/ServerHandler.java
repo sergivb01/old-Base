@@ -57,6 +57,14 @@ public class ServerHandler {
         return this.chatSlowedMillis - System.currentTimeMillis();
     }
 
+    public boolean isChatDisabled() {
+        return this.getRemainingChatDisabledMillis() > 0;
+    }
+
+    public boolean isChatSlowed() {
+        return this.getRemainingChatSlowedMillis() > 0;
+    }
+
     private void reloadServerData() {
         this.plugin.reloadConfig();
         this.config = this.plugin.getConfig();
