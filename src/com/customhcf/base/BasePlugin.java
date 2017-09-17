@@ -162,7 +162,7 @@ extends JavaPlugin {
             this.announcementTask.cancel();
         }
         long announcementDelay = (long)this.serverHandler.getAnnouncementDelay() * 20;
-        long claggdelay = (long)this.serverHandler.getClaggDelay() * 20;
+        long claggdelay = (long)this.serverHandler.getClearlagdelay() * 20;
         this.announcementTask = announcementTask = new AnnouncementHandler(this);
         MobstackListener mobstackListener = new MobstackListener(this);
         this.clearEntityHandler = clearEntityHandler = new ClearEntityHandler();

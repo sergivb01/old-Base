@@ -31,7 +31,7 @@ extends BaseCommand {
             }
             BasePlugin.getPlugin().getClearEntityHandler().cancel();
             BasePlugin.getPlugin().getClearEntityHandler().runTaskTimer(BasePlugin.getPlugin(), (long) Ints.tryParse(args[0]), (long) Ints.tryParse(args[0]));
-            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Changed the Clear Lag From " + BasePlugin.getPlugin().getServerHandler().getClaggDelay() + " To " + Ints.tryParse(args[0]), true);
+            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Changed the Clear Lag From " + BasePlugin.getPlugin().getServerHandler().getClearlagdelay() + " To " + Ints.tryParse(args[0]), true);
             BasePlugin.getPlugin().getServerHandler().setClearlagdelay(Ints.tryParse(args[0]));
             return true;
         }

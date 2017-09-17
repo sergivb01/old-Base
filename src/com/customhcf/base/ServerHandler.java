@@ -1,33 +1,35 @@
 
 package com.customhcf.base;
 
-import com.customhcf.base.BasePlugin;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServerHandler {
-    private final List<String> announcements = new ArrayList<String>();
+    @Getter private final List<String> announcements = new ArrayList<String>();
     private final List<String> serverRules = new ArrayList<String>();
     private final BasePlugin plugin;
-    public Boolean kitmap;
-    private int clearlagdelay;
-    public boolean useProtocolLib;
-    private int announcementDelay;
-    private long chatSlowedMillis;
-    private long chatDisabledMillis;
-    private int chatSlowedDelay;
-    private String broadcastFormat;
+    @Getter private Boolean kitmap;
+    @Getter @Setter private int clearlagdelay;
+    @Getter @Setter public boolean useProtocolLib;
+    @Getter @Setter private int announcementDelay;
+    @Getter @Setter private long chatSlowedMillis;
+    @Getter @Setter private long chatDisabledMillis;
+    @Getter @Setter private int chatSlowedDelay;
+    @Getter private String broadcastFormat;
     private FileConfiguration config;
-    private boolean decreasedLagMode;
-    private int worldBorder;
-    private boolean end;
+    @Getter @Setter private boolean decreasedLagMode;
+    @Getter @Setter private boolean end;
     private Location endExit;
-    private boolean donorOnly;
+    @Getter @Setter private boolean donorOnly;
+    private int worldBorder;
     private int netherBorder;
     private int endBorder;
 
@@ -47,122 +49,15 @@ public class ServerHandler {
         }
     }
 
-    public void setDonorOnly(boolean value) {
-        this.donorOnly = value;
-    }
-
-    public boolean isDonorOnly() {
-        return this.donorOnly;
-    }
-
-    public void setEndExit(Location location) {
-        this.endExit = location;
-    }
-
-    public Location getEndExit() {
-        return this.endExit;
-    }
-
-    public void setEnd(boolean end) {
-        this.end = end;
-    }
-
-    public boolean isEnd() {
-        return this.end;
-    }
-
-    public Integer getWorldBorder() {
-        return this.worldBorder;
-    }
-
-    public Integer getNetherBorder() {
-        return this.netherBorder;
-    }
-
-    public Integer getEndBorder() {
-        return this.endBorder;
-    }
-
-    public int getAnnouncementDelay() {
-        return this.announcementDelay;
-    }
-
-    public void setClearlagdelay(Integer integer) {
-        this.clearlagdelay = integer;
-    }
-
-    public int getClaggDelay() {
-        return this.clearlagdelay;
-    }
-
-    public void setAnnouncementDelay(int delay) {
-        this.announcementDelay = delay;
-    }
-
-    public List<String> getAnnouncements() {
-        return this.announcements;
-    }
-
-    public Boolean isKitMap() { return this.kitmap; }
-
-    public boolean isChatSlowed() {
-        return this.getRemainingChatSlowedMillis() > 0;
-    }
-
-    public long getChatSlowedMillis() {
-        return this.chatSlowedMillis;
-    }
-
-    public void setChatSlowedMillis(long ticks) {
-        this.chatSlowedMillis = System.currentTimeMillis() + ticks;
+    public long getRemainingChatDisabledMillis() {
+        return this.chatDisabledMillis - System.currentTimeMillis();
     }
 
     public long getRemainingChatSlowedMillis() {
         return this.chatSlowedMillis - System.currentTimeMillis();
     }
 
-    public boolean isChatDisabled() {
-        return this.getRemainingChatDisabledMillis() > 0;
-    }
-
-    public long getChatDisabledMillis() {
-        return this.chatDisabledMillis;
-    }
-
-    public void setChatDisabledMillis(long ticks) {
-        long millis = System.currentTimeMillis();
-        this.chatDisabledMillis = millis + ticks;
-    }
-
-    public long getRemainingChatDisabledMillis() {
-        return this.chatDisabledMillis - System.currentTimeMillis();
-    }
-
-    public int getChatSlowedDelay() {
-        return this.chatSlowedDelay;
-    }
-
-    public void setChatSlowedDelay(int delay) {
-        this.chatSlowedDelay = delay;
-    }
-
-    public String getBroadcastFormat() {
-        return this.broadcastFormat;
-    }
-
-    public void setBroadcastFormat(String broadcastFormat) {
-        this.broadcastFormat = broadcastFormat;
-    }
-
-    public boolean isDecreasedLagMode() {
-        return this.decreasedLagMode;
-    }
-
-    public void setDecreasedLagMode(boolean decreasedLagMode) {
-        this.decreasedLagMode = decreasedLagMode;
-    }
-
-    public void reloadServerData() {
+    private void reloadServerData() {
         this.plugin.reloadConfig();
         this.config = this.plugin.getConfig();
         String exitWorld = this.config.getString("end.exitLocation.world", "world");
