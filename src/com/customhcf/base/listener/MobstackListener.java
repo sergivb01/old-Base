@@ -36,58 +36,48 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class MobstackListener
         extends BukkitRunnable
-        implements Listener {
-    private static final int NATURAL_STACK_RADIUS = 8;
+        implements Listener
+{
+    private static final int NATURAL_STACK_RADIUS = 81;
     private static final int MAX_STACKED_QUANTITY = 200;
-    private static final List<LivingEntity> markedMobs = new ArrayList<LivingEntity>();
+    private static final List<LivingEntity> markedMobs = new ArrayList();
     private static final String STACKED_PREFIX = ChatColor.GREEN.toString() + "x";
-    private final Table<CoordinatePair, EntityType, Integer> naturalSpawnStacks = HashBasedTable.create();
-    private final TObjectIntMap<Location> spawnerStacks = new TObjectIntHashMap();
+    private final Table<CoordinatePair, EntityType, Integer> naturalSpawnStacks;
+    private final TObjectIntMap<Location> spawnerStacks;
     private final BasePlugin plugin;
 
-    public MobstackListener(BasePlugin plugin) {
+    public MobstackListener(BasePlugin plugin)
+    {
+        this.naturalSpawnStacks = HashBasedTable.create();
+        this.spawnerStacks = new TObjectIntHashMap();
         this.plugin = plugin;
     }
 
-    private CoordinatePair fromLocation(Location location) {
-        return new CoordinatePair(location.getWorld(), NATURAL_STACK_RADIUS * Math.round(location.getBlockX() / NATURAL_STACK_RADIUS), NATURAL_STACK_RADIUS * Math.round(location.getBlockZ() / NATURAL_STACK_RADIUS));
+    private CoordinatePair fromLocation(Location location)
+    {
+        return new CoordinatePair(location.getWorld(), 81 * Math.round(location.getBlockX() / 81), 81 * Math.round(location.getBlockZ() / 81));
     }
 
-    public void run() {
+    public void run()
+    {
         for (World world : Bukkit.getServer().getWorlds()) {
-            if (world.getEnvironment() == World.Environment.THE_END) continue;
-            for (LivingEntity entity : world.getLivingEntities()) {
-                if (!entity.isValid() || entity instanceof Player) continue;
-                for (org.bukkit.entity.Entity nearby : entity.getNearbyEntities(8.0, 8.0, 8.0)) {
-                    if (!(nearby instanceof LivingEntity) || !nearby.isValid() || nearby instanceof Player) continue;
-                    this.stack(entity, (LivingEntity)nearby);
+            if (world.getEnvironment() != World.Environment.THE_END) {
+                for (Iterator<LivingEntity> localIterator2 = world.getLivingEntities().iterator(); localIterator2.hasNext();)
+                {
+                    LivingEntity entity = localIterator2.next();
+                    if(entity.getType().equals(EntityType.ENDERMAN) || entity.getType().equals(EntityType.SLIME)) return;
+                    if ((entity.isValid()) && (!(entity instanceof Player))) {
+                        for (org.bukkit.entity.Entity nearby : entity.getNearbyEntities(8.0D, 8.0D, 8.0D)) {
+                            if (((nearby instanceof LivingEntity)) && (nearby.isValid()) && (!(nearby instanceof Player))) {
+                                stack(entity, (LivingEntity)nearby);
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
-
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onPlayerTemptEntity(PlayerTemptEntityEvent event) {
-        int stackedQuantity = this.getStackedQuantity((LivingEntity)event.getEntity());
-        if (stackedQuantity >= MAX_STACKED_QUANTITY) {
-            event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "This entity is already max stacked.");
-        }
-    }
-
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onPlayerBreedEntity(PlayerBreedEntityEvent event) {
-        if (event.getEntity() instanceof Horse) {
-            return;
-        }
-        LivingEntity chosen = this.plugin.getRandom().nextBoolean() ? event.getFirstParent() : event.getSecondParent();
-        int stackedQuantity = this.getStackedQuantity(chosen);
-        if (stackedQuantity == -1) {
-            stackedQuantity = 1;
-        }
-        this.setStackedQuantity(chosen, ++stackedQuantity);
-        event.getPlayer().sendMessage((Object)ChatColor.GREEN + "One of the adults bred has been increased a stack.");
-        event.setCancelled(true);
+        Iterator localIterator2;
+        LivingEntity entity;
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
@@ -111,7 +101,7 @@ public class MobstackListener
                 if (stackedQuantity == -1) {
                     stackedQuantity = 1;
                 }
-                if (stackedQuantity <= 199){
+                if (stackedQuantity <= 200){
                     setStackedQuantity(targetLiving, ++stackedQuantity);
                     event.setCancelled(true);
                     return;
@@ -122,128 +112,137 @@ public class MobstackListener
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
-    public void onCreatureSpawn(CreatureSpawnEvent event) {
+    public void onCreatureSpawn(CreatureSpawnEvent event){
         EntityType entityType = event.getEntityType();
-        switch (entityType) {
-            default:
-        }
-        switch (event.getSpawnReason()) {
+
+        if(entityType.equals(EntityType.ENDERMAN) || entityType.equals(EntityType.SLIME)) return;
+
+        switch (event.getSpawnReason()){
             case CHUNK_GEN:
             case NATURAL:
-            case DEFAULT: {
+            case DEFAULT:
                 Location location = event.getLocation();
-                CoordinatePair coordinatePair = this.fromLocation(location);
-                Optional entityIdOptional = Optional.fromNullable((Object)this.naturalSpawnStacks.get((Object)coordinatePair, (Object)entityType));
-                if (entityIdOptional.isPresent()) {
-                    CraftEntity target;
-                    int entityId = (Integer)entityIdOptional.get();
-                    Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
-                    CraftEntity craftEntity = target = nmsTarget == null ? null : nmsTarget.getBukkitEntity();
-                    if (target != null && target instanceof LivingEntity) {
-                        boolean canSpawn;
+                CoordinatePair coordinatePair = fromLocation(location);
+                Optional<Integer> entityIdOptional = Optional.fromNullable(this.naturalSpawnStacks.get(coordinatePair, entityType));
+                if (entityIdOptional.isPresent()){
+                    int entityId = entityIdOptional.get().intValue();
+                    net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
+                    org.bukkit.entity.Entity target = nmsTarget == null ? null : nmsTarget.getBukkitEntity();
+                    if ((target != null) && ((target instanceof LivingEntity)))
+                    {
                         LivingEntity targetLiving = (LivingEntity)target;
-                        if (targetLiving instanceof Ageable) {
+                        boolean canSpawn;
+                        if ((targetLiving instanceof Ageable)) {
                             canSpawn = ((Ageable)targetLiving).isAdult();
                         } else {
-                            boolean bl = canSpawn = !(targetLiving instanceof Zombie) || !((Zombie)targetLiving).isBaby();
+                            canSpawn = (!(targetLiving instanceof Zombie)) || (!((Zombie)targetLiving).isBaby());
                         }
-                        if (canSpawn) {
-                            int stackedQuantity = this.getStackedQuantity(targetLiving);
+                        if (canSpawn)
+                        {
+                            int stackedQuantity = getStackedQuantity(targetLiving);
                             if (stackedQuantity == -1) {
                                 stackedQuantity = 1;
                             }
-                            if (stackedQuantity < MAX_STACKED_QUANTITY) {
-                                this.setStackedQuantity(targetLiving, ++stackedQuantity);
+                            if (stackedQuantity < 200)
+                            {
+                                setStackedQuantity(targetLiving, ++stackedQuantity);
                                 event.setCancelled(true);
-                                return;
-                            }
-                            if(targetLiving instanceof Villager) {
                                 return;
                             }
                         }
                     }
                 }
-                this.naturalSpawnStacks.put(coordinatePair, entityType, event.getEntity().getEntityId());
+                this.naturalSpawnStacks.put(coordinatePair, entityType, Integer.valueOf(event.getEntity().getEntityId()));
                 break;
-            }
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onEntityDeath(EntityDeathEvent event) {
+    public void onEntityDeath(EntityDeathEvent event)
+    {
         LivingEntity livingEntity = event.getEntity();
-        int stackedQuantity = this.getStackedQuantity(livingEntity);
-        if (stackedQuantity > 1) {
+        int stackedQuantity = getStackedQuantity(livingEntity);
+        if (stackedQuantity > 1)
+        {
             LivingEntity respawned = (LivingEntity)livingEntity.getWorld().spawnEntity(livingEntity.getLocation(), event.getEntityType());
-            this.setStackedQuantity(respawned, Math.min(MAX_STACKED_QUANTITY, --stackedQuantity));
-            if (respawned instanceof Ageable) {
+            setStackedQuantity(respawned, Math.min(200, --stackedQuantity));
+            if ((respawned instanceof Ageable)) {
                 ((Ageable)respawned).setAdult();
             }
-            if (respawned instanceof Zombie) {
+            if ((respawned instanceof Zombie)) {
                 ((Zombie)respawned).setBaby(false);
             }
-            if (this.spawnerStacks.containsValue(livingEntity.getEntityId())) {
-                TObjectIntIterator iterator = this.spawnerStacks.iterator();
-                while (iterator.hasNext()) {
+            if (this.spawnerStacks.containsValue(livingEntity.getEntityId()))
+            {
+                TObjectIntIterator<Location> iterator = this.spawnerStacks.iterator();
+                while (iterator.hasNext())
+                {
                     iterator.advance();
-                    if (iterator.value() != livingEntity.getEntityId()) continue;
-                    iterator.setValue(respawned.getEntityId());
-                    break;
+                    if (iterator.value() == livingEntity.getEntityId()) {
+                        iterator.setValue(respawned.getEntityId());
+                    }
                 }
             }
         }
     }
 
-    private int getStackedQuantity(LivingEntity livingEntity) {
+    private int getStackedQuantity(LivingEntity livingEntity)
+    {
         String customName = livingEntity.getCustomName();
-        if (customName != null && customName.contains(STACKED_PREFIX)) {
-            if ((customName = customName.replace(STACKED_PREFIX, "")) == null) {
+        if ((customName != null) &&
+                (customName.contains(STACKED_PREFIX)))
+        {
+            customName = customName.replace(STACKED_PREFIX, "");
+            if (customName == null) {
                 return -1;
             }
-            customName = ChatColor.stripColor((String)customName);
-            return Ints.tryParse((String)customName);
+            customName = ChatColor.stripColor(customName);
+            return Integer.parseInt(customName);
         }
         return -1;
     }
 
-    private boolean stack(LivingEntity tostack, LivingEntity toremove) {
-        Integer newStack = 1;
-        Integer removeStack = 1;
-        if (this.hasStack(tostack)) {
-            newStack = this.getStackedQuantity(tostack);
+    private boolean stack(LivingEntity tostack, LivingEntity toremove)
+    {
+        Integer newStack = Integer.valueOf(1);
+        Integer removeStack = Integer.valueOf(1);
+        if (hasStack(tostack)) {
+            newStack = Integer.valueOf(getStackedQuantity(tostack));
         }
-        if (this.hasStack(toremove)) {
-            removeStack = this.getStackedQuantity(toremove);
-        } else if (this.getStackedQuantity(toremove) == -1 && toremove.getCustomName() != null && toremove.getCustomName().contains(ChatColor.WHITE.toString())) {
+        if (hasStack(toremove)) {
+            removeStack = Integer.valueOf(getStackedQuantity(toremove));
+        } else if ((getStackedQuantity(toremove) == -1) &&
+                (toremove.getCustomName() != null) && (toremove.getCustomName().contains(ChatColor.WHITE.toString()))) {
             return false;
         }
         if (toremove.getType() != tostack.getType()) {
             return false;
         }
-        if (toremove.getType() == EntityType.SLIME || toremove.getType() == EntityType.MAGMA_CUBE || tostack.getType() == EntityType.SLIME || tostack.getType() == EntityType.MAGMA_CUBE || tostack.getType() == EntityType.VILLAGER) {
+        if ((toremove.getType() == EntityType.SLIME) || (toremove.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.SLIME) || (tostack.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.VILLAGER)) {
             return false;
         }
         toremove.remove();
-        this.setStackedQuantity(tostack, Math.min(newStack + removeStack, MAX_STACKED_QUANTITY));
+        setStackedQuantity(tostack, Math.min(newStack.intValue() + removeStack.intValue(), 200));
         return true;
     }
 
-    private boolean hasStack(LivingEntity livingEntity) {
-        if (this.getStackedQuantity(livingEntity) != -1) {
-            return true;
-        }
-        return false;
+    private boolean hasStack(LivingEntity livingEntity)
+    {
+        return getStackedQuantity(livingEntity) != -1;
     }
 
-    private void setStackedQuantity(LivingEntity livingEntity, int quantity) {
-        Preconditions.checkArgument((boolean)(quantity >= 0), (Object)"Stacked quantity cannot be negative");
-        Preconditions.checkArgument((boolean)(quantity <= MAX_STACKED_QUANTITY), "Stacked quantity cannot be more than " + MAX_STACKED_QUANTITY);
-        if (quantity <= 1) {
+    private void setStackedQuantity(LivingEntity livingEntity, int quantity)
+    {
+        Preconditions.checkArgument(quantity >= 0, "Stacked quantity cannot be negative");
+        Preconditions.checkArgument(quantity <= 200, "Stacked quantity cannot be more than 200");
+        if (quantity <= 1)
+        {
             livingEntity.setCustomName(null);
-        } else {
+        }
+        else
+        {
             livingEntity.setCustomName(STACKED_PREFIX + quantity);
             livingEntity.setCustomNameVisible(false);
         }
     }
-
 }

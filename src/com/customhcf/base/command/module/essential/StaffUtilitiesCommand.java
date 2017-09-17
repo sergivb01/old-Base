@@ -68,6 +68,13 @@ public class StaffUtilitiesCommand extends BaseCommand
 		is.setItemMeta(im);
 		return is;
 	}
+	public static ItemStack getXrayTool() {
+	    ItemStack is = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+	    ItemMeta im = is.getItemMeta();
+	    im.setDisplayName(ChatColor.GOLD + "Xray GUI " + ChatColor.GRAY + "(Right Click)");
+	    is.setItemMeta(im);
+	    return is;
+    }
 
 	public static ItemStack getCarpetTool()
 	{
