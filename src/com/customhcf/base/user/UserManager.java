@@ -2,21 +2,15 @@
 package com.customhcf.base.user;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.user.BaseUser;
-import com.customhcf.base.user.ConsoleUser;
-import com.customhcf.base.user.ServerParticipator;
 import com.customhcf.util.Config;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.*;
 
 public class UserManager
 {
@@ -56,7 +50,7 @@ public class UserManager
         return null;
     }
 
-    public ServerParticipator getParticipator(final UUID uuid) {
+    private ServerParticipator getParticipator(final UUID uuid) {
         Preconditions.checkNotNull((Object)uuid, "Unique ID cannot be null");
         return this.participators.get(uuid);
     }
@@ -73,7 +67,7 @@ public class UserManager
         return baseUser;
     }
 
-    public void reloadParticipatorData() {
+    private void reloadParticipatorData() {
         this.userConfig = new Config(this.plugin, "participators");
         final Object object = this.userConfig.get("participators");
         if (object instanceof MemorySection) {

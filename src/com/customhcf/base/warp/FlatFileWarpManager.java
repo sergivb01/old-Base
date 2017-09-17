@@ -1,20 +1,17 @@
 
 package com.customhcf.base.warp;
 
-import com.customhcf.base.warp.Warp;
-import com.customhcf.base.warp.WarpManager;
 import com.customhcf.util.Config;
 import com.customhcf.util.GenericUtils;
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
+import org.apache.commons.lang.time.DurationFormatUtils;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.collections4.map.CaseInsensitiveMap;
-import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class FlatFileWarpManager
 implements WarpManager {
@@ -24,7 +21,7 @@ implements WarpManager {
     private Map<String, Warp> warpNameMap;
     private final JavaPlugin plugin;
     private Config config;
-    private List<Warp> warp = new ArrayList<Warp>();
+    private List<Warp> warp = new ArrayList<>();
 
     public FlatFileWarpManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -86,7 +83,7 @@ implements WarpManager {
         Object object = this.config.get("warp");
         if (object instanceof List) {
             this.warp = GenericUtils.createList(object, Warp.class);
-            this.warpNameMap = new CaseInsensitiveMap<String, Warp>();
+            this.warpNameMap = new CaseInsensitiveMap<>();
             for (Warp warp : this.warp) {
                 this.warpNameMap.put(warp.getName(), warp);
             }

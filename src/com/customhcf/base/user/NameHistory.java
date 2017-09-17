@@ -1,9 +1,10 @@
 
 package com.customhcf.base.user;
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 public class NameHistory
 implements ConfigurationSerializable {

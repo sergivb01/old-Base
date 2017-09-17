@@ -163,8 +163,8 @@ public class BaseUser extends ServerParticipator
         return (result == this.kitUseMap.getNoEntryValue()) ? 0 : result;
     }
 
-    public int incrementKitUses(final Kit kit) {
-        return this.kitUseMap.adjustOrPutValue(kit.getUniqueID(), 1, 1);
+    public void incrementKitUses(final Kit kit) {
+        this.kitUseMap.adjustOrPutValue(kit.getUniqueID(), 1, 1);
     }
 
     @Override
@@ -256,33 +256,31 @@ public class BaseUser extends ServerParticipator
         this.setVanished(vanished, true);
     }
 
-    public void setVanished(final boolean vanished, final boolean update) {
+    private void setVanished(final boolean vanished, final boolean update) {
         this.setVanished(Bukkit.getPlayer(this.getUniqueId()), vanished, update);
     }
 
-    public boolean setVanished(final Player player, final boolean vanished, final boolean notifyPlayerList) {
+    public void setVanished(final Player player, final boolean vanished, final boolean notifyPlayerList) {
         if (this.vanished != vanished) {
             if (player != null) {
                 final PlayerVanishEvent event = new PlayerVanishEvent(player, notifyPlayerList ? new HashSet<>(Bukkit.getOnlinePlayers()) : Collections.emptySet(), vanished);
                 Bukkit.getPluginManager().callEvent(event);
                 if (event.isCancelled()) {
-                    return false;
+                    return;
                 }
                 if (notifyPlayerList) {
                     this.updateVanishedState(player, event.getViewers(), vanished);
                 }
             }
             this.vanished = vanished;
-            return true;
         }
-        return false;
     }
     
     public void updateVanishedState(final Player player, final boolean vanished) {
         this.updateVanishedState(player, new HashSet<Player>(Bukkit.getOnlinePlayers()), vanished);
     }
 
-    public void updateVanishedState(final Player player, final Collection<Player> viewers, final boolean vanished) {
+    private void updateVanishedState(final Player player, final Collection<Player> viewers, final boolean vanished) {
         player.spigot().setCollidesWithEntities(!vanished);
         //player.showInvisibles(vanished);
         final StaffPriority playerPriority = StaffPriority.of(player);
@@ -307,7 +305,7 @@ public class BaseUser extends ServerParticipator
         this.setGlintEnabled(glintEnabled, true);
     }
 
-    public void setGlintEnabled(final boolean glintEnabled, final boolean sendUpdatePackets) {
+    private void setGlintEnabled(final boolean glintEnabled, final boolean sendUpdatePackets) {
         final Player player = this.toPlayer();
         if (player == null || !player.isOnline()) {
             return;
@@ -362,11 +360,11 @@ public class BaseUser extends ServerParticipator
         this.lastGlintUse = lastGlintUse;
     }
 
-    public String getLastKnownName() {
+    private String getLastKnownName() {
         return ((NameHistory)Iterables.getLast((Iterable)this.nameHistories)).getName();
     }
 
-    public Player toPlayer() {
+    private Player toPlayer() {
         return Bukkit.getPlayer(this.getUniqueId());
     }
 }

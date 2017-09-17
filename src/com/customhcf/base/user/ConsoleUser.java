@@ -1,10 +1,10 @@
 
 package com.customhcf.base.user;
 
-import com.customhcf.base.user.ServerParticipator;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
 import java.util.Map;
 import java.util.UUID;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 public class ConsoleUser
 extends ServerParticipator

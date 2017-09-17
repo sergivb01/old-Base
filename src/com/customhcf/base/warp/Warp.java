@@ -3,9 +3,10 @@ package com.customhcf.base.warp;
 
 import com.customhcf.util.PersistableLocation;
 import com.google.common.base.Preconditions;
-import java.util.Map;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
+import java.util.Map;
 
 public class Warp
 extends PersistableLocation
@@ -19,12 +20,6 @@ implements ConfigurationSerializable {
         Preconditions.checkNotNull((Object)location, "Warp location cannot be null");
         this.name = name;
         this.permission = "warp." + name;
-    }
-
-    public Warp(Map<String, Object> map) {
-        super(map);
-        this.name = (String)map.get("name");
-        this.permission = (String)map.get("permission");
     }
 
     @Override

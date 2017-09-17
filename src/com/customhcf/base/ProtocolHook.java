@@ -7,29 +7,18 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.user.BaseUser;
 import com.customhcf.base.user.UserManager;
-import java.lang.invoke.LambdaMetafactory;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Consumer;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 public class ProtocolHook
 {
-    private static final ItemStack AIR;
 
     public static void hook(final BasePlugin basePlugin) {
         final ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
@@ -77,9 +66,9 @@ public class ProtocolHook
         });
     }
 
-    private static ItemStack convert(final ItemStack origin) {
+    private static void convert(final ItemStack origin) {
         if (origin == null || origin.getType() == Material.AIR) {
-            return origin;
+            return;
         }
         switch (origin.getType()) {
             case POTION:
@@ -99,10 +88,8 @@ public class ProtocolHook
                 break;
             }
         }
-        return origin;
     }
 
     static {
-        AIR = new ItemStack(Material.AIR, 1);
     }
 }

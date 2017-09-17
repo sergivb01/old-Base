@@ -2,11 +2,7 @@
 package com.customhcf.base;
 
 import com.customhcf.util.Config;
-import java.util.Set;
-import java.util.UUID;
-import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
-import net.minecraft.util.gnu.trove.procedure.TObjectLongProcedure;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
@@ -17,10 +13,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
+
 public class PlayTimeManager
 implements Listener {
-    private final TObjectLongMap<UUID> totalPlaytimeMap = new TObjectLongHashMap();
-    private final TObjectLongMap<UUID> sessionTimestamps = new TObjectLongHashMap();
+    private final TObjectLongHashMap totalPlaytimeMap = new TObjectLongHashMap();
+    private final TObjectLongHashMap sessionTimestamps = new TObjectLongHashMap();
     private final Config config;
 
     public PlayTimeManager(JavaPlugin plugin) {
@@ -40,7 +38,7 @@ implements Listener {
         this.sessionTimestamps.remove(uuid);
     }
 
-    public void reloadPlaytimeData() {
+    private void reloadPlaytimeData() {
         Object object = this.config.get("playing-times");
         if (object instanceof MemorySection) {
             MemorySection section = (MemorySection)object;
@@ -66,12 +64,12 @@ implements Listener {
         this.config.save();
     }
 
-    public long getSessionPlayTime(UUID uuid) {
+    private long getSessionPlayTime(UUID uuid) {
         long session = this.sessionTimestamps.get(uuid);
         return session != this.sessionTimestamps.getNoEntryValue() ? System.currentTimeMillis() - session : 0;
     }
 
-    public long getPreviousPlayTime(UUID uuid) {
+    private long getPreviousPlayTime(UUID uuid) {
         long stamp = this.totalPlaytimeMap.get(uuid);
         return stamp == this.totalPlaytimeMap.getNoEntryValue() ? 0 : stamp;
     }
