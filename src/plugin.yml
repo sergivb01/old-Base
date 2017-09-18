@@ -1,8 +1,9 @@
 name: Core
-version: 5.1-VEILMC
+version: 5.3-VEILMC
 main: com.customhcf.base.BasePlugin
-prefix: 
 commands:
+  auth:
+    description: Account security system.
   warp:
     description: Turns the server to Donor only mode.
     aliases: [gw, globalwarp]

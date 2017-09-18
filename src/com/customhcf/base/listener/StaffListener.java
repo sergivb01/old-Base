@@ -35,31 +35,33 @@ public class StaffListener implements Listener {
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             final ItemStack hand = event.getPlayer().getItemInHand();
             Player p = event.getPlayer();
+            BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
             if (hand.getType() == Material.DIAMOND_PICKAXE) {
-                int Counter = 0;
-                this.inv = Bukkit.createInventory(null, 54, "Xrayer Gui");
-
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    Counter++;
-                    if (Counter < 54) {
-                        if (players.getLocation().getBlockY() < 20) {
-                            ItemStack xSkull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-                            ItemMeta xSkullMeta = xSkull.getItemMeta();
-                            xSkullMeta.setDisplayName(ChatColor.GOLD + players.getName());
-                            ArrayList<String> lore = new ArrayList<>();
-                            lore.add(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY());
-                            lore.add(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE));
-                            lore.add(ChatColor.AQUA + "Playtime: " + DurationFormatUtils.formatDurationWords(BasePlugin.getPlugin().getPlayTimeManager().getTotalPlayTime(players.getUniqueId()), true, true));
-                            xSkullMeta.setLore(lore);
-                            xSkull.setItemMeta(xSkullMeta);
-                            inv.addItem(xSkull);
+                if (baseUser.isStaffUtil()) {
+                    int Counter = 0;
+                    this.inv = Bukkit.createInventory(null, 54, "Xrayer Gui");
+                    for (Player players : Bukkit.getOnlinePlayers()) {
+                        Counter++;
+                        if (Counter < 54) {
+                            if (players.getLocation().getBlockY() < 20) {
+                                ItemStack xSkull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+                                ItemMeta xSkullMeta = xSkull.getItemMeta();
+                                xSkullMeta.setDisplayName(ChatColor.GOLD + players.getName());
+                                ArrayList<String> lore = new ArrayList<>();
+                                lore.add(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY());
+                                lore.add(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE));
+                                lore.add(ChatColor.AQUA + "Playtime: " + DurationFormatUtils.formatDurationWords(BasePlugin.getPlugin().getPlayTimeManager().getTotalPlayTime(players.getUniqueId()), true, true));
+                                xSkullMeta.setLore(lore);
+                                xSkull.setItemMeta(xSkullMeta);
+                                inv.addItem(xSkull);
+                            }
+                        } else {
+                            event.getPlayer()
+                                    .sendMessage(ChatColor.RED + "There are too many players mining right now.");
                         }
-                    } else {
-                        event.getPlayer()
-                                .sendMessage(ChatColor.RED + "There are too many players mining right now.");
                     }
+                    p.openInventory(inv);
                 }
-                p.openInventory(inv);
             }
             if (hand.equals(StaffUtilitiesCommand.getRandomTeleport())) {
                 if (!p.hasPermission("command.random")) {
@@ -93,7 +95,6 @@ public class StaffListener implements Listener {
                 }
 
                 p.getInventory().setItemInHand(getVanishTool(false));
-                final BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
                 baseUser.setVanished(false);
                 p.sendMessage(ChatColor.YELLOW + "Vanish mode of " + p.getName() + " set to " + "false" + '.');
             }
@@ -104,7 +105,7 @@ public class StaffListener implements Listener {
                 }
 
                 p.getInventory().setItemInHand(getVanishTool(true));
-                final BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
+               // final BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
                 baseUser.setVanished(true);
                 p.sendMessage(ChatColor.YELLOW + "Vanish mode of " + p.getName() + " set to " + "true" + '.');
             }
