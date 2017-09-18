@@ -18,17 +18,17 @@ public class AuthCommand
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args[0] == null) {
+        if (args[1] == null) {
             sender.sendMessage(ChatColor.RED + "/auth <pin>");
             return false;
         }
         // TODO: CONNECT TO DATABASE HERE
         // TODO: SET VARIABLE "authpin" TO COLUMN IN SQL DATABASE
-        if(args[0] != authpin) {
+        if(args[1] != authpin) {
             sender.sendMessage(ChatColor.RED + "Your pin does not match our database.");
             return false;
         }
-        if(args[0] == authpin) {
+        if(args[1] == authpin) {
             sender.sendMessage(ChatColor.GREEN + "You have been authenticated.");
             return true;
         }

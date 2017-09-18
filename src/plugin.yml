@@ -1,5 +1,5 @@
 name: Core
-version: 5.3-VEILMC
+version: 5.4-VEILMC
 main: com.customhcf.base.BasePlugin
 commands:
   auth:
