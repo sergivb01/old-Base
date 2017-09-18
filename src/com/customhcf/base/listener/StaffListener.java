@@ -3,6 +3,7 @@ package com.customhcf.base.listener;
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.module.essential.StaffUtilitiesCommand;
 import com.customhcf.base.user.BaseUser;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -48,6 +49,7 @@ public class StaffListener implements Listener {
                             xSkullMeta.setDisplayName(ChatColor.GOLD + players.getName());
                             xSkullMeta.setLore(Collections.singletonList(ChatColor.YELLOW + "This player is mining on level " + players.getLocation().getBlockY()));
                             xSkullMeta.setLore(Collections.singletonList(ChatColor.AQUA + "Diamonds: " + players.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
+                            xSkullMeta.setLore(Collections.singletonList(ChatColor.AQUA + "Playtime: " + DurationFormatUtils.formatDurationWords(BasePlugin.getPlugin().getPlayTimeManager().getTotalPlayTime(players.getUniqueId()), true, true)));
                             xSkull.setItemMeta(xSkullMeta);
                             inv.addItem(xSkull);
                         }
