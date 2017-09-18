@@ -66,7 +66,9 @@ public class StaffListener implements Listener {
 
                 final ArrayList<Player> players = new ArrayList<>();
                 for (final Player p2 : Bukkit.getOnlinePlayers()) {
-                    if(p2 != p) players.add(p2);
+                    if((p2 != p) && (!p2.hasPermission("command.random"))){
+                        players.add(p2);
+                    }
                 }
 
                 if (players.size() == 0) {
