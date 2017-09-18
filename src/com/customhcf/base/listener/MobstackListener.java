@@ -2,12 +2,10 @@ package com.customhcf.base.listener;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.util.cuboid.CoordinatePair;
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.util.gnu.trove.iterator.TObjectIntIterator;
-import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,16 +23,15 @@ import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Optional;
 
 public class MobstackListener extends BukkitRunnable implements Listener {
     private static final int NATURAL_STACK_RADIUS = 81;
     private static final int MAX_STACKED_QUANTITY = 200;
-    private static final List<LivingEntity> markedMobs = new ArrayList();
+    private static final ArrayList markedMobs = new ArrayList();
     private static final String STACKED_PREFIX = ChatColor.GREEN.toString() + "x";
     private final Table<CoordinatePair, EntityType, Integer> naturalSpawnStacks;
-    private final TObjectIntMap<Location> spawnerStacks;
+    private final TObjectIntHashMap spawnerStacks;
     private final BasePlugin plugin;
 
     public MobstackListener(BasePlugin plugin)
@@ -53,22 +50,19 @@ public class MobstackListener extends BukkitRunnable implements Listener {
     {
         for (World world : Bukkit.getServer().getWorlds()) {
             if (world.getEnvironment() != World.Environment.THE_END) {
-                for (Iterator<LivingEntity> localIterator2 = world.getLivingEntities().iterator(); localIterator2.hasNext();)
-                {
-                    LivingEntity entity = localIterator2.next();
-                    if(entity.getType().equals(EntityType.ENDERMAN) || entity.getType().equals(EntityType.SLIME)) return;
+                for (LivingEntity entity : world.getLivingEntities()) {
+                    if (entity.getType().equals(EntityType.ENDERMAN) || entity.getType().equals(EntityType.SLIME))
+                        return;
                     if ((entity.isValid()) && (!(entity instanceof Player))) {
-                        for (org.bukkit.entity.Entity nearby : entity.getNearbyEntities(8.0D, 8.0D, 8.0D)) {
+                        for (Entity nearby : entity.getNearbyEntities(8.0D, 8.0D, 8.0D)) {
                             if (((nearby instanceof LivingEntity)) && (nearby.isValid()) && (!(nearby instanceof Player))) {
-                                stack(entity, (LivingEntity)nearby);
+                                stack(entity, (LivingEntity) nearby);
                             }
                         }
                     }
                 }
             }
         }
-        Iterator localIterator2;
-        LivingEntity entity;
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
@@ -81,22 +75,20 @@ public class MobstackListener extends BukkitRunnable implements Listener {
             return;
         }
         Location location = spawner.getLocation();
-        Optional<Integer> entityIdOptional = Optional.fromNullable(Integer.valueOf(this.spawnerStacks.get(location)));
-        if (entityIdOptional.isPresent()){
-            int entityId = entityIdOptional.get().intValue();
-            net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
-            org.bukkit.entity.Entity target = nmsTarget != null ? nmsTarget.getBukkitEntity() : null;
-            if ((target != null) && ((target instanceof LivingEntity))){
-                LivingEntity targetLiving = (LivingEntity)target;
-                int stackedQuantity = getStackedQuantity(targetLiving);
-                if (stackedQuantity == -1) {
-                    stackedQuantity = 1;
-                }
-                if (stackedQuantity <= 200){
-                    setStackedQuantity(targetLiving, ++stackedQuantity);
-                    event.setCancelled(true);
-                    return;
-                }
+        Optional<Integer> entityIdOptional = Optional.of(this.spawnerStacks.get(location));
+        int entityId = entityIdOptional.get();
+        net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
+        Entity target = nmsTarget != null ? nmsTarget.getBukkitEntity() : null;
+        if ((target != null) && ((target instanceof LivingEntity))){
+            LivingEntity targetLiving = (LivingEntity)target;
+            int stackedQuantity = getStackedQuantity(targetLiving);
+            if (stackedQuantity == -1) {
+                stackedQuantity = 1;
+            }
+            if (stackedQuantity <= 200){
+                setStackedQuantity(targetLiving, ++stackedQuantity);
+                event.setCancelled(true);
+                return;
             }
         }
         this.spawnerStacks.put(location, event.getEntity().getEntityId());
@@ -114,11 +106,11 @@ public class MobstackListener extends BukkitRunnable implements Listener {
             case DEFAULT:
                 Location location = event.getLocation();
                 CoordinatePair coordinatePair = fromLocation(location);
-                Optional<Integer> entityIdOptional = Optional.fromNullable(this.naturalSpawnStacks.get(coordinatePair, entityType));
+                Optional<Integer> entityIdOptional = Optional.ofNullable(this.naturalSpawnStacks.get(coordinatePair, entityType));
                 if (entityIdOptional.isPresent()){
-                    int entityId = entityIdOptional.get().intValue();
+                    int entityId = entityIdOptional.get();
                     net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
-                    org.bukkit.entity.Entity target = nmsTarget == null ? null : nmsTarget.getBukkitEntity();
+                    Entity target = nmsTarget == null ? null : nmsTarget.getBukkitEntity();
                     if ((target != null) && ((target instanceof LivingEntity)))
                     {
                         LivingEntity targetLiving = (LivingEntity)target;
@@ -143,7 +135,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
                         }
                     }
                 }
-                this.naturalSpawnStacks.put(coordinatePair, entityType, Integer.valueOf(event.getEntity().getEntityId()));
+                this.naturalSpawnStacks.put(coordinatePair, entityType, event.getEntity().getEntityId());
                 break;
         }
     }
@@ -195,13 +187,13 @@ public class MobstackListener extends BukkitRunnable implements Listener {
 
     private boolean stack(LivingEntity tostack, LivingEntity toremove)
     {
-        Integer newStack = Integer.valueOf(1);
-        Integer removeStack = Integer.valueOf(1);
+        Integer newStack = 1;
+        Integer removeStack = 1;
         if (hasStack(tostack)) {
-            newStack = Integer.valueOf(getStackedQuantity(tostack));
+            newStack = getStackedQuantity(tostack);
         }
         if (hasStack(toremove)) {
-            removeStack = Integer.valueOf(getStackedQuantity(toremove));
+            removeStack = getStackedQuantity(toremove);
         } else if ((getStackedQuantity(toremove) == -1) &&
                 (toremove.getCustomName() != null) && (toremove.getCustomName().contains(ChatColor.WHITE.toString()))) {
             return false;
@@ -209,11 +201,11 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         if (toremove.getType() != tostack.getType()) {
             return false;
         }
-        if ((toremove.getType() == EntityType.SLIME) || (toremove.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.SLIME) || (tostack.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.VILLAGER)) {
+        if ((toremove.getType() == EntityType.SLIME) || (toremove.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.SLIME) || (tostack.getType() == EntityType.MAGMA_CUBE)) {
             return false;
         }
         toremove.remove();
-        setStackedQuantity(tostack, Math.min(newStack.intValue() + removeStack.intValue(), 200));
+        setStackedQuantity(tostack, Math.min(newStack + removeStack, 200));
         return true;
     }
 
@@ -225,8 +217,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
     private void setStackedQuantity(LivingEntity livingEntity, int quantity)
     {
         Preconditions.checkArgument(quantity >= 0, "Stacked quantity cannot be negative");
-        if(quantity <= 200) return;
-        //Preconditions.checkArgument(quantity <= 200, "Stacked quantity cannot be more than 200");
+        Preconditions.checkArgument(quantity <= 200, "Stacked quantity cannot be more than 200");
         if (quantity <= 1)
         {
             livingEntity.setCustomName(null);
@@ -238,3 +229,5 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         }
     }
 }
+
+
