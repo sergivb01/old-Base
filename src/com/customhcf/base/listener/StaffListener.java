@@ -209,6 +209,9 @@ public class StaffListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().hasPermission("command.staff")) {
+            for(Player on : Bukkit.getOnlinePlayers()) {
+                on.sendMessage(ChatColor.BLUE + "(" + ChatColor.AQUA + "Join" + ChatColor.BLUE + ") " + ChatColor.AQUA + event.getPlayer() + " has joined the server.");
+            }
             final BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(event.getPlayer().getUniqueId());
             baseUser.setVanished(true);
             event.getPlayer().sendMessage(ChatColor.GREEN + "Your vanish has been enabled.");

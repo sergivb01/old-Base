@@ -11,6 +11,8 @@ commands:
     description: Turns the server to Donor only mode.
     aliases: [donoronly, donormode]
   history:
+  youtube:
+  famous:
   request:
     aliases: [helpop]
   clearlagg:
