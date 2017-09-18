@@ -60,7 +60,9 @@ extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
+
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
         ConfigurationSerialization.registerClass(Warp.class);
         ConfigurationSerialization.registerClass(ServerParticipator.class);
         ConfigurationSerialization.registerClass(BaseUser.class);
@@ -70,11 +72,13 @@ extends JavaPlugin {
         ConfigurationSerialization.registerClass(Cuboid.class);
         ConfigurationSerialization.registerClass(NamedCuboid.class);
         ConfigurationSerialization.registerClass(Kit.class);
+
         this.registerManagers();
         this.registerCommands();
         this.registerListeners();
         this.reloadSchedulers();
-        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
+
+
         Plugin plugin = this.getServer().getPluginManager().getPlugin("ProtocolLib");
         if (plugin != null && plugin.isEnabled()) {
             try {
@@ -86,22 +90,27 @@ extends JavaPlugin {
             }
         }
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
+
     }
 
     public void onDisable() {
         super.onDisable();
+
         BossBarManager.unhook();
+
         this.kitManager.saveKitData();
         this.playTimeManager.savePlaytimeData();
         this.serverHandler.saveServerData();
         this.signHandler.cancelTasks(null);
         this.userManager.saveParticipatorData();
         this.warpManager.saveWarpData();
+
         plugin = null;
     }
 
     private void registerManagers() {
         BossBarManager.hook();
+
         this.randomUtils = new RandomUtils();
         this.autoRestartHandler = new AutoRestartHandler(this);
         this.kitManager = new FlatFileKitManager(this);
@@ -110,12 +119,14 @@ extends JavaPlugin {
         this.userManager = new UserManager(this);
         this.itemDb = new SimpleItemDb(this);
         this.warpManager = new FlatFileWarpManager(this);
+
         try {
             Lang.initialize("en_US");
         }
         catch (IOException ex) {
             ex.printStackTrace();
         }
+
     }
 
     private void registerCommands() {
@@ -154,17 +165,17 @@ extends JavaPlugin {
     public void reloadSchedulers() {
         ClearEntityHandler clearEntityHandler;
         AnnouncementHandler announcementTask;
-        if (this.clearEntityHandler != null) {
-            this.clearEntityHandler.cancel();
-        }
-        if (this.announcementTask != null) {
-            this.announcementTask.cancel();
-        }
+
+        if (this.clearEntityHandler != null) this.clearEntityHandler.cancel();
+        if (this.announcementTask != null) this.announcementTask.cancel();
+
         long announcementDelay = (long)this.serverHandler.getAnnouncementDelay() * 20;
         long claggdelay = (long)this.serverHandler.getClearlagdelay() * 20;
+
         this.announcementTask = announcementTask = new AnnouncementHandler(this);
         MobstackListener mobstackListener = new MobstackListener(this);
         this.clearEntityHandler = clearEntityHandler = new ClearEntityHandler();
+
         mobstackListener.runTaskTimerAsynchronously(this, 20, 20);
         clearEntityHandler.runTaskTimer(this, claggdelay, claggdelay);
         announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
