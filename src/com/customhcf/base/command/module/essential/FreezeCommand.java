@@ -1,47 +1,40 @@
 package com.customhcf.base.command.module.essential;
 
-import com.customhcf.base.user.BaseUser;
+import com.customhcf.base.BaseConstants;
+import com.customhcf.base.BasePlugin;
+import com.customhcf.base.command.BaseCommand;
+import com.customhcf.base.event.PlayerFreezeEvent;
+import com.customhcf.util.BukkitUtils;
+import com.customhcf.util.ParticleEffect;
+import com.customhcf.util.chat.ClickAction;
+import com.customhcf.util.chat.Text;
+import net.minecraft.util.gnu.trove.map.TObjectLongMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
+import org.apache.commons.lang.time.DurationFormatUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.Location;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.EventHandler;
-import org.bukkit.entity.Entity;
-import org.bukkit.event.entity.EntityDamageEvent;
-import com.customhcf.util.BukkitUtils;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-
-import java.util.*;
-
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitTask;
-import com.customhcf.util.chat.ClickAction;
-import com.customhcf.util.chat.Text;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.customhcf.util.ParticleEffect;
-import org.bukkit.event.Event;
-import com.customhcf.base.event.PlayerFreezeEvent;
-import com.customhcf.base.BaseConstants;
-import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
-import com.customhcf.base.BasePlugin;
-import net.minecraft.util.gnu.trove.map.TObjectLongMap;
-import org.bukkit.event.Listener;
-import com.customhcf.base.command.BaseCommand;
 
 public class FreezeCommand extends BaseCommand implements Listener
 {
@@ -165,7 +158,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "You have been frozen by a staff member.");
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "If you logout you will be " + ChatColor.DARK_RED + ChatColor.BOLD + "BANNED" + ChatColor.YELLOW + '.');
                     p.sendMessage(ChatColor.WHITE + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + ChatColor.GOLD + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588 " + ChatColor.YELLOW + "Please connect to our Teamspeak" + ChatColor.YELLOW + '.');
-                    new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + " (ts.veilhcf.us) " + ChatColor.ITALIC + "Click me to download" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "http://www.teamspeak.com/downloads").send(p);
+                    new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + " (ts.veilhcf.us) " + ChatColor.ITALIC + "Click me to connect" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "https://veilhcf.us/ts3").send(p);
                     p.sendMessage(ChatColor.RED + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
                     p.sendMessage(ChatColor.WHITE + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
                 }
