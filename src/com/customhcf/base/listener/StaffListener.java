@@ -76,6 +76,11 @@ public class StaffListener implements Listener {
                     return;
                 }
 
+                if(onPlayers.get(r.nextInt()) == null){
+                    p.sendMessage(ChatColor.RED + "There are no players to teleport to.");
+                    return;
+                }
+
                 final Player target = onPlayers.get(r.nextInt());
 
                 p.teleport(target);
