@@ -225,7 +225,8 @@ public class MobstackListener extends BukkitRunnable implements Listener {
     private void setStackedQuantity(LivingEntity livingEntity, int quantity)
     {
         Preconditions.checkArgument(quantity >= 0, "Stacked quantity cannot be negative");
-        Preconditions.checkArgument(quantity <= 200, "Stacked quantity cannot be more than 200");
+        if(quantity <= 200) return;
+        //Preconditions.checkArgument(quantity <= 200, "Stacked quantity cannot be more than 200");
         if (quantity <= 1)
         {
             livingEntity.setCustomName(null);
