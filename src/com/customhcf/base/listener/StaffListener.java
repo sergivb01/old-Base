@@ -27,8 +27,6 @@ import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.
 import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getVanishTool;
 
 public class StaffListener implements Listener {
-    private Random r = new Random();
-    private ArrayList<Player> onPlayers = new ArrayList<>();
 
     private Inventory inv;
 
@@ -66,22 +64,18 @@ public class StaffListener implements Listener {
                     return;
                 }
 
-                onPlayers.clear();
-                for (Player on : Bukkit.getOnlinePlayers()) {
-                    if(!on.equals(p)) onPlayers.add(on);
+                final ArrayList<Player> players = new ArrayList<>();
+                for (final Player p2 : Bukkit.getOnlinePlayers()) {
+                    if(p2 != p) players.add(p2);
                 }
 
-                if (onPlayers.size() == 0) {
+                if (players.size() == 0) {
                     p.sendMessage(ChatColor.RED + "There are no players to teleport to.");
                     return;
                 }
 
-                if(onPlayers.get(r.nextInt()) == null){
-                    p.sendMessage(ChatColor.RED + "There are no players to teleport to.");
-                    return;
-                }
 
-                final Player target = onPlayers.get(r.nextInt());
+                final Player target = players.get(new Random().nextInt(players.size()));
 
                 p.teleport(target);
                 p.sendMessage(ChatColor.YELLOW + "You have been teleported to " + ChatColor.GREEN + target.getName());
