@@ -7,15 +7,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
@@ -121,12 +118,6 @@ public class StaffListener implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
-        final Entity entity = event.getEntity();
-
-    }
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -134,6 +125,9 @@ public class StaffListener implements Listener {
         Inventory inventory = event.getInventory();
         ItemStack clicked = event.getCurrentItem();
         if (inventory.getName().equals("Xrayer Gui")) {
+            if(clicked == null){
+                return;
+            }
             if (clicked.getType() == Material.SKULL_ITEM) {
                 Bukkit.dispatchCommand(player, "tp " + ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
             }
