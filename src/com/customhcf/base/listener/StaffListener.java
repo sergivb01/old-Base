@@ -36,7 +36,7 @@ public class StaffListener implements Listener {
             final ItemStack hand = event.getPlayer().getItemInHand();
             Player p = event.getPlayer();
             BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
-            if (hand.getType() == Material.DIAMOND_PICKAXE) {
+            /*if (hand.getType() == Material.DIAMOND_PICKAXE) {
                 if (baseUser.isStaffUtil()) {
                     int Counter = 0;
                     this.inv = Bukkit.createInventory(null, 54, "Xrayer Gui");
@@ -62,7 +62,7 @@ public class StaffListener implements Listener {
                     }
                     p.openInventory(inv);
                 }
-            }
+            } */
             if (hand.equals(StaffUtilitiesCommand.getRandomTeleport())) {
                 if (!p.hasPermission("command.random")) {
                     p.sendMessage(ChatColor.RED + "No permission!");
@@ -110,7 +110,7 @@ public class StaffListener implements Listener {
                 p.sendMessage(ChatColor.YELLOW + "Vanish mode of " + p.getName() + " set to " + "true" + '.');
             }
         }
-        if(event.getAction().equals(Action.LEFT_CLICK_AIR) || (event.getAction().equals(Action.LEFT_CLICK_BLOCK))) {
+        if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             final ItemStack hand = event.getPlayer().getItemInHand();
             Player p = event.getPlayer();
             BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
