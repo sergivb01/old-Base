@@ -56,7 +56,7 @@ extends BaseCommand {
             }
             ammount = Integer.parseInt(args[2]);
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Has given " + t.getName() + ammount.toString());
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have given " + t.getName() + " " + ammount.toString() + " " + BasePlugin.getPlugin().getItemDb().getItem(args[1]));
         return true;
     }
 }
