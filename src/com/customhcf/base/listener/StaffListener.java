@@ -110,6 +110,35 @@ public class StaffListener implements Listener {
                 p.sendMessage(ChatColor.YELLOW + "Vanish mode of " + p.getName() + " set to " + "true" + '.');
             }
         }
+        if(event.getAction().equals(Action.LEFT_CLICK_AIR) || (event.getAction().equals(Action.LEFT_CLICK_BLOCK))) {
+            final ItemStack hand = event.getPlayer().getItemInHand();
+            Player p = event.getPlayer();
+            BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId());
+            if (hand.getType() == Material.DIAMOND_PICKAXE) {
+                if (baseUser.isStaffUtil()) {
+
+                    final ArrayList<Player> players = new ArrayList<>();
+                    for (final Player p2 : Bukkit.getOnlinePlayers()) {
+                        if ((p2 != p) && (!p2.hasPermission("command.random") && (p2.getLocation().getY() < 20))) {
+                            players.add(p2);
+                        }
+                    }
+
+                    if (players.size() == 0) {
+                        p.sendMessage(ChatColor.GRAY + "(Miner) " + ChatColor.RED + "There are no players to teleport to.");
+                        return;
+                    }
+
+
+                    final Player target = players.get(new Random().nextInt(players.size()));
+
+                    p.teleport(target);
+                    p.sendMessage(ChatColor.GRAY + "(Miner) " + ChatColor.YELLOW + "You have been teleported to " + ChatColor.GREEN + target.getName());
+                    event.setCancelled(true);
+                }
+            }
+        }
+
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             final ItemStack hand = event.getPlayer().getItemInHand();
             if (hand.equals(StaffUtilitiesCommand.getRandomTeleport())) {
