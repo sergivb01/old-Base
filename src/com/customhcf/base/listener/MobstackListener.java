@@ -201,7 +201,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         if (toremove.getType() != tostack.getType()) {
             return false;
         }
-        if ((toremove.getType() == EntityType.SLIME) || (toremove.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.SLIME) || (tostack.getType() == EntityType.MAGMA_CUBE)) {
+        if ((toremove.getType() == EntityType.SLIME) || (toremove.getType() == EntityType.MAGMA_CUBE) || (tostack.getType() == EntityType.SLIME) || (tostack.getType() == EntityType.MAGMA_CUBE) || tostack.getType() == EntityType.VILLAGER) {
             return false;
         }
         toremove.remove();
