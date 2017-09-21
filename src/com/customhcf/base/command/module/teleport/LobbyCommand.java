@@ -12,7 +12,6 @@ import org.bukkit.plugin.Plugin;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -51,14 +50,14 @@ public class LobbyCommand extends BaseCommand
 
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(b);
+        int lobbyNumber = (int) ( Math.random() * 2 + 1);
         try{
-            p.sendMessage(ChatColor.GREEN + "You have been sent to the lobby.");
+            p.sendMessage(ChatColor.GREEN + "You have been sent to the lobby " + lobbyNumber + ".");
             out.writeUTF("Connect");
-            out.writeUTF("lobby1");
+            out.writeUTF("lobby" + lobbyNumber);
         }
         catch (IOException e){
-            //e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "Error while trying to connect to the lobby.");
+            p.sendMessage(ChatColor.RED + "Error while trying to connect to the lobby" + lobbyNumber + ".");
         }
         p.sendPluginMessage(main, "BungeeCord", b.toByteArray());
 
