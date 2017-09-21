@@ -1,7 +1,3 @@
-// 
-
-// 
-
 package com.customhcf.base.command.module.essential;
 
 import com.customhcf.base.BaseConstants;
@@ -12,8 +8,8 @@ import com.customhcf.base.user.BaseUser;
 import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.chat.ClickAction;
 import com.customhcf.util.chat.Text;
-import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.util.org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
@@ -22,14 +18,9 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +80,7 @@ public class WhoisCommand extends BaseCommand
             sender.sendMessage(ChatColor.YELLOW + "  Notes: " + ChatColor.RED + "none");
         }
         final int version = ((CraftPlayer) target).getHandle().playerConnection.networkManager.getVersion();
-        sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + MoreObjects.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
+        sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + ObjectUtils.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
@@ -105,3 +96,4 @@ public class WhoisCommand extends BaseCommand
         CLIENT_PROTOCOL_IDS = ImmutableMap.of(4, "1.7.5", 5, "1.7.10", 47, "1.8");
     }
 }
+
