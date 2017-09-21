@@ -2,17 +2,16 @@
 package com.customhcf.base.command.module.chat;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.ServerHandler;
 import com.customhcf.base.command.BaseCommand;
 import com.customhcf.util.JavaUtils;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.kohsuke.rngom.parse.host.Base;
+
+import java.util.concurrent.TimeUnit;
 
 public class DisableChatCommand
 extends BaseCommand {
@@ -35,7 +34,7 @@ extends BaseCommand {
         } else if (args.length < 1) {
             newTicks = DisableChatCommand.DEFAULT_DELAY;
         } else {
-            newTicks = JavaUtils.parse(StringUtils.join((Object[]) args, ' ', 0, args.length));
+            newTicks = JavaUtils.parse(StringUtils.join(args, ' ', 0, args.length));
             if (newTicks == -1L) {
                 sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
                 return true;

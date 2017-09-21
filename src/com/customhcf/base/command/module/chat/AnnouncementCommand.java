@@ -3,6 +3,7 @@ package com.customhcf.base.command.module.chat;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.BaseCommand;
+import com.customhcf.base.task.AnnouncementHandler;
 import com.customhcf.util.BukkitUtils;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +24,7 @@ extends BaseCommand {
         super("announcement", "Broadcasts a message to the server.");
         this.setAliases(new String[]{"announce", "ann"});
         this.COMPLETIONS = ImmutableList.of("add", "remove", "list", "delay");
-        this.setUsage("/(command) <add|remove|list|delay> <text..|delay>");
+        this.setUsage("/(command) <add|remove|list|delay> <text..|delay in s>");
         this.plugin = plugin;
     }
 
@@ -80,9 +81,11 @@ extends BaseCommand {
                 if (this.plugin.getServerHandler().getAnnouncementDelay() == integer) {
                     return true;
                 }
-                this.plugin.getServerHandler().setAnnouncementDelay(integer);
-                BasePlugin.getPlugin().getAnnouncementTask().cancel();
-                BasePlugin.getPlugin().getAnnouncementTask().runTaskTimerAsynchronously(BasePlugin.getPlugin(), (long)this.plugin.getServerHandler().getAnnouncementDelay(), (long)this.plugin.getServerHandler().getAnnouncementDelay());
+
+                this.plugin.getServerHandler().setAnnouncementDelay(integer * 20);
+                BasePlugin.getPlugin().announcementTask.cancel();
+                final AnnouncementHandler announcementTask = new AnnouncementHandler(this.plugin);
+                (BasePlugin.getPlugin().announcementTask = announcementTask).runTaskTimerAsynchronously(BasePlugin.getPlugin(), (long)this.plugin.getServerHandler().getAnnouncementDelay(), (long)this.plugin.getServerHandler().getAnnouncementDelay());
                 Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Announcement Delay has been modified to " + integer);
                 return true;
             }

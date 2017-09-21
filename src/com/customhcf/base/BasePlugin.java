@@ -48,7 +48,7 @@ extends JavaPlugin {
     @Getter private RandomUtils randomUtils;
     @Getter private AutoRestartHandler autoRestartHandler;
     @Getter private BukkitRunnable clearEntityHandler;
-    @Getter private BukkitRunnable announcementTask;
+    @Getter public BukkitRunnable announcementTask;
     @Getter private CommandManager commandManager;
     @Getter private KitManager kitManager;
     @Getter private PlayTimeManager playTimeManager;
