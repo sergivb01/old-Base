@@ -21,8 +21,8 @@ public class ServerHandler {
     @Getter @Setter public boolean useProtocolLib;
     @Getter @Setter private int announcementDelay;
     @Getter @Setter private long chatSlowedMillis;
-    @Getter @Setter private long chatDisabledMillis;
-    @Getter @Setter private int chatSlowedDelay;
+    @Setter private long chatDisabledMillis;
+    @Setter private int chatSlowedDelay;
     @Getter private String broadcastFormat;
     @Getter private FileConfiguration config;
     @Getter @Setter private boolean decreasedLagMode;
@@ -47,26 +47,6 @@ public class ServerHandler {
         } else if (environment.equals(World.Environment.THE_END)) {
             this.endBorder = integer;
         }
-    }
-
-    public long getRemainingChatDisabledMillis() {
-        return this.chatDisabledMillis - System.currentTimeMillis();
-    }
-
-    public long getRemainingChatSlowedMillis() {
-        return this.chatSlowedMillis - System.currentTimeMillis();
-    }
-
-    public boolean isChatDisabled() {
-        return this.getRemainingChatDisabledMillis() > 0;
-    }
-
-    public boolean isChatSlowed() {
-        return this.getRemainingChatSlowedMillis() > 0;
-    }
-
-    public long getChatDisabledMillis() {
-        return this.chatDisabledMillis;
     }
 
     private void reloadServerData() {
@@ -120,5 +100,36 @@ public class ServerHandler {
         this.config.set("border.endBorder", this.endBorder);
         this.plugin.saveConfig();
     }
+
+
+    public void setChatSlowedMillis(long ticks) {
+        this.chatSlowedMillis = System.currentTimeMillis() + ticks;
+    }
+
+    public long getRemainingChatSlowedMillis() {
+        return this.chatSlowedMillis - System.currentTimeMillis();
+    }
+
+    public boolean isChatDisabled() {
+        return this.getRemainingChatDisabledMillis() > 0;
+    }
+
+    public long getChatDisabledMillis() {
+        return this.chatDisabledMillis;
+    }
+
+    public void setChatDisabledMillis(long ticks) {
+        long millis = System.currentTimeMillis();
+        this.chatDisabledMillis = millis + ticks;
+    }
+
+    public long getRemainingChatDisabledMillis() {
+        return this.chatDisabledMillis - System.currentTimeMillis();
+    }
+
+    public int getChatSlowedDelay() {
+        return this.chatSlowedDelay;
+    }
+
 }
 

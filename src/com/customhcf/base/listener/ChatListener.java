@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class ChatListener
-implements Listener {
+        implements Listener {
     private static final String MESSAGE_SPY_FORMAT = ChatColor.GRAY + "[" + ChatColor.GOLD + "SS: " + ChatColor.AQUA + "%1$s" + ChatColor.GRAY + " -> " + ChatColor.AQUA + "%2$s" + ChatColor.GRAY + "] %3$s";
     private static final String STAFF_CHAT_NOTIFY = "rank.staff";
     private static final String SLOWED_CHAT_BYPASS = "rank.staff";
@@ -145,4 +145,3 @@ implements Listener {
         }
     }
 }
-
