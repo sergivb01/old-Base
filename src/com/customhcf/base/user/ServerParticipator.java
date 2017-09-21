@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public abstract class ServerParticipator
-implements ConfigurationSerializable {
+public abstract class ServerParticipator implements ConfigurationSerializable {
     private final UUID uniqueId;
     private final Set<String> ignoring = Sets.newTreeSet((Comparator)String.CASE_INSENSITIVE_ORDER);
     private final Set<String> messageSpying = Sets.newHashSet();
