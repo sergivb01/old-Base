@@ -17,8 +17,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class ProtocolHook
-{
+public class ProtocolHook{
 
     public static void hook(final BasePlugin basePlugin) {
         final ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
@@ -42,6 +41,7 @@ public class ProtocolHook
                 }
             }
         });
+
         protocolManager.addPacketListener(new PacketAdapter(basePlugin, PacketType.Play.Server.ENTITY_METADATA) {
             public void onPacketSending(final PacketEvent event) {
                 if (!basePlugin.getServerHandler().useProtocolLib) {
@@ -64,6 +64,7 @@ public class ProtocolHook
                 }
             }
         });
+
     }
 
     private static void convert(final ItemStack origin) {
@@ -90,6 +91,4 @@ public class ProtocolHook
         }
     }
 
-    static {
-    }
 }
