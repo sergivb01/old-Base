@@ -14,8 +14,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class DecreasedLagListener
-implements Listener {
+public class DecreasedLagListener implements Listener {
     private final BasePlugin plugin;
     private static final String COMMAND = "stoplag";
 

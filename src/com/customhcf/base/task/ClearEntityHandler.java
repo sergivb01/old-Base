@@ -11,8 +11,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Tameable;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class ClearEntityHandler
-extends BukkitRunnable {
+public class ClearEntityHandler extends BukkitRunnable {
     public void run() {
         for (World world : Bukkit.getWorlds()) {
             for (Chunk chunk : world.getLoadedChunks()) {
@@ -24,5 +23,6 @@ extends BukkitRunnable {
             }
         }
     }
+
 }
 

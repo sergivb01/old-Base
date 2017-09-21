@@ -144,4 +144,6 @@ public class ChatListener
             target.sendMessage(String.format(Locale.ENGLISH, MESSAGE_SPY_FORMAT, sender.getName(), recipient.getName(), message));
         }
     }
+
+
 }
