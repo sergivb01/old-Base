@@ -278,7 +278,6 @@ public class BaseUser extends ServerParticipator
         }
         return false;
     }
-    
     public void updateVanishedState(final Player player, final boolean vanished) {
         this.updateVanishedState(player, new HashSet<Player>(Bukkit.getOnlinePlayers()), vanished);
     }

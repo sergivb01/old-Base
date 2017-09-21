@@ -12,10 +12,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.kohsuke.rngom.parse.host.Base;
 
 public class DisableChatCommand
 extends BaseCommand {
-    private static final long DEFAULT_DELAY = TimeUnit.MINUTES.toMillis(5);
+    private static final long DEFAULT_DELAY;
     private final BasePlugin plugin;
 
     public DisableChatCommand(BasePlugin plugin) {
@@ -27,22 +28,26 @@ extends BaseCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        long newTicks;
         long oldTicks = this.plugin.getServerHandler().getRemainingChatDisabledMillis();
-        if (oldTicks > 0) {
-            newTicks = 0;
+        long newTicks;
+        if (oldTicks > 0L) {
+            newTicks = 0L;
         } else if (args.length < 1) {
-            newTicks = DEFAULT_DELAY;
+            newTicks = DisableChatCommand.DEFAULT_DELAY;
         } else {
-            newTicks = JavaUtils.parse(StringUtils.join(args, ' ', 0, args.length));
-            if (newTicks == -1) {
+            newTicks = JavaUtils.parse(StringUtils.join((Object[]) args, ' ', 0, args.length));
+            if (newTicks == -1L) {
                 sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m1s");
                 return true;
             }
         }
         this.plugin.getServerHandler().setChatDisabledMillis(newTicks);
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("disabled for ").append(DurationFormatUtils.formatDurationWords(newTicks, true, true)).toString() : "no longer disabled") + ChatColor.YELLOW + '.');
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is now " + ((newTicks > 0L) ? (ChatColor.RED + "disabled" + ChatColor.YELLOW + " for " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(newTicks, true, true)) : (ChatColor.GREEN + "enabled")));
         return true;
+    }
+
+    static {
+        DEFAULT_DELAY = TimeUnit.MINUTES.toMillis(3L);
     }
 }
 

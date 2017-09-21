@@ -65,6 +65,10 @@ public class ServerHandler {
         return this.getRemainingChatSlowedMillis() > 0;
     }
 
+    public long getChatDisabledMillis() {
+        return this.chatDisabledMillis;
+    }
+
     private void reloadServerData() {
         this.plugin.reloadConfig();
         this.config = this.plugin.getConfig();

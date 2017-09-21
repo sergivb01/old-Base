@@ -81,7 +81,7 @@ public class AutoRestartHandler {
                     Bukkit.broadcastMessage(" ");
                     Bukkit.broadcastMessage(ChatColor.YELLOW + "   Time: " + ChatColor.WHITE + DurationFormatUtils.formatDurationWords(remainingMillis, true, true));
                     if(reason == null) {
-                        Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + "None specified");
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.GREEN + "Scheduled Restart");
                     } else {
                         Bukkit.broadcastMessage(ChatColor.YELLOW + "   Reason: " + ChatColor.WHITE + reason.replace("[", "").replace("]", ""));
                     }

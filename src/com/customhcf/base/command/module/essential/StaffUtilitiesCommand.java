@@ -54,7 +54,7 @@ public class StaffUtilitiesCommand extends BaseCommand
 	public static ItemStack getXrayGUI() {
         ItemStack is = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.GOLD + "Miners " + ChatColor.GRAY + "(Right Click)");
+        im.setDisplayName(ChatColor.GOLD + "Miner Teleport " + ChatColor.GRAY + "(Right Click)");
     //    xrayGuiMeta.setLore(Color.translateFromArray(Arrays.asList(new String[]{"&7Used to get a list of possible xrayers"})));
         is.setItemMeta(im);
         return is;
