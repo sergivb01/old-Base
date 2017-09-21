@@ -128,16 +128,12 @@ public class FreezeCommand extends BaseCommand implements Listener
             inv.setItem(5, freezeEsp);
 
 
-            ItemStack admit = new ItemStack(Material.IRON_DOOR, 1, (short) 3);
+            ItemStack admit = new ItemStack(Material.BOOK, 1, (short) 3);
             ItemMeta admitmeta = freezeEng.getItemMeta();
             admitmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "Click to admit"), (ChatColor.RED + "Click para admitir"))));
             admitmeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Admit?");
             admit.setItemMeta(admitmeta);
             inv.setItem(0, admit);
-
-
-
-
             target.openInventory(inv);
 
             Command.broadcastCommandMessage(sender, ChatColor.YELLOW + target.getName() + " is now frozen");
@@ -291,11 +287,11 @@ public class FreezeCommand extends BaseCommand implements Listener
         ItemStack clicked = event.getCurrentItem();
         Inventory inventory = event.getInventory();
         if (inventory.getName().equals("Frozen")) {
-            if (clicked.getType() == Material.IRON_DOOR) {
+            if (clicked.getType() == Material.BOOK) {
                 for (final Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("base.command.freeze")) {
                         online.sendMessage(" ");
-                        new Text(ChatColor.RED + player.getName() + " has clicked to " + ChatColor.AQUA + "admit").send(online);
+                        new Text(ChatColor.RED + player.getName() + " has clicked to admit").send(online);
                         online.sendMessage(" ");
                         inv.setItem(0 , new ItemStack(Material.AIR));
                     }

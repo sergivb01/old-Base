@@ -15,7 +15,6 @@ extends BaseCommandModule {
         this.commands.add(new DonateCommand());
         this.commands.add(new AutoRestartCommand(plugin));
         this.commands.add(new ListCommand());
-        this.commands.add(new AuthCommand(plugin));
         this.commands.add(new EnchantCommand());
         this.commands.add(new NoteCommand());
         this.commands.add(new FeedCommand());
