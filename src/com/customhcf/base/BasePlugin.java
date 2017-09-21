@@ -153,6 +153,7 @@ extends JavaPlugin {
         manager.registerEvents(new ReportCommand(), this);
         manager.registerEvents(new KitListener(this), this);
         manager.registerEvents(new MoveByBlockEvent(), this);
+        manager.registerEvents(new MobDamageListener(), this);
         manager.registerEvents(new MobstackListener(this), this);
         manager.registerEvents(new StaffListener(), this);
         manager.registerEvents(new NameVerifyListener(this), this);
