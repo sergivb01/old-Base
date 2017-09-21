@@ -8,9 +8,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import java.util.Map;
 
-public class Warp
-extends PersistableLocation
-implements ConfigurationSerializable {
+public class Warp extends PersistableLocation implements ConfigurationSerializable {
     private String name;
     private String permission;
 
