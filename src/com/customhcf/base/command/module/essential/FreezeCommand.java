@@ -136,6 +136,13 @@ public class FreezeCommand extends BaseCommand implements Listener
             inv.setItem(0, admit);
             target.openInventory(inv);
 
+            ItemStack ts = new ItemStack(Material.WOOL, 1, (short) 5);
+            ItemMeta tsMeta = ts.getItemMeta();
+            tsMeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.GREEN + "Inform staff that you are joining teamspeak"), (ChatColor.GREEN + "Informar al staff que estas conectandote a teamspeak"), (ChatColor.YELLOW + "ts.veilhcf.us"))));
+            tsMeta.setDisplayName(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Teamspeak");
+            ts.setItemMeta(tsMeta);
+            inv.setItem(8, ts);
+
             Command.broadcastCommandMessage(sender, ChatColor.YELLOW + target.getName() + " is now frozen");
         }
         return true;
@@ -297,9 +304,18 @@ public class FreezeCommand extends BaseCommand implements Listener
                     }
                 }
             }
+            if (clicked.getType() == Material.WOOL) {
+                for (final Player online : Bukkit.getOnlinePlayers()) {
+                    if (online.hasPermission("base.command.freeze")) {
+                        new Text(ChatColor.RED + player.getName() + " has said they are joining Teamspeak").send(online);
+                        inv.setItem(8 , new ItemStack(Material.AIR));
+                    }
+                }
+            }
             event.setCancelled(true);
 
         }
+
     }
 
 }
