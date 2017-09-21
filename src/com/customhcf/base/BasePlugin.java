@@ -60,6 +60,31 @@ extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
+        Plugin plugin = this.getServer().getPluginManager().getPlugin("ProtocolLib");
+        if (plugin != null && plugin.isEnabled()) {
+            try {
+                ProtocolHook.hook(this);
+            }
+            catch (Exception ex) {
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
+                Bukkit.shutdown();
+                ex.printStackTrace();
+            }
+        }
+
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -79,16 +104,6 @@ extends JavaPlugin {
         this.reloadSchedulers();
 
 
-        Plugin plugin = this.getServer().getPluginManager().getPlugin("ProtocolLib");
-        if (plugin != null && plugin.isEnabled()) {
-            try {
-                ProtocolHook.hook(this);
-            }
-            catch (Exception ex) {
-                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
-                ex.printStackTrace();
-            }
-        }
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
     }
