@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getBookTool;
@@ -166,6 +167,34 @@ public class StaffListener implements Listener {
                 Bukkit.dispatchCommand(player, "tp " + ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
             }
         }
+        if(inventory.getName().contains("Inventory: ")) {
+            Player target = Bukkit.getPlayer(event.getInventory().getTitle().substring("Inventory: ".length()));
+            switch(event.getCurrentItem().getItemMeta().getDisplayName().toLowerCase()) {
+                case "§cclear inventory":
+                    Bukkit.dispatchCommand(player, "ci " + target.getName());
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    break;
+                case "§cplayer history":
+                    Bukkit.dispatchCommand(player, "history " + target.getName());
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    break;
+                case "§cplayer alts":
+                    Bukkit.dispatchCommand(player, "alts " + target.getName());
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    break;
+                case "§bfreeze player":
+                    Bukkit.dispatchCommand(player, "freeze " + target.getName());
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    break;
+
+            }
+            event.setCancelled(true);
+        }
+
         if (baseUser.isStaffUtil()) {
             event.setCancelled(true);
         }
@@ -184,8 +213,80 @@ public class StaffListener implements Listener {
                     return;
                 }
 
-                p.openInventory(rightclick.getInventory());
-                p.sendMessage(ChatColor.YELLOW + "Opening the inventory of " + ChatColor.BOLD + rightclick.getName() + ChatColor.YELLOW + ".");
+                Inventory i = null;
+                if (i != null) {
+                    i.clear();
+                }
+                i = Bukkit.createInventory(rightclick.getPlayer(), 54, "Inventory: " + rightclick.getPlayer().getName());
+                if (rightclick.getPlayer().getInventory().getHelmet() != null) {
+                    i.setItem(0, rightclick.getPlayer().getInventory().getHelmet());
+                }
+                if (rightclick.getPlayer().getInventory().getChestplate() != null) {
+                    i.setItem(1, rightclick.getPlayer().getInventory().getChestplate());
+                }
+                if (rightclick.getPlayer().getInventory().getLeggings() != null) {
+                    i.setItem(2, rightclick.getPlayer().getInventory().getLeggings());
+                }
+                if (rightclick.getPlayer().getInventory().getBoots() != null) {
+                    i.setItem(3,  rightclick.getPlayer().getInventory().getBoots());
+                }
+                if (rightclick.getPlayer().getItemInHand() != null) {
+                    i.setItem(4, rightclick.getPlayer().getItemInHand());
+                }
+                int a = 0;
+                for (int ix = 9; ix < rightclick.getPlayer().getInventory().getSize() + 9; ix++) {
+                    i.setItem(ix, rightclick.getPlayer().getInventory().getItem(ix - 9));
+                    a = ix;
+                }
+
+                ItemStack clearItem = new ItemStack(Material.BLAZE_POWDER);
+                ItemMeta clearMeta = clearItem.getItemMeta();
+                clearMeta.setDisplayName("§cClear inventory");
+                clearItem.setItemMeta(clearMeta);
+                i.setItem(a + 1, clearItem);
+
+                ItemStack freezeItem = new ItemStack(Material.PACKED_ICE);
+                ItemMeta freezeMeta = freezeItem.getItemMeta();
+                freezeMeta.setDisplayName("§bFreeze Player");
+                freezeItem.setItemMeta(freezeMeta);
+                i.setItem(a + 4, freezeItem);
+
+                ItemStack altsItem = new ItemStack(Material.PAPER);
+                ItemMeta altsMeta = altsItem.getItemMeta();
+                altsMeta.setDisplayName("§cPlayer Alts");
+                altsItem.setItemMeta(altsMeta);
+                i.setItem(a + 3, altsItem);
+
+                ItemStack histItem = new ItemStack(Material.getMaterial(101));
+                ItemMeta histMeta = histItem.getItemMeta();
+                histMeta.setDisplayName("§cPlayer History");
+                histItem.setItemMeta(histMeta);
+                i.setItem(a + 2, histItem);
+
+                ItemStack health = new ItemStack(Material.GOLDEN_APPLE);
+                ItemMeta healthMeta = health.getItemMeta();
+                healthMeta.setDisplayName("§aPlayer Health");
+                healthMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Health is: " + rightclick.getPlayer().getHealth()));
+                health.setItemMeta(healthMeta);
+                i.setItem(a + 8, health);
+
+                ItemStack food = new ItemStack(Material.COOKED_BEEF);
+                ItemMeta foodMeta = health.getItemMeta();
+                foodMeta.setDisplayName("§aPlayer Hunger");
+                foodMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Hunger is: " + rightclick.getPlayer().getFoodLevel()));
+                food.setItemMeta(foodMeta);
+                i.setItem(a + 9, food);
+
+
+
+                p.openInventory(i);
+                p.sendMessage("§eOpening the inventory of " + rightclick.getName());
+                return;
+
+
+
+
+
             } else if (hand.equals(StaffUtilitiesCommand.getFreezeTool())) {
                 if (!p.hasPermission("command.staffmode")) {
                     p.sendMessage(ChatColor.RED + "No permission!");

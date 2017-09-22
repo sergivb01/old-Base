@@ -90,7 +90,7 @@ public class VanishListener implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
+   /* @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         Player player;
         Entity entity = event.getRightClicked();
@@ -98,7 +98,7 @@ public class VanishListener implements Listener {
             player.openInventory(((Player)entity).getInventory());
             event.setCancelled(true);
         }
-    }
+    } */
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
     public void onEntityTarget(EntityTargetEvent event) {
