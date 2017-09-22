@@ -11,10 +11,7 @@ import com.customhcf.util.chat.Text;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -300,6 +297,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                         online.sendMessage(" ");
                         new Text(ChatColor.RED + player.getName() + " has clicked to admit").send(online);
                         online.sendMessage(" ");
+                        online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(0 , new ItemStack(Material.AIR));
                     }
                 }
@@ -308,6 +306,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                 for (final Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("base.command.freeze")) {
                         new Text(ChatColor.RED + player.getName() + " has said they are joining Teamspeak").send(online);
+                        online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(8 , new ItemStack(Material.AIR));
                     }
                 }
