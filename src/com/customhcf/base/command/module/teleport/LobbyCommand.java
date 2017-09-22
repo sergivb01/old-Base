@@ -55,8 +55,7 @@ public class LobbyCommand extends BaseCommand
             p.sendMessage(ChatColor.GREEN + "You have been sent to the lobby " + lobbyNumber + ".");
             out.writeUTF("Connect");
             out.writeUTF("lobby" + lobbyNumber);
-        }
-        catch (IOException e){
+        }catch (IOException e){
             p.sendMessage(ChatColor.RED + "Error while trying to connect to the lobby" + lobbyNumber + ".");
         }
         p.sendPluginMessage(main, "BungeeCord", b.toByteArray());
