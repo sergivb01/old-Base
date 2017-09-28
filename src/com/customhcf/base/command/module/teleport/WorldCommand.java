@@ -46,7 +46,7 @@ extends BaseCommand implements Listener {
         ItemStack overworld = new ItemStack(Material.GRASS, 1, (short) 3);
         ItemMeta overworldm = overworld.getItemMeta();
         overworldm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Overworld"))));
-        overworldm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "");
+        overworldm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Overworld");
         overworld.setItemMeta(overworldm);
         inv.setItem(2, overworld);
 
@@ -54,14 +54,14 @@ extends BaseCommand implements Listener {
         ItemMeta netherm = nether.getItemMeta();
         netherm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Nether"))));
         netherm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Nether");
-        nether.setItemMeta(overworldm);
+        nether.setItemMeta(netherm);
         inv.setItem(4, nether);
 
         ItemStack end = new ItemStack(Material.ENDER_STONE, 1, (short) 3);
         ItemMeta endm = end.getItemMeta();
         endm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "End"))));
         endm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "End");
-        end.setItemMeta(overworldm);
+        end.setItemMeta(endm);
         inv.setItem(6, end);
 
         ((Player) sender).openInventory(inv);
@@ -119,20 +119,6 @@ extends BaseCommand implements Listener {
             event.setCancelled(true);
 
         }
-    }
-
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length != 1) {
-            return Collections.emptyList();
-        }
-        List worlds = Bukkit.getWorlds();
-        ArrayList<String> results = new ArrayList<String>(worlds.size());
-        for (World world : Bukkit.getWorlds()) {
-            results.add(world.getName());
-        }
-        return BukkitUtils.getCompletions(args, results);
     }
 }
 
