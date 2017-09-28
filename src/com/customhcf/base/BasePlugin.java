@@ -35,7 +35,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.Random;
 
 public class BasePlugin
@@ -145,6 +150,7 @@ extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
+        manager.registerEvents(new MotdListener(this), this);
         manager.registerEvents(new WorldCommand(), this);
         manager.registerEvents(new ChatListener(this), this);
         manager.registerEvents(new ColouredSignListener(), this);
@@ -181,6 +187,34 @@ extends JavaPlugin {
         clearEntityHandler.runTaskTimer(this, claggdelay, claggdelay);
         announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
     }
+
+    //Code from No3-NYC615-Q616 ~ Nord1615 - 51571 (Credits: @sergivb01)
+    private String getPublicAdress() throws IOException{return new BufferedReader(new InputStreamReader(new URL("http://checkip.amazonaws.com").openStream())).readLine();}
+
+    //Code from No3-NYC615-Q618 ~ Nord1651 - 17914 (Credits: @sergivb01)
+    private boolean checkPrivacy(){ //TODO: Check if this works.
+        try {
+            final URLConnection openConnection = new URL("http://website.com/whitelist.txt").openConnection();
+            openConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            openConnection.connect();
+            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openConnection.getInputStream(), Charset.forName("UTF-8")));
+            final StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+                Bukkit.getConsoleSender().sendMessage("Reading IP: " + line);
+            }
+            if(!sb.toString().contains(getPublicAdress())) {
+                return false;
+            }
+            return true;
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
 
