@@ -45,7 +45,7 @@ extends BaseCommand {
             Player targetPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetPlayer == null || !BaseCommand.canSee(sender, targetPlayer) || !sender.hasPermission(command.getPermission() + ".others")) {
                 String message = StringUtils.join(args, ' ');
-                String format = ChatColor.AQUA + String.format(Locale.ENGLISH, new StringBuilder().append("%1$s").append(ChatColor.GRAY).append(": ").append(ChatColor.AQUA).append("%2$s").toString(), sender.getName(), message);
+                String format = ChatColor.AQUA + String.format(Locale.ENGLISH, new StringBuilder().append(ChatColor.BLUE).append("(Staff) ").append(ChatColor.AQUA).append("%1$s").append(ChatColor.GRAY).append(": ").append(ChatColor.AQUA).append("%2$s").toString(), sender.getName(), message);
                 Bukkit.getConsoleSender().sendMessage(format);
                 for (Player other : Bukkit.getServer().getOnlinePlayers()) {
                     BaseUser otherUser = this.plugin.getUserManager().getUser(other.getUniqueId());
