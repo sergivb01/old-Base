@@ -64,7 +64,7 @@ public class ChatListener
                 }
             }
             if (staffChattable.contains(player) && baseUser.isInStaffChat()) {
-                final String format = ChatColor.AQUA + String.format(Locale.ENGLISH, "%1$s" + ChatColor.AQUA + ": %2$s", player.getName(), event.getMessage());
+                final String format = ChatColor.AQUA + String.format(Locale.ENGLISH, ChatColor.BLUE + "(Staff) " + ChatColor.AQUA + "%1$s" + ChatColor.GRAY + ": " + ChatColor.AQUA + "%2$s", player.getName(), event.getMessage());
                 for (final CommandSender target2 : staffChattable) {
                     if (target2 instanceof Player) {
                         final Player targetPlayer = (Player)target2;
