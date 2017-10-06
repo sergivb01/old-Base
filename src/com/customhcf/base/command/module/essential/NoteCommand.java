@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 public class NoteCommand
 extends BaseCommand {
     public NoteCommand() {
-        super("note", "add, removes, and checks notes for a base user");
+        super("note", "add, removes, and checks notes for a user");
         this.setUsage("/(command) <add|remove|check> <playerName> [note]");
         this.setAliases(new String[]{"addnote, notes, checknote, removenote"});
     }
@@ -41,22 +41,22 @@ extends BaseCommand {
             BaseUser targetUser = BasePlugin.getPlugin().getUserManager().getUser(target.getUniqueId());
             String note = StringUtils.join(args, ' ', 2, args.length);
             if (args[0].equalsIgnoreCase("add")) {
-                String upTime = DateFormatUtils.format(System.currentTimeMillis(), "MM/dd/yy");
+                String upTime = DateFormatUtils.format(System.currentTimeMillis(), "dd/MM");
                 String time = DateFormatUtils.format(System.currentTimeMillis(), "hh:mm");
-                targetUser.setNote(ChatColor.AQUA + cs.getName() + ChatColor.GRAY + " [" + upTime + " | " + time + "]" + ChatColor.YELLOW + " - " + note);
-                player.sendMessage(ChatColor.YELLOW + "You added a note to " + targetUser.getName());
+                targetUser.setNote(ChatColor.YELLOW + "Staff: " + ChatColor.GREEN + cs.getName() + ChatColor.GRAY + " [" + upTime + "-" + time + "]" + " - " + ChatColor.YELLOW + note);
+                player.sendMessage(ChatColor.GREEN + "You added a note to " + targetUser.getName());
                 return true;
             }
             if (args[0].equalsIgnoreCase("remove")) {
                 if (player.hasPermission(this.getPermission() + ".remove")) {
                     if (targetUser.tryRemoveNote()) {
-                        Command.broadcastCommandMessage(cs, ChatColor.YELLOW + "Removed note of " + target.getName() + ChatColor.YELLOW + '.');
+                        Command.broadcastCommandMessage(cs, ChatColor.GREEN + "Removed note of " + target.getName() + ChatColor.YELLOW + '.');
                         return true;
                     }
-                    player.sendMessage(ChatColor.RED + "Note not found or other error.");
+                    player.sendMessage(ChatColor.RED + "Note not found.");
                     return true;
                 }
-                player.sendMessage(ChatColor.RED + "No permission to this argument.");
+                player.sendMessage(ChatColor.RED + "No permission.");
                 return true;
             }
             if (args[0].equalsIgnoreCase("check")) {

@@ -62,6 +62,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         }
     }
 
+
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onSpawnerSpawn(SpawnerSpawnEvent event){
         if(event.getEntityType().equals(EntityType.ENDERMAN) || event.getEntityType().equals(EntityType.SLIME)) return;

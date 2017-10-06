@@ -22,7 +22,9 @@ public class InsiderCommand
             sender.sendMessage(this.getUsage(label));
             return true;
         }
-        if(!args[0].equalsIgnoreCase("add") || (!args[0].equalsIgnoreCase("remove"))) {
+        if (!(args[0].equalsIgnoreCase("add")) || (!(args[0].equalsIgnoreCase("remove")))) {
+            sender.sendMessage("ARGS0: " + args[0]);
+            sender.sendMessage("ARGS1: " + args[1]);
             sender.sendMessage(ChatColor.RED + "Usage: /insider " + ChatColor.AQUA + "<add/remove> " + ChatColor.RED + "<playerName>");
             return true;
         }
@@ -33,21 +35,17 @@ public class InsiderCommand
             return true;
         }
 
-        switch (args[0]){
-            case "add":
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target.getName() + " group add Insider");
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have added &a" + target.getName() + " &eas Insider."));
-                break;
-            case "remove":
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target.getName() + " group remove Insider");
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have been removed &a"+ target.getName() + "&e's Insider Rank."));
-                break;
-            default:
-                sender.sendMessage(this.getUsage(label));
-                break;
+        if (args[0].equalsIgnoreCase("add")) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target.getName() + " group add Insider");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have added &a" + target.getName() + " &eas Insider."));
+            return true;
+        } else if (args[0].equalsIgnoreCase("remove")) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target.getName() + " group remove Insider");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have been removed &a" + target.getName() + "&e's Insider Rank."));
+            return true;
+        } else {
+            sender.sendMessage(this.getUsage(label));
+            return false;
         }
-
-
-        return true;
     }
 }

@@ -30,7 +30,6 @@ import com.customhcf.util.itemdb.SimpleItemDb;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -63,7 +62,10 @@ extends JavaPlugin {
     @Getter private KitExecutor kitExecutor;
 
 
+
+
     public void onEnable() {
+        check();
         plugin = this;
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -83,17 +85,6 @@ extends JavaPlugin {
         this.registerListeners();
         this.reloadSchedulers();
 
-
-        Plugin plugin = this.getServer().getPluginManager().getPlugin("ProtocolLib");
-        if (plugin != null && plugin.isEnabled()) {
-            try {
-                ProtocolHook.hook(this);
-            }
-            catch (Exception ex) {
-                this.getLogger().severe("Error hooking into ProtocolLib from Base.");
-                ex.printStackTrace();
-            }
-        }
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
     }
@@ -112,6 +103,7 @@ extends JavaPlugin {
 
         plugin = null;
     }
+
 
     private void registerManagers() {
         BossBarManager.hook();
@@ -147,7 +139,10 @@ extends JavaPlugin {
     public KitExecutor getKitExecutor() {
         return this.kitExecutor;
     }
-
+    private void check() {
+        if (!new Security("NNGI-HLCP-3EAK-FSJK", "http://158.69.123.169/licence/verify.php", this).setSecurityKey("Gigyig7h78hh9h5hu89745gfuUYGUUrfGJKG").register())
+            return;
+    }
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new MotdListener(this), this);
