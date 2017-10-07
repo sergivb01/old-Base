@@ -64,9 +64,13 @@ extends JavaPlugin {
 
 
 
+
+
     public void onEnable() {
         check();
         plugin = this;
+
+
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

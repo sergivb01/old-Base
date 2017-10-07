@@ -80,8 +80,6 @@ commands:
     description: Kill a player.
   kit:
     description: Command to apply or use kits.
-  lag:
-    description: Check the server lag.
   message:
     aliases: [m, msg, tell, whisper, w]
     description: Messsage an online player.
