@@ -10,6 +10,7 @@ extends BaseCommandModule {
     public EssentialModule(BasePlugin plugin) {
         this.commands.add(new ToggleDonorOnly(plugin));
         this.commands.add(new ClearLagg());
+        this.commands.add(new StaffServerCommand());
         this.commands.add(new RequestCommand());
         this.commands.add(new AmivisCommand(plugin));
         this.commands.add(new DonateCommand());

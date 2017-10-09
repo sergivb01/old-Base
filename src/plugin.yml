@@ -11,6 +11,7 @@ commands:
   history:
   youtube:
   famous:
+  staffserver:
   request:
     aliases: [helpop]
   clearlagg:
