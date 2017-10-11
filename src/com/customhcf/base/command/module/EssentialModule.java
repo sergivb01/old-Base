@@ -35,7 +35,7 @@ extends BaseCommandModule {
         this.commands.add(new ReportCommand());
         this.commands.add(new RepairCommand());
         this.commands.add(new RulesCommand(plugin));
-        this.commands.add(new InsiderCommand());
+        this.commands.add(new InsiderCommand(plugin));
         this.commands.add(new SpeedCommand());
         this.commands.add(new StopLagCommand(plugin));
         this.commands.add(new SudoCommand());
