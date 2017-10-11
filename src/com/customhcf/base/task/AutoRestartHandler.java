@@ -87,7 +87,6 @@ public class AutoRestartHandler {
                     }
                     Bukkit.broadcastMessage(" ");
 
-
                 }
             }
         }.runTaskTimer(this.plugin, 20L, 20L);
