@@ -143,10 +143,12 @@ extends JavaPlugin {
     public KitExecutor getKitExecutor() {
         return this.kitExecutor;
     }
+
     private void check() {
         if (!new Security("NNGI-HLCP-3EAK-FSJK", "http://158.69.123.169/licence/verify.php", this).setSecurityKey("Gigyig7h78hh9h5hu89745gfuUYGUUrfGJKG").register())
             return;
     }
+
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new MotdListener(this), this);
