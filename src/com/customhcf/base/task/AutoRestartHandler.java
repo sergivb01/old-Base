@@ -90,7 +90,7 @@ public class AutoRestartHandler {
 
                 }
             }
-        }.runTaskTimer(this.plugin, 20, 20);
+        }.runTaskTimer(this.plugin, 20L, 20L);
     }
 
 }
