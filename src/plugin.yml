@@ -1,5 +1,5 @@
 name: Core
-version: 3.8-VEILMC
+version: 3.9-VEILMC
 main: com.customhcf.base.BasePlugin
 commands:
   warp:
@@ -12,8 +12,8 @@ commands:
   youtube:
   famous:
   staffserver:
-  request:
-    aliases: [helpop]
+  #request:
+  #  aliases: [helpop]
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   staffmode:
@@ -116,8 +116,8 @@ commands:
   repair:
     aliases: [fix]
     description: Allows the repairing of tools.
-  report:
-    description: Report
+  #report:
+  #  description: Report
   donate:
     aliases: [buy]
     description: Gets the donation link.
@@ -134,9 +134,9 @@ commands:
     description: Sets a delay between chat messages.
   speed:
     description: Set your walk or fly speed.
-  staffchat:
-    aliases: [sc, ac]
-    description: Speak in staff chat mode only.
+  #staffchat:
+  #  aliases: [sc, ac]
+  #  description: Speak in staff chat mode only.
   stoplag:
   killmobs:
   near:
