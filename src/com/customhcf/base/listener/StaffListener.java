@@ -3,11 +3,9 @@ package com.customhcf.base.listener;
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.module.essential.StaffUtilitiesCommand;
 import com.customhcf.base.user.BaseUser;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -339,11 +337,11 @@ public class StaffListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().hasPermission("command.staff")) {
-            for(Player on : Bukkit.getOnlinePlayers()) {
+            /*for(Player on : Bukkit.getOnlinePlayers()) {
                 if (on.hasPermission("command.staff")) {
                     on.sendMessage(ChatColor.BLUE + "(Staff) " + ChatColor.AQUA + event.getPlayer().getName() + " has joined the server.");
                 }
-            }
+            }*/
             final BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(event.getPlayer().getUniqueId());
             baseUser.setVanished(true);
             event.getPlayer().sendMessage(ChatColor.GREEN + "Your vanish has been enabled.");
