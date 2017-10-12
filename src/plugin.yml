@@ -11,6 +11,7 @@ commands:
   history:
   youtube:
   famous:
+  togglesc:
   #staffserver:
   #request:
   #  aliases: [helpop]

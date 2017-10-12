@@ -5,11 +5,10 @@ import com.customhcf.base.BasePlugin;
 import com.customhcf.base.command.BaseCommandModule;
 import com.customhcf.base.command.module.chat.*;
 
-import java.util.Set;
-
 public class ChatModule
 extends BaseCommandModule {
     public ChatModule(BasePlugin plugin) {
+        this.commands.add(new ToggleStaffChatCommand(plugin));
         this.commands.add(new AnnouncementCommand(plugin));
         this.commands.add(new BroadcastCommand(plugin));
         this.commands.add(new ClearChatCommand());
