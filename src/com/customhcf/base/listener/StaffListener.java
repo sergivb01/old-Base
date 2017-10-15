@@ -18,6 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -174,7 +175,7 @@ public class StaffListener implements Listener {
                     player.closeInventory();
                     break;
                 case "§cplayer history":
-                    Bukkit.dispatchCommand(player, "history " + target.getName());
+                    Bukkit.dispatchCommand(player, "litebans:history " + target.getName());
                     event.setCancelled(true);
                     player.closeInventory();
                     break;
@@ -261,17 +262,19 @@ public class StaffListener implements Listener {
                 histItem.setItemMeta(histMeta);
                 i.setItem(a + 2, histItem);
 
+                DecimalFormat df = new DecimalFormat("#.##");
+
                 ItemStack health = new ItemStack(Material.GOLDEN_APPLE);
                 ItemMeta healthMeta = health.getItemMeta();
                 healthMeta.setDisplayName("§aPlayer Health");
-                healthMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Health is: " + rightclick.getPlayer().getHealth()));
+                healthMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Health is: " + df.format(rightclick.getPlayer().getHealth())));
                 health.setItemMeta(healthMeta);
                 i.setItem(a + 8, health);
 
                 ItemStack food = new ItemStack(Material.COOKED_BEEF);
                 ItemMeta foodMeta = health.getItemMeta();
                 foodMeta.setDisplayName("§aPlayer Hunger");
-                foodMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Hunger is: " + rightclick.getPlayer().getFoodLevel()));
+                foodMeta.setLore(Arrays.asList(ChatColor.YELLOW + rightclick.getName() + " Hunger is: " + df.format(rightclick.getPlayer().getFoodLevel())));
                 food.setItemMeta(foodMeta);
                 i.setItem(a + 9, food);
 

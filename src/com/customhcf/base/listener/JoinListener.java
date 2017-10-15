@@ -3,6 +3,7 @@ package com.customhcf.base.listener;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.user.BaseUser;
+import com.customhcf.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -36,6 +37,7 @@ implements Listener {
             }
     }
         player.sendMessage(ChatColor.GRAY + " ");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &7* &e&lWelcome &a&l" + player.getName() + "&e&l to " +  HCF.getInstance().getConfig().getString("Scoreboard title")));
         player.sendMessage(ChatColor.GRAY + " §7* §6Teamspeak §ets.veilhcf.us");
         player.sendMessage(ChatColor.GRAY + " §7* §6Website §eveilhcf.us");
         player.sendMessage(ChatColor.GRAY + " ");

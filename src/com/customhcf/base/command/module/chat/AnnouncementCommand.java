@@ -87,6 +87,8 @@ extends BaseCommand {
                 final AnnouncementHandler announcementTask = new AnnouncementHandler(this.plugin);
                 (BasePlugin.getPlugin().announcementTask = announcementTask).runTaskTimerAsynchronously(BasePlugin.getPlugin(), (long)this.plugin.getServerHandler().getAnnouncementDelay(), (long)this.plugin.getServerHandler().getAnnouncementDelay());
                 Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Announcement Delay has been modified to " + integer);
+                sender.sendMessage(args[0]);
+                sender.sendMessage(args[1]);
                 return true;
             }
         }
