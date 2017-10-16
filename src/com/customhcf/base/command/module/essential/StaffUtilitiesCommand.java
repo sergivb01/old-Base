@@ -51,11 +51,10 @@ public class StaffUtilitiesCommand extends BaseCommand
 		return is;
 	}
 
-	public static ItemStack getXrayGUI() {
+	public static ItemStack getMinerTeleport() {
         ItemStack is = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(ChatColor.GOLD + "Miner Teleport " + ChatColor.GRAY + "(Right Click)");
-    //    xrayGuiMeta.setLore(Color.translateFromArray(Arrays.asList(new String[]{"&7Used to get a list of possible xrayers"})));
         is.setItemMeta(im);
         return is;
     }
@@ -68,13 +67,6 @@ public class StaffUtilitiesCommand extends BaseCommand
 		is.setItemMeta(im);
 		return is;
 	}
-	public static ItemStack getXrayTool() {
-	    ItemStack is = new ItemStack(Material.DIAMOND_PICKAXE, 1);
-	    ItemMeta im = is.getItemMeta();
-	    im.setDisplayName(ChatColor.GOLD + "Xray GUI " + ChatColor.GRAY + "(Right Click)");
-	    is.setItemMeta(im);
-	    return is;
-    }
 
 	public static ItemStack getCarpetTool()
 	{
@@ -161,25 +153,18 @@ public class StaffUtilitiesCommand extends BaseCommand
 			p.getInventory().setItem(6, getFreezeTool());
 			p.getInventory().setItem(8, getVanishTool(true));
             p.getInventory().setItem(7, getRandomTeleport());
-            p.getInventory().setItem(5, getXrayGUI());
+            //p.getInventory().setItem(5, getMinerTeleport());
 
 			p.setGameMode(GameMode.CREATIVE);
 		}
 		else
 		{
-
-			if(!sender.hasPermission("urban.leavestaff"))
-			{
-				sender.sendMessage(ChatColor.RED + "You cannot leave staff mode.");
-				return true;
-			}
 			Player p = (Player)sender;
 			p.getInventory().clear();
 			if(staffitems.contains(player)){
 				p.getInventory().setContents(staffitems.remove(sender));
 				p.getInventory().setArmorContents(staffarmor.remove(sender));
 			}
-		//	user.setVanished(true);
 			p.setGameMode(GameMode.SURVIVAL);
 		}
 		user.setStaffUtil(!user.isStaffUtil());
