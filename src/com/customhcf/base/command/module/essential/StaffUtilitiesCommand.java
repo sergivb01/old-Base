@@ -34,6 +34,15 @@ public class StaffUtilitiesCommand extends BaseCommand
 		return is;
 	}
 
+	public static ItemStack getStaffOnline()
+    {
+        ItemStack is = new ItemStack(351, 1, (byte) 1);
+        ItemMeta im = is.getItemMeta();
+        im.setDisplayName(ChatColor.GOLD + "Staff Online");
+        is.setItemMeta(im);
+        return is;
+    }
+
 	public static ItemStack getFreezeTool()
 	{
 		ItemStack is = new ItemStack(Material.PACKED_ICE);
@@ -153,7 +162,7 @@ public class StaffUtilitiesCommand extends BaseCommand
 			p.getInventory().setItem(6, getFreezeTool());
 			p.getInventory().setItem(8, getVanishTool(true));
             p.getInventory().setItem(7, getRandomTeleport());
-            //p.getInventory().setItem(5, getMinerTeleport());
+            p.getInventory().setItem(5, getStaffOnline());
 
 			p.setGameMode(GameMode.CREATIVE);
 		}

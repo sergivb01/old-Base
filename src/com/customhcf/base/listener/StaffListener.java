@@ -17,6 +17,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,9 +25,12 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getBookTool;
+import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getStaffOnline;
 import static com.customhcf.base.command.module.essential.StaffUtilitiesCommand.getVanishTool;
 
 public class StaffListener implements Listener {
+
+    public Inventory page = Bukkit.createInventory(null, 54, "Staff Online");
 
     @EventHandler
     public void staff(PlayerInteractEvent event) {
