@@ -1,6 +1,6 @@
 name: Core
 version: 3.9-VEILMC
-main: com.customhcf.base.BasePlugin
+main: net.veilmc.base.BasePlugin
 commands:
   warp:
     description: Turns the server to Donor only mode.
