@@ -10,3 +10,8 @@ chat:
   slowed-delay: 15
 full-server-kick-message: '&cThe server is full. &e(%1$s/%2$s) \n\n&cDonate to get a premium slot. {donate link}'
 server-rules-format: '&cRules: '
+banwave:
+  - 'IGN'
+ # - ''
+ # - ''
+ # - ''

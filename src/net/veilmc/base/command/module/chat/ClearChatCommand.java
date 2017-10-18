@@ -33,6 +33,8 @@ extends BaseCommand {
         }
         Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + sender.getName() + " cleared in-game chat.");
+        sender.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "STARTING BLACKLIST WAVE...");
+
         return true;
     }
 }
