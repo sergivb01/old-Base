@@ -40,7 +40,7 @@ extends BaseCommand {
             Block originBlock = origin.getBlock();
             if ((highestLocation.getBlockY() - originBlock.getY() != 1 || originBlock.getType() != Material.WATER) && originBlock.getType() != Material.STATIONARY_WATER) {
                 player.teleport(highestLocation.add(0.0, 1.0, 0.0), PlayerTeleportEvent.TeleportCause.COMMAND);
-                sender.sendMessage(ChatColor.GOLD + "Teleported to highest location.");
+                sender.sendMessage(ChatColor.GREEN + "Teleported to highest location.");
                 return true;
             }
         }

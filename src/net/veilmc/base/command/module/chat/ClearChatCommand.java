@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 public class ClearChatCommand
 extends BaseCommand {
-    private static final int CHAT_HEIGHT = 101;
     private static final String BYPASS_PERMISSION = "command.clearchat.bypass";
     private static final String[] CLEAR_MESSAGE = new String[101];
 
@@ -32,7 +31,7 @@ extends BaseCommand {
             if (player.hasPermission(BYPASS_PERMISSION)) continue;
             player.sendMessage(CLEAR_MESSAGE);
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Cleared in-game chat for: " + reason, true);
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + sender.getName() + " cleared in-game chat.");
         return true;
     }

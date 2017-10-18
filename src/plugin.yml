@@ -8,13 +8,9 @@ commands:
   toggledonoronly:
     description: Turns the server to Donor only mode.
     aliases: [donoronly, donormode]
-  history:
   youtube:
   famous:
   togglesc:
-  #staffserver:
-  #request:
-  #  aliases: [helpop]
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   staffmode:
@@ -95,8 +91,6 @@ commands:
   mutechat:
     aliases: [mc, rc, restrictchat, disablechat]
     description: Restricts the use of global chat.
-  namehistory:
-    description: Check the name histories of a player.
   near:
     description: Check nearby entities to a player.
   ping:

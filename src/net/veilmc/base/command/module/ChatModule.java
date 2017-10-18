@@ -16,7 +16,6 @@ extends BaseCommandModule {
         this.commands.add(new DisableChatCommand(plugin));
         this.commands.add(new SlowChatCommand(plugin));
         this.commands.add(new StaffChatCommand(plugin));
-        this.commands.add(new AdCommand());
         this.commands.add(new FamousCommand(plugin));
         this.commands.add(new YoutubeCommand(plugin));
         this.commands.add(new IgnoreCommand(plugin));

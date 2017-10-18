@@ -305,7 +305,9 @@ public class FreezeCommand extends BaseCommand implements Listener
             if (clicked.getType() == Material.WOOL) {
                 for (final Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("base.command.freeze")) {
-                        new Text(ChatColor.RED + player.getName() + " has said they are joining Teamspeak").send(online);
+                        online.sendMessage(" ");
+                        new Text(ChatColor.GREEN + player.getName() + " has said they are joining Teamspeak").send(online);
+                        online.sendMessage(" ");
                         online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(8 , new ItemStack(Material.AIR));
                     }

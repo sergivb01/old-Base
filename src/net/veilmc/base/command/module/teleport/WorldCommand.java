@@ -60,25 +60,6 @@ extends BaseCommand implements Listener {
 
         ((Player) sender).openInventory(inv);
 
-//        if (args.length < 1) {
-//            sender.sendMessage((Object)ChatColor.RED + this.getUsage());
-//            return true;
-//        }
-//        World world = Bukkit.getWorld((String)args[0]);
-//        if (world == null) {
-//            sender.sendMessage((Object)ChatColor.RED + "World '" + args[0] + "' not found.");
-//            return true;
-//        }
-//        Player player = (Player)sender;
-//        if (player.getWorld().equals((Object)world)) {
-//            sender.sendMessage((Object)ChatColor.RED + "You are already in that world.");
-//            return true;
-//        }
-//        Location origin = player.getLocation();
-//        Location location = new Location(world, origin.getX(), origin.getY(), origin.getZ(), origin.getYaw(), origin.getPitch());
-//        player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
-//        sender.sendMessage((Object)ChatColor.YELLOW + "Switched world to '" + world.getName() + (Object)ChatColor.AQUA + " [" + WordUtils.capitalizeFully((String)world.getEnvironment().name().replace('_', ' ')) + ']' + (Object)ChatColor.AQUA + "'.");
-//        return true;
         return true;
     }
 
