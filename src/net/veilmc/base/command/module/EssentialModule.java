@@ -28,6 +28,7 @@ extends BaseCommandModule {
         this.commands.add(new HatCommand());
         this.commands.add(new StaffUtilitiesCommand(plugin));
         this.commands.add(new HealCommand());
+        this.commands.add(new GrantCommand(plugin));
         this.commands.add(new KillCommand());
         this.commands.add(new PingCommand());
         this.commands.add(new PlayTimeCommand(plugin));
