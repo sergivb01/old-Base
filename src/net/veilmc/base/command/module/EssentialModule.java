@@ -4,7 +4,6 @@ package net.veilmc.base.command.module;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommandModule;
 import net.veilmc.base.command.module.essential.*;
-import net.veilmc.base.command.module.essential.*;
 
 public class EssentialModule
 extends BaseCommandModule {
@@ -37,7 +36,7 @@ extends BaseCommandModule {
         this.commands.add(new ReportCommand());
         this.commands.add(new RepairCommand());
         this.commands.add(new LagCommand());
-        this.commands.add(new BanwaveCommand());
+        this.commands.add(new BanwaveCommand(plugin));
         this.commands.add(new RulesCommand(plugin));
         this.commands.add(new InsiderCommand(plugin));
         this.commands.add(new SpeedCommand());

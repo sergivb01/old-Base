@@ -3,7 +3,6 @@ package net.veilmc.base.listener;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.user.BaseUser;
-import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,7 +36,7 @@ implements Listener {
             }
     }
         player.sendMessage(ChatColor.GRAY + " ");
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &7* &e&lWelcome &a&l" + player.getName() + "&e&l to " +  HCF.getInstance().getConfig().getString("Scoreboard title")));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &7* &e&lWelcome &a&l" + player.getName() + "&e&l to " +  ChatColor.GREEN + "Veil Network"/*HCF.getInstance().getConfig().getString("Scoreboard title")*/));
         player.sendMessage(ChatColor.GRAY + " §7* §6Teamspeak §ets.veilhcf.us");
         player.sendMessage(ChatColor.GRAY + " §7* §6Website §eveilhcf.us");
         player.sendMessage(ChatColor.GRAY + " ");
