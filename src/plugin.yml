@@ -88,10 +88,12 @@ commands:
     description: Give yourself more of an item.
   lobby:
     aliases: [hub]
-  banwave:
+#  banwave:
   mutechat:
     aliases: [mc, rc, restrictchat, disablechat]
     description: Restricts the use of global chat.
+  lag:
+    description: View total server lag of the server.
   near:
     description: Check nearby entities to a player.
   ping:
