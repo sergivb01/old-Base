@@ -1,13 +1,7 @@
 package net.veilmc.base.command.module.essential;
 
-import com.comphenix.protocol.PacketType;
-import net.milkbowl.vault.Vault;
-import net.milkbowl.vault.permission.Permission;
-import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
-import net.veilmc.base.user.BaseUser;
-import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.JavaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,8 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,8 +20,6 @@ import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.util.Arrays;
-import java.util.List;
-import org.bukkit.event.Listener;
 
 public class GrantCommand extends BaseCommand implements Listener{
     private BasePlugin plugin;
@@ -80,7 +72,8 @@ public class GrantCommand extends BaseCommand implements Listener{
             meta.setLore(Arrays.asList(
                     ChatColor.translateAlternateColorCodes('&', "&eSet this player's group " + permissionGroup.getPrefix().replace("[","").replace("]","")),
                     (ChatColor.translateAlternateColorCodes('&', (duration == -1L ? "&e" : ""))),
-                    ChatColor.RESET + tg.getName()
+                    ChatColor.GRAY + tg.getName(),
+                    ChatColor.GRAY + "" + duration
             ));
             meta.setDisplayName(ChatColor.GOLD.toString() + permissionGroup.getName());
             is.setItemMeta(meta);
@@ -106,8 +99,10 @@ public class GrantCommand extends BaseCommand implements Listener{
         Player player = (Player)event.getWhoClicked();
         for(PermissionGroup permissionGroup : PermissionsEx.getPermissionManager().getGroupList()) {
             if (ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).equals(permissionGroup.getName())) {
-                player.sendMessage(permissionGroup.getName());
-                this.plugin.getLogger().info(event.getCurrentItem().getItemMeta().getLore().get(2));
+                String target = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(2));
+                player.performCommand("pex user " + target + " group set " + target);
+                player.sendMessage(ChatColor.YELLOW + "You have set " + ChatColor.GREEN + target + ChatColor.YELLOW + "'s group to " + ChatColor.GREEN + permissionGroup.getName());
+                this.plugin.getLogger().info("Duration: " + event.getCurrentItem().getItemMeta().getLore().get(3));
             }
 
         }
