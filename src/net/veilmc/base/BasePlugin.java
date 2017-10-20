@@ -1,6 +1,7 @@
 
 package net.veilmc.base;
 
+import lombok.Getter;
 import net.veilmc.base.command.CommandManager;
 import net.veilmc.base.command.SimpleCommandManager;
 import net.veilmc.base.command.module.ChatModule;
@@ -11,12 +12,9 @@ import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
 import net.veilmc.base.kit.*;
 import net.veilmc.base.listener.*;
-import net.veilmc.base.kit.*;
-import net.veilmc.base.listener.*;
 import net.veilmc.base.task.AnnouncementHandler;
 import net.veilmc.base.task.AutoRestartHandler;
 import net.veilmc.base.task.ClearEntityHandler;
-import net.veilmc.base.user.*;
 import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
@@ -30,7 +28,6 @@ import net.veilmc.util.cuboid.Cuboid;
 import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.PluginManager;
@@ -143,7 +140,6 @@ extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
-        manager.registerEvents(new MotdListener(this), this);
         manager.registerEvents(new WorldCommand(), this);
         manager.registerEvents(new ChatListener(this), this);
         manager.registerEvents(new ColouredSignListener(), this);
