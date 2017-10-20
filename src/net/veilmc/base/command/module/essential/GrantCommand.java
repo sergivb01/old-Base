@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.essential;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.JavaUtils;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -59,10 +60,10 @@ public class GrantCommand extends BaseCommand implements Listener{
             return true;
         }
 
-        if (duration < 3600000L && (!(args[1].equalsIgnoreCase("permanent")))) {
-            player.sendMessage(ChatColor.RED + "Rank duration must last for at least 1 hour.");
-            return true;
-        }
+//        if (duration < 3600000L && (!(args[1].equalsIgnoreCase("permanent")))) {
+//            player.sendMessage(ChatColor.RED + "Rank duration must last for at least 1 hour.");
+//            return true;
+//        }
 
         int i = 0;
         PermissionGroup currentGroup  = PermissionsEx.getUser(tg.getPlayer()).getGroups()[0];
@@ -70,7 +71,8 @@ public class GrantCommand extends BaseCommand implements Listener{
             ItemStack is = new ItemStack(351, 1, (short) (currentGroup  == permissionGroup ? 10 : 8));
             ItemMeta meta = is.getItemMeta();
             meta.setLore(Arrays.asList(
-                    ChatColor.translateAlternateColorCodes('&', "&eSet this player's group " + permissionGroup.getPrefix().replace("[","").replace("]","")),
+                    (currentGroup == permissionGroup ? ChatColor.translateAlternateColorCodes('&', "&eThis player already has " + permissionGroup.getPrefix().replace("[","").replace("]","").replace(" ", "") + " &erank") :
+                            ChatColor.translateAlternateColorCodes('&', "&eSet this player's group " + permissionGroup.getPrefix().replace("[","").replace("]",""))),
                     (ChatColor.translateAlternateColorCodes('&', (duration == -1L ? "&e" : ""))),
                     ChatColor.GRAY + tg.getName(),
                     ChatColor.GRAY + "" + duration
@@ -97,20 +99,28 @@ public class GrantCommand extends BaseCommand implements Listener{
         }
 
         Player player = (Player)event.getWhoClicked();
-        for(PermissionGroup permissionGroup : PermissionsEx.getPermissionManager().getGroupList()) {
-            if (ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).equals(permissionGroup.getName())) {
+        String rank = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
+            if (ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).equals(rank)) {
                 String target = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(2));
-                player.performCommand("pex user " + target + " group set " + target);
-                player.sendMessage(ChatColor.YELLOW + "You have set " + ChatColor.GREEN + target + ChatColor.YELLOW + "'s group to " + ChatColor.GREEN + permissionGroup.getName());
-                this.plugin.getLogger().info("Duration: " + event.getCurrentItem().getItemMeta().getLore().get(3));
-            }
+                String duration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(3));
+                Long dur = Long.parseLong(duration);
+                if(dur == 0) {
+                    player.performCommand("pex user " + target + " group set " + rank);
+                } else {
+                    player.performCommand("pex user " + target + " group set " + rank); // TODO: FIX TIMED RANKS! USE CALC BELOW
+                   // player.performCommand("pex user " + target + " group set " + rank + "\"\" " + (dur/1000));
 
-        }
+                }
+
+                player.sendMessage(ChatColor.YELLOW + "You have set " + ChatColor.GREEN + target + ChatColor.YELLOW + "'s group to " + ChatColor.GREEN + rank + ChatColor.YELLOW +
+                        (dur == 0 ? ChatColor.translateAlternateColorCodes('&', " permanently.") : ChatColor.translateAlternateColorCodes('&', "&e for&a " + DurationFormatUtils.formatDurationWords(dur, true, true))));
+                this.plugin.getLogger().info("Duration: " + event.getCurrentItem().getItemMeta().getLore().get(3));
+                player.closeInventory();
+            }
         event.setCancelled(true);
 
 
    //     switch()
         //stuff here  :V
     }
-
 }
