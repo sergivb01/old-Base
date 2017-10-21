@@ -108,7 +108,6 @@ public class GrantCommand extends BaseCommand implements Listener{
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank);
                 } else {
                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank + " * " + (dur/1000));
-
                   // PermissionsEx.getUser(target).addGroup(rank, "", (dur/1000));
                 }
 
