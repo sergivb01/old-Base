@@ -29,7 +29,7 @@ public class GrantCommand extends BaseCommand implements Listener{
     public GrantCommand(BasePlugin plugin) {
         super("grant", "Assign player a rank for a specific period of time.");
         this.plugin  = plugin;
-        this.setUsage("/(command) <playerName> <duration>");
+        this.setUsage("/(command) <playerName> <duration|permanent>");
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -43,7 +43,7 @@ public class GrantCommand extends BaseCommand implements Listener{
         Player player = (Player)sender;
 
         if (args.length < 2) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIncorrect usage! &eUse like this: &b/grant <player> <duration>"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIncorrect usage! &eUse like this: &b/grant <player> <duration|permanent>"));
             return true;
         }
 
@@ -105,11 +105,11 @@ public class GrantCommand extends BaseCommand implements Listener{
                 String duration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(3));
                 Long dur = Long.parseLong(duration);
                 if(dur == 0) {
-                    player.performCommand("pex user " + target + " group set " + rank);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank);
                 } else {
-                    player.performCommand("pex user " + target + " group set " + rank); // TODO: FIX TIMED RANKS! USE CALC BELOW
-                   // player.performCommand("pex user " + target + " group set " + rank + "\"\" " + (dur/1000));
+                   Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank + " * " + (dur/1000));
 
+                  // PermissionsEx.getUser(target).addGroup(rank, "", (dur/1000));
                 }
 
                 player.sendMessage(ChatColor.YELLOW + "You have set " + ChatColor.GREEN + target + ChatColor.YELLOW + "'s group to " + ChatColor.GREEN + rank + ChatColor.YELLOW +
