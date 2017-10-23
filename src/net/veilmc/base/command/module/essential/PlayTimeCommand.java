@@ -46,7 +46,7 @@ extends BaseCommand {
         /*if(sender.hasPermission("rank.staff") && target.isOnline()) {
             sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true));
         } else {*/
-            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map" + ((sender.hasPermission("rank.staff") && target.isOnline()) ?  ("and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true) + ChatColor.YELLOW + ".") : "."));
+            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map " + ((sender.hasPermission("rank.staff") && target.isOnline()) ?  ("and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true) + ChatColor.YELLOW + ".") : "."));
         //}
         return true;
     }

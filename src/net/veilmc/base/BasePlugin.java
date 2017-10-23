@@ -19,6 +19,7 @@ import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
+import net.veilmc.util.MySQL;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -29,7 +30,12 @@ import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -41,6 +47,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class BasePlugin
 extends JavaPlugin {
@@ -61,10 +68,12 @@ extends JavaPlugin {
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
 
+    @Getter private MySQL mysql;
 
     public void onEnable() {
         plugin = this;
         aO6169yawd7Fuck();
+
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -86,6 +95,8 @@ extends JavaPlugin {
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
     }
+
+
 
     public void onDisable() {
         super.onDisable();
@@ -158,6 +169,7 @@ extends JavaPlugin {
         manager.registerEvents(new VanishListener(this), this);
     }
 
+
     private void reloadSchedulers() {
         ClearEntityHandler clearEntityHandler;
         AnnouncementHandler announcementTask;
@@ -203,7 +215,7 @@ extends JavaPlugin {
     private void aO6169yawd7Fuck(){
         if(!awo16256ih()){
             this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
-            Bukkit.getPluginManager().disablePlugin(this);
+            Bukkit.shutdown();
         }
     }
 

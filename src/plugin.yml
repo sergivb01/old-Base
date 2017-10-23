@@ -87,6 +87,10 @@ commands:
   more:
     description: Give yourself more of an item.
   grant:
+  setmotd:
+  blacklist:
+  unblacklist:
+  checkblacklist:
   lobby:
     aliases: [hub]
 #  banwave:

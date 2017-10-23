@@ -21,7 +21,7 @@ public class BanwaveCommand extends BaseCommand {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, ()->{
             Bukkit.broadcastMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Starting global ban wave...");
             for (String players : BasePlugin.getPlugin().getConfig().getStringList("banwave")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + players + " [AUTO] Blacklist [3.0]");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "blacklist " + players + " [AUTO] Blacklist [3.0]");
             }
             Bukkit.broadcastMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Global ban wave COMPLETE.");
         });

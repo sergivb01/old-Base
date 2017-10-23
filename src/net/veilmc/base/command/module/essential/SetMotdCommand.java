@@ -1,8 +1,11 @@
 
 package net.veilmc.base.command.module.essential;
 
+import net.minecraft.server.v1_7_R4.MinecraftServer;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,15 +18,21 @@ public class SetMotdCommand
     private final BasePlugin plugin;
 
     public SetMotdCommand(BasePlugin plugin) {
-        super("vanish", "Hide from other players.");
-        this.setAliases(new String[]{"v", "vis", "vanish", "invis"});
-        this.setUsage("/(command) [playerName]");
+        super("setmotd", "Set the servers motd.");
+        this.setUsage("/(command) <message>");
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(ChatColor.RED + "wip"); //TODO: More stuff
+        if(args.length < 1) {
+            sender.sendMessage(ChatColor.RED + "You must specify a message.");
+            return false;
+        }
+
+        String message = StringUtils.join(args, ' ', 0, args.length);
+        MinecraftServer.getServer().setMotd(ChatColor.translateAlternateColorCodes('&', message));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have set this servers MOTD to: &a" + message));
         return true;
     }
 

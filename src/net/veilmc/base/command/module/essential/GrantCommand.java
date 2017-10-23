@@ -27,9 +27,9 @@ public class GrantCommand extends BaseCommand implements Listener{
     public Inventory main = Bukkit.createInventory(null, 27, "Permission Manager");
 
     public GrantCommand(BasePlugin plugin) {
-        super("grant", "Assign player a rank for a specific period of time.");
+        super("grant", "Assign player a rank.");
         this.plugin  = plugin;
-        this.setUsage("/(command) <playerName> <duration|permanent>");
+        this.setUsage("/(command) <playerName>");
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -42,7 +42,7 @@ public class GrantCommand extends BaseCommand implements Listener{
 
         Player player = (Player)sender;
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIncorrect usage! &eUse like this: &b/grant <player> <duration|permanent>"));
             return true;
         }
@@ -54,11 +54,11 @@ public class GrantCommand extends BaseCommand implements Listener{
             return true;
         }
 
-        final long duration = JavaUtils.parse(args[1]);
-        if (duration == -1L && (!(args[1].equalsIgnoreCase("permanent")))) {
-            player.sendMessage(ChatColor.RED + "'" + args[0] + "' is an invalid duration.");
-            return true;
-        }
+//        final long duration = JavaUtils.parse(args[1]);
+//        if (duration == -1L && (!(args[1].equalsIgnoreCase("permanent")))) {
+//            player.sendMessage(ChatColor.RED + "'" + args[0] + "' is an invalid duration.");
+//            return true;
+//        }
 
 //        if (duration < 3600000L && (!(args[1].equalsIgnoreCase("permanent")))) {
 //            player.sendMessage(ChatColor.RED + "Rank duration must last for at least 1 hour.");
@@ -70,13 +70,7 @@ public class GrantCommand extends BaseCommand implements Listener{
         for(PermissionGroup permissionGroup : PermissionsEx.getPermissionManager().getGroupList()){
             ItemStack is = new ItemStack(351, 1, (short) (currentGroup  == permissionGroup ? 10 : 8));
             ItemMeta meta = is.getItemMeta();
-            meta.setLore(Arrays.asList(
-                    (currentGroup == permissionGroup ? ChatColor.translateAlternateColorCodes('&', "&eThis player already has " + permissionGroup.getPrefix().replace("[","").replace("]","").replace(" ", "") + " &erank") :
-                            ChatColor.translateAlternateColorCodes('&', "&eSet this player's group " + permissionGroup.getPrefix().replace("[","").replace("]",""))),
-                    (ChatColor.translateAlternateColorCodes('&', (duration == -1L ? "&e" : ""))),
-                    ChatColor.GRAY + tg.getName(),
-                    ChatColor.GRAY + "" + duration
-            ));
+            meta.setLore(Arrays.asList((currentGroup == permissionGroup ? ChatColor.translateAlternateColorCodes('&', "&eThis player already has " + permissionGroup.getPrefix().replace("[","").replace("]","").replace(" ", "") + " &erank") : ChatColor.translateAlternateColorCodes('&', "&eSet this player's group " + permissionGroup.getPrefix().replace("[","").replace("]",""))), (ChatColor.GRAY + tg.getName())));
             meta.setDisplayName(ChatColor.GOLD.toString() + permissionGroup.getName());
             is.setItemMeta(meta);
             main.setItem(i, is);
@@ -102,17 +96,10 @@ public class GrantCommand extends BaseCommand implements Listener{
         String rank = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
             if (ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).equals(rank)) {
                 String target = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(2));
-                String duration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(3));
-                Long dur = Long.parseLong(duration);
-                if(dur == 0) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank);
-                } else {
-                   Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank + " * " + (dur/1000));
-                  // PermissionsEx.getUser(target).addGroup(rank, "", (dur/1000));
-                }
-
-                player.sendMessage(ChatColor.YELLOW + "You have set " + ChatColor.GREEN + target + ChatColor.YELLOW + "'s group to " + ChatColor.GREEN + rank + ChatColor.YELLOW +
-                        (dur == 0 ? ChatColor.translateAlternateColorCodes('&', " permanently.") : ChatColor.translateAlternateColorCodes('&', "&e for&a " + DurationFormatUtils.formatDurationWords(dur, true, true))));
+               // String duration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(3));
+               // Long dur = Long.parseLong(duration);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&eYou have set &a" + target + "'s&e group to &a" + rank + " &apermanently."));
                 this.plugin.getLogger().info("Duration: " + event.getCurrentItem().getItemMeta().getLore().get(3));
                 player.closeInventory();
             }
