@@ -47,9 +47,9 @@ public class GrantCommand extends BaseCommand implements Listener{
             return true;
         }
 
-       /* OfflinePlayer tg = Bukkit.getOfflinePlayer(args[0]);
+       OfflinePlayer tg = Bukkit.getOfflinePlayer(args[0]);
 
-        if (tg.getPlayer() == null) {
+     /*    if (tg.getPlayer() == null) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cError: Player not found!"));
             return true;
         }
