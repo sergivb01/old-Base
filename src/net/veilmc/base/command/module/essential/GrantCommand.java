@@ -47,23 +47,23 @@ public class GrantCommand extends BaseCommand implements Listener{
             return true;
         }
 
-        OfflinePlayer tg = Bukkit.getOfflinePlayer(args[0]);
+       /* OfflinePlayer tg = Bukkit.getOfflinePlayer(args[0]);
 
         if (tg.getPlayer() == null) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cError: Player not found!"));
             return true;
         }
 
-//        final long duration = JavaUtils.parse(args[1]);
-//        if (duration == -1L && (!(args[1].equalsIgnoreCase("permanent")))) {
-//            player.sendMessage(ChatColor.RED + "'" + args[0] + "' is an invalid duration.");
-//            return true;
-//        }
+        final long duration = JavaUtils.parse(args[1]);
+        if (duration == -1L && (!(args[1].equalsIgnoreCase("permanent")))) {
+            player.sendMessage(ChatColor.RED + "'" + args[0] + "' is an invalid duration.");
+            return true;
+        }
 
-//        if (duration < 3600000L && (!(args[1].equalsIgnoreCase("permanent")))) {
-//            player.sendMessage(ChatColor.RED + "Rank duration must last for at least 1 hour.");
-//            return true;
-//        }
+        if (duration < 3600000L && (!(args[1].equalsIgnoreCase("permanent")))) {
+            player.sendMessage(ChatColor.RED + "Rank duration must last for at least 1 hour.");
+            return true;
+        }*/
 
         int i = 0;
         PermissionGroup currentGroup  = PermissionsEx.getUser(tg.getPlayer()).getGroups()[0];
