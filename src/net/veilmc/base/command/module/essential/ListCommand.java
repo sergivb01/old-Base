@@ -37,15 +37,15 @@ extends BaseCommand {
             }
         }
         sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage(ChatColor.YELLOW + "There are currently " + ChatColor.GREEN + Bukkit.getOnlinePlayers().size() + ChatColor.GREEN + "/" + ChatColor.GREEN + Bukkit.getMaxPlayers() + ChatColor.YELLOW + " players online.");
+        sender.sendMessage(ChatColor.YELLOW + "There are currently " + ChatColor.GOLD.toString() + ChatColor.BOLD + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ChatColor.YELLOW + " players online.");
         sender.sendMessage(" ");
         if (list.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + "Staff:" + " " + ChatColor.RED + "Not avaliable");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &eStaff:" + " " + ChatColor.RED + "Not avaliable"));
         } else {
-            sender.sendMessage(ChatColor.YELLOW + "Staff: " + ChatColor.GRAY + "(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ","));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &eStaff: &7(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ",")));
         }
         sender.sendMessage(" ");
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eSupport: &ats.veilhcf.us"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l * &eSupport: &ats.veilhcf.us"));
         sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
