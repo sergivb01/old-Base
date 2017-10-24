@@ -88,12 +88,9 @@ commands:
     description: Give yourself more of an item.
   grant:
   setmotd:
-  blacklist:
-  unblacklist:
-  checkblacklist:
   lobby:
     aliases: [hub]
-#  banwave:
+  banwave:
   mutechat:
     aliases: [mc, rc, restrictchat, disablechat]
     description: Restricts the use of global chat.

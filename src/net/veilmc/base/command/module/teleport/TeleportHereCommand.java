@@ -34,6 +34,7 @@ extends BaseCommand {
         }
         Player player = (Player)sender;
         BukkitUtils.playerWithNameOrUUID(args[0]).teleport(player);
+        Command.broadcastCommandMessage(player, ChatColor.translateAlternateColorCodes('&', "&eYou have teleported &a" + args[0] + " &eto you."));
         return true;
     }
 

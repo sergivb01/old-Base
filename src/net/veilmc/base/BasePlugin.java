@@ -19,7 +19,6 @@ import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
-import net.veilmc.util.MySQL;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -68,7 +67,6 @@ extends JavaPlugin {
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
 
-    @Getter private MySQL mysql;
 
     public void onEnable() {
         plugin = this;
@@ -159,7 +157,6 @@ extends JavaPlugin {
         manager.registerEvents(new ReportCommand(), this);
         manager.registerEvents(new KitListener(this), this);
         manager.registerEvents(new MoveByBlockEvent(), this);
-        manager.registerEvents(new MobDamageListener(), this);
         manager.registerEvents(new MobstackListener(this), this);
         manager.registerEvents(new StaffListener(), this);
         manager.registerEvents(new NameVerifyListener(this), this);

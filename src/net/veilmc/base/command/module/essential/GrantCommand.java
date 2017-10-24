@@ -36,14 +36,14 @@ public class GrantCommand extends BaseCommand implements Listener{
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)){
-            sender.sendMessage(ChatColor.RED + "ltd is a fatty bitch");
+            sender.sendMessage(ChatColor.RED + "Player only.");
             return false;
         }
 
         Player player = (Player)sender;
 
         if (args.length < 1) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIncorrect usage! &eUse like this: &b/grant <player> <duration|permanent>"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIncorrect usage! &eUse like this: &b/grant <player>"));
             return true;
         }
 
@@ -95,18 +95,12 @@ public class GrantCommand extends BaseCommand implements Listener{
         Player player = (Player)event.getWhoClicked();
         String rank = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
             if (ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).equals(rank)) {
-                String target = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(2));
-               // String duration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(3));
+                String target = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(1));
                // Long dur = Long.parseLong(duration);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + target + " group set " + rank);
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&eYou have set &a" + target + "'s&e group to &a" + rank + " &apermanently."));
-                this.plugin.getLogger().info("Duration: " + event.getCurrentItem().getItemMeta().getLore().get(3));
+                Command.broadcastCommandMessage(player, ChatColor.translateAlternateColorCodes('&',"&eYou have set &a" + target + "'s&e group to &a" + rank));
                 player.closeInventory();
             }
         event.setCancelled(true);
-
-
-   //     switch()
-        //stuff here  :V
     }
 }
