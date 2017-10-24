@@ -11,6 +11,7 @@ commands:
   youtube:
   famous:
   togglesc:
+  legalmods:
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   staffmode:
