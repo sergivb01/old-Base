@@ -4,13 +4,13 @@ package net.veilmc.base.command.module.chat;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.JavaUtils;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.concurrent.TimeUnit;
 
 public class SlowChatCommand
 extends BaseCommand {
@@ -40,7 +40,7 @@ extends BaseCommand {
             }
         }
         this.plugin.getServerHandler().setChatSlowedMillis(newTicks);
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? new StringBuilder().append("has slowed down for ").append(DurationFormatUtils.formatDurationWords(newTicks, true, true)).toString() : new StringBuilder().append(ChatColor.YELLOW).append("no longer slowed").toString()) + ChatColor.YELLOW + '.');
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? "has slowed down for " + DurationFormatUtils.formatDurationWords(newTicks, true, true) : String.valueOf(ChatColor.YELLOW) + "no longer slowed") + ChatColor.YELLOW + '.');
         return true;
     }
 }

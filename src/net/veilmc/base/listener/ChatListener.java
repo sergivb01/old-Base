@@ -22,9 +22,6 @@ import java.util.concurrent.TimeUnit;
 public class ChatListener
         implements Listener {
     private static final String MESSAGE_SPY_FORMAT = ChatColor.GRAY + "[" + ChatColor.GOLD + "SS: " + ChatColor.AQUA + "%1$s" + ChatColor.GRAY + " -> " + ChatColor.AQUA + "%2$s" + ChatColor.GRAY + "] %3$s";
-    private static final String STAFF_CHAT_NOTIFY = "rank.staff";
-    private static final String SLOWED_CHAT_BYPASS = "rank.staff";
-    private static final String TOGGLED_CHAT_BYPASS = "rank.staff";
     private static final long AUTO_IDLE_TIME = TimeUnit.MINUTES.toMillis(5);
     private final BasePlugin plugin;
 
@@ -131,7 +128,7 @@ public class ChatListener
         final UUID senderUUID = sender.getUniqueId();
         final String senderId = senderUUID.toString();
         final String recipientId = recipient.getUniqueId().toString();
-        final Collection<CommandSender> recipients = new HashSet<CommandSender>(Bukkit.getOnlinePlayers());
+        final Collection<CommandSender> recipients = new HashSet<>(Bukkit.getOnlinePlayers());
         recipients.remove(sender);
         recipients.remove(recipient);
         recipients.add(Bukkit.getConsoleSender());

@@ -1,10 +1,9 @@
 
 package net.veilmc.base.command.module.essential;
 
+import com.google.common.primitives.Ints;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
-import net.veilmc.base.task.ClearEntityHandler;
-import com.google.common.primitives.Ints;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,15 +23,16 @@ extends BaseCommand {
             return true;
         }
         if (args.length == 1) {
-            ClearEntityHandler clearEntityHandler;
             if (Ints.tryParse(args[0]) == null) {
                 sender.sendMessage(ChatColor.RED + "Must be a number");
                 return true;
             }
-            BasePlugin.getPlugin().getClearEntityHandler().cancel();
-            BasePlugin.getPlugin().getClearEntityHandler().runTaskTimer(BasePlugin.getPlugin(), (long) Ints.tryParse(args[0]), (long) Ints.tryParse(args[0]));
+            long duration = Integer.parseInt(args[0]);
             Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Changed the Clear Lag From " + BasePlugin.getPlugin().getServerHandler().getClearlagdelay() + " To " + Ints.tryParse(args[0]), true);
-            BasePlugin.getPlugin().getServerHandler().setClearlagdelay(Ints.tryParse(args[0]));
+            //BasePlugin.getPlugin().getServerHandler().setClearlagdelay((int)duration);
+
+            BasePlugin.getPlugin().getClearEntityHandler().cancel();
+            BasePlugin.getPlugin().getClearEntityHandler().runTaskTimer(BasePlugin.getPlugin(), 20L, duration);
             return true;
         }
         return true;

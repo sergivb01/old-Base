@@ -1,6 +1,5 @@
 package net.veilmc.base.command.module.essential;
 
-import net.minecraft.server.v1_7_R4.MinecraftServer;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import org.bukkit.Bukkit;
