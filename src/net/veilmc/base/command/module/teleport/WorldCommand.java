@@ -34,7 +34,6 @@ extends BaseCommand implements Listener {
             sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
-
         this.inv = Bukkit.createInventory(null, 9, "World");
 
         ItemStack overworld = new ItemStack(Material.GRASS, 1, (short) 3);
@@ -62,7 +61,6 @@ extends BaseCommand implements Listener {
 
         return true;
     }
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();

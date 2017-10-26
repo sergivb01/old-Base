@@ -11,6 +11,7 @@ commands:
   youtube:
   famous:
   togglesc:
+  legalmods:
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   staffmode:
@@ -87,9 +88,10 @@ commands:
   more:
     description: Give yourself more of an item.
   grant:
+  setmotd:
   lobby:
     aliases: [hub]
-#  banwave:
+  banwave:
   mutechat:
     aliases: [mc, rc, restrictchat, disablechat]
     description: Restricts the use of global chat.

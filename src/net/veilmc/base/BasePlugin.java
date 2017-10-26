@@ -29,7 +29,12 @@ import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -41,6 +46,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class BasePlugin
 extends JavaPlugin {
@@ -66,6 +72,7 @@ extends JavaPlugin {
         plugin = this;
         aO6169yawd7Fuck();
 
+
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         ConfigurationSerialization.registerClass(Warp.class);
@@ -86,6 +93,8 @@ extends JavaPlugin {
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
     }
+
+
 
     public void onDisable() {
         super.onDisable();
@@ -148,7 +157,6 @@ extends JavaPlugin {
         manager.registerEvents(new ReportCommand(), this);
         manager.registerEvents(new KitListener(this), this);
         manager.registerEvents(new MoveByBlockEvent(), this);
-        manager.registerEvents(new MobDamageListener(), this);
         manager.registerEvents(new MobstackListener(this), this);
         manager.registerEvents(new StaffListener(), this);
         manager.registerEvents(new NameVerifyListener(this), this);
@@ -157,6 +165,7 @@ extends JavaPlugin {
         manager.registerEvents(new PlayerLimitListener(), this);
         manager.registerEvents(new VanishListener(this), this);
     }
+
 
     private void reloadSchedulers() {
         ClearEntityHandler clearEntityHandler;
@@ -203,7 +212,7 @@ extends JavaPlugin {
     private void aO6169yawd7Fuck(){
         if(!awo16256ih()){
             this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
-            Bukkit.getPluginManager().disablePlugin(this);
+            Bukkit.shutdown();
         }
     }
 

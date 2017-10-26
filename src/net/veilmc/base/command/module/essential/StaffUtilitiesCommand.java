@@ -25,25 +25,16 @@ public class StaffUtilitiesCommand extends BaseCommand
 
 	public static ItemStack getRandomTeleport()
 	{
-		ItemStack is = new ItemStack(397, 1, (byte) 3);
+		ItemStack is = new ItemStack(351, 1, (byte) 14);
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(ChatColor.GOLD + "Random Teleport " + ChatColor.GRAY + "(Right Click)");
 		is.setItemMeta(im);
 		return is;
 	}
 
-	public static ItemStack getStaffOnline()
-    {
-        ItemStack is = new ItemStack(351, 1, (byte) 1);
-        ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.GOLD + "Staff Online");
-        is.setItemMeta(im);
-        return is;
-    }
-
 	public static ItemStack getFreezeTool()
 	{
-		ItemStack is = new ItemStack(Material.PACKED_ICE);
+		ItemStack is = new ItemStack(Material.IRON_FENCE);
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(ChatColor.GOLD + "Freeze Player " + ChatColor.GRAY + "(Right Click)");
 		is.setItemMeta(im);
@@ -75,23 +66,7 @@ public class StaffUtilitiesCommand extends BaseCommand
 		return is;
 	}
 
-	public static ItemStack getCarpetTool()
-	{
-		ItemStack is = new ItemStack(Material.CARPET, 1, (byte) 14);
-		ItemMeta im = is.getItemMeta();
-		im.setDisplayName(ChatColor.GRAY + " ");
-		is.setItemMeta(im);
-		return is;
-	}
 
-    public static ItemStack getNoWorldEditTool()
-    {
-        ItemStack is = new ItemStack(Material.WOOD_AXE);
-        ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.GOLD + "World Edit " + ChatColor.RED + "(Not Avaliable)");
-        is.setItemMeta(im);
-        return is;
-    }
 
 	public static ItemStack getWorldEditTool()
 	{
@@ -149,18 +124,12 @@ public class StaffUtilitiesCommand extends BaseCommand
 			p.getInventory().clear();
 			p.getInventory().setItem(0, getCompassTool());
 			p.getInventory().setItem(1, getBookTool());
-			if(p.hasPermission("worldedit.*")) {
-                p.getInventory().setItem(2, getWorldEditTool());
-            } else {
-                p.getInventory().setItem(2, getNoWorldEditTool());
-            }
+            p.getInventory().setItem(2, getWorldEditTool());
 
             user.setVanished(true);
-			p.getInventory().setItem(3, getCarpetTool());
 			p.getInventory().setItem(6, getFreezeTool());
 			p.getInventory().setItem(8, getVanishTool(true));
             p.getInventory().setItem(7, getRandomTeleport());
-            p.getInventory().setItem(5, getStaffOnline());
 
 			p.setGameMode(GameMode.CREATIVE);
 		}
