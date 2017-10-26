@@ -34,53 +34,33 @@ extends BaseCommand implements Listener {
             sender.sendMessage(ChatColor.RED + "This command is only executable for players.");
             return true;
         }
-        if ((args.length!=0 || args!=null)) {
+        this.inv = Bukkit.createInventory(null, 9, "World");
 
-            World world = Bukkit.getWorld((String) args[0]);
-            if (world == null) {
-                sender.sendMessage((Object) ChatColor.RED + "World '" + args[0] + "' not found.");
-                return true;
-            }
-            Player player = (Player) sender;
-            if (player.getWorld().equals((Object) world)) {
-                sender.sendMessage((Object) ChatColor.RED + "You are already in that world.");
-                return true;
-            }
-            Location origin = player.getLocation();
-            Location location = new Location(world, origin.getX(), origin.getY(), origin.getZ(), origin.getYaw(), origin.getPitch());
-            player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
-            sender.sendMessage((Object) ChatColor.YELLOW + "Switched world to '" + world.getName());
-            return true;
-        } else {
-            this.inv = Bukkit.createInventory(null, 9, "World");
+        ItemStack overworld = new ItemStack(Material.GRASS, 1, (short) 3);
+        ItemMeta overworldm = overworld.getItemMeta();
+        overworldm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Overworld"))));
+        overworldm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Overworld");
+        overworld.setItemMeta(overworldm);
+        inv.setItem(2, overworld);
 
-            ItemStack overworld = new ItemStack(Material.GRASS, 1, (short) 3);
-            ItemMeta overworldm = overworld.getItemMeta();
-            overworldm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Overworld"))));
-            overworldm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Overworld");
-            overworld.setItemMeta(overworldm);
-            inv.setItem(2, overworld);
+        ItemStack nether = new ItemStack(Material.NETHERRACK, 1, (short) 3);
+        ItemMeta netherm = nether.getItemMeta();
+        netherm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Nether"))));
+        netherm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Nether");
+        nether.setItemMeta(netherm);
+        inv.setItem(4, nether);
 
-            ItemStack nether = new ItemStack(Material.NETHERRACK, 1, (short) 3);
-            ItemMeta netherm = nether.getItemMeta();
-            netherm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "Nether"))));
-            netherm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Nether");
-            nether.setItemMeta(netherm);
-            inv.setItem(4, nether);
+        ItemStack end = new ItemStack(Material.ENDER_STONE, 1, (short) 3);
+        ItemMeta endm = end.getItemMeta();
+        endm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "End"))));
+        endm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "End");
+        end.setItemMeta(endm);
+        inv.setItem(6, end);
 
-            ItemStack end = new ItemStack(Material.ENDER_STONE, 1, (short) 3);
-            ItemMeta endm = end.getItemMeta();
-            endm.setLore((Arrays.asList((ChatColor.GRAY + " Click to teleport to the " + ChatColor.YELLOW + "End"))));
-            endm.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "End");
-            end.setItemMeta(endm);
-            inv.setItem(6, end);
+        ((Player) sender).openInventory(inv);
 
-            ((Player) sender).openInventory(inv);
-
-            return true;
-        }
+        return true;
     }
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
