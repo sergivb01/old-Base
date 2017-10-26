@@ -16,7 +16,7 @@ public class ServerHandler {
     @Getter private final List<String> announcements = new ArrayList<String>();
     private final List<String> serverRules = new ArrayList<String>();
     private final BasePlugin plugin;
-    @Getter private Boolean kitmap;
+    @Getter @Setter private Boolean kitmap;
     @Getter @Setter private int clearlagdelay;
     @Getter @Setter public boolean useProtocolLib;
     @Getter @Setter private int announcementDelay;

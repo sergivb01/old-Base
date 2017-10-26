@@ -21,7 +21,7 @@ public enum StaffPriority {
     }
 
     public static StaffPriority of(int level) {
-        return (StaffPriority) BY_ID.get(level);
+        return BY_ID.get(level);
     }
 
     public static StaffPriority of(Player player) {
