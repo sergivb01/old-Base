@@ -18,6 +18,7 @@ commands:
     aliases: ["h", "mod", "staff"]
   announcement:
     aliases: ["announce", "ann"]
+  lol:
   autorestart:
   list:
     aliases: [who]
