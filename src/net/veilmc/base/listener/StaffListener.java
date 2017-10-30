@@ -90,7 +90,7 @@ public class StaffListener implements Listener {
                     return;
                 }
             }
-            if (hand.getType() == Material.SKULL_ITEM) {
+            if (hand.equals(StaffUtilitiesCommand.getRandomTeleport())) {
                 if (baseUser.isStaffUtil()) {
                     p.getInventory().setItem(7, StaffUtilitiesCommand.getMinerTeleport());
                     return;

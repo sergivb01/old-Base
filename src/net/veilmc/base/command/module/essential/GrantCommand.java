@@ -55,7 +55,7 @@ public class GrantCommand extends BaseCommand implements Listener{
         }
 
         final long duration = JavaUtils.parse(args[1]);
-        if (duration == -1L && (!(args[1].equalsIgnoreCase("permanent")))) {
+        if (duration == -1L && (!(ar[1].equalsIgnoreCase("permanent")))) {
             player.sendMessage(ChatColor.RED + "'" + args[0] + "' is an invalid duration.");
             return true;
         }
