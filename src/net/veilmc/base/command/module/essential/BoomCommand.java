@@ -2,6 +2,7 @@ package net.veilmc.base.command.module.essential;
 
 import net.minecraft.server.v1_7_R4.Explosion;
 import net.veilmc.base.BaseConstants;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.*;
@@ -14,8 +15,10 @@ import org.bukkit.util.Vector;
 
 public class BoomCommand
         extends BaseCommand {
-    public BoomCommand() {
+    final BasePlugin plugin;
+    public BoomCommand(BasePlugin plugin) {
         super("boom", "Hackers goes boom.");
+        this.plugin = plugin;
         this.setUsage("/(command) <playerName>");
     }
 
@@ -35,7 +38,7 @@ public class BoomCommand
             return true;
         }
         Location loc = p.getLocation();
-        p.setVelocity(new Vector(0.0D, 1.0D, 0.0D));
+        p.setVelocity(new Vector(0.0D, 10.0D, 0.0D));
         Firework firework = p.getWorld().spawn(loc, Firework.class);
         FireworkMeta data = (FireworkMeta) firework.getFireworkMeta();
         data.addEffects(FireworkEffect.builder().withColor(Color.RED).with(FireworkEffect.Type.BALL_LARGE).trail(false).build());
@@ -49,7 +52,12 @@ public class BoomCommand
 
 
         }
-        Bukkit.dispatchCommand(sender, "bc ban " + p.getName() + " Cheating");
+        Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable(){
+            public void run() {
+                Bukkit.dispatchCommand(sender, "bc ban " + p.getName() + " Cheating");
+            }
+        }, 20 * 1);
+
         return true;
     }
 }
