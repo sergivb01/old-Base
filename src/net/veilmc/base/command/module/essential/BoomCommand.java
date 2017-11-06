@@ -24,8 +24,8 @@ public class BoomCommand
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+        if (sender instanceof Player) {
+            sender.sendMessage(ChatColor.RED + "This command is only executable by console.");
             return true;
         }
         if (args.length < 1) {
