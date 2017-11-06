@@ -54,7 +54,7 @@ public class BoomCommand
         }
         Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable(){
             public void run() {
-                Bukkit.dispatchCommand(sender, "bc ban " + p.getName() + " Cheating");
+                Bukkit.dispatchCommand(sender, "ban " + p.getName() + " Cheating");
             }
         }, 20 * 1);
 
