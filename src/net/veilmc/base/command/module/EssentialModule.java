@@ -16,6 +16,7 @@ extends BaseCommandModule {
         this.commands.add(new AmivisCommand(plugin));
         this.commands.add(new DonateCommand());
         this.commands.add(new AutoRestartCommand(plugin));
+        this.commands.add(new BoomCommand());
         this.commands.add(new ListCommand());
         this.commands.add(new EnchantCommand());
         this.commands.add(new NoteCommand());
