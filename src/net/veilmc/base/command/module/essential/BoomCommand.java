@@ -1,6 +1,6 @@
 package net.veilmc.base.command.module.essential;
 
-import net.minecraft.server.v1_7_R4.Explosion;
+import me.sergivb01.giraffe.Giraffe;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
@@ -40,7 +40,7 @@ public class BoomCommand
         Location loc = p.getLocation();
         p.setVelocity(new Vector(0.0D, 10.0D, 0.0D));
         Firework firework = p.getWorld().spawn(loc, Firework.class);
-        FireworkMeta data = (FireworkMeta) firework.getFireworkMeta();
+        FireworkMeta data = firework.getFireworkMeta();
         data.addEffects(FireworkEffect.builder().withColor(Color.RED).with(FireworkEffect.Type.BALL_LARGE).trail(false).build());
         data.setPower(2);
         firework.setFireworkMeta(data);
@@ -49,15 +49,9 @@ public class BoomCommand
             loc.getWorld().playEffect(loc, Effect.LARGE_SMOKE, 50);
             loc.getWorld().playEffect(loc, Effect.EXPLOSION, 50);
             loc.getWorld().playEffect(loc, Effect.SMALL_SMOKE, 50);
-
-
         }
-        Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable(){
-            public void run() {
-                Bukkit.dispatchCommand(sender, "ban " + p.getName() + " Cheating -s");
-            }
-        }, 20 * 1);
-
+        Giraffe.getInstance().announceBan(p);
+        Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(this.plugin, () -> Bukkit.dispatchCommand(sender, "ban " + p.getName() + " Cheating -s"), 20L);
         return true;
     }
 }
