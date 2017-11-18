@@ -30,6 +30,8 @@ import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,6 +47,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 
@@ -66,6 +69,7 @@ extends JavaPlugin {
     @Getter private SignHandler signHandler;
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
+
 
 
     public void onEnable() {
@@ -215,6 +219,7 @@ extends JavaPlugin {
             Bukkit.shutdown();
         }
     }
+
 
 
 }

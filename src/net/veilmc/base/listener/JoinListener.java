@@ -35,11 +35,6 @@ implements Listener {
                 player1.sendMessage(notes);
             }
     }
-        player.sendMessage(ChatColor.GRAY + " ");
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &7* &e&lWelcome &a&l" + player.getName() + "&e&l to &a&l" +  ChatColor.GREEN + "Veil Network"));
-        player.sendMessage(ChatColor.GRAY + " §7* §6Teamspeak §ets.veilhcf.us");
-        player.sendMessage(ChatColor.GRAY + " §7* §6Website §eveilhcf.us");
-        player.sendMessage(ChatColor.GRAY + " ");
 
         baseUser.tryLoggingName(player);
         baseUser.tryLoggingAddress(player.getAddress().getAddress().getHostAddress());

@@ -1,5 +1,5 @@
 name: Core
-version: 3.9-VEILMC
+version: 4.0-VEILMC
 main: net.veilmc.base.BasePlugin
 commands:
   warp:
@@ -23,6 +23,8 @@ commands:
   autorestart:
   list:
     aliases: [who]
+  punish:
+    aliases: [p]
   note:
   copyinv:
   amivis:

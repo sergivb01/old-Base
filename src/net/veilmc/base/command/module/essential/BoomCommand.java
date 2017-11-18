@@ -1,6 +1,6 @@
 package net.veilmc.base.command.module.essential;
 
-import me.sergivb01.giraffe.Giraffe;
+//import me.sergivb01.giraffe.Giraffe;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
@@ -50,7 +50,7 @@ public class BoomCommand
             loc.getWorld().playEffect(loc, Effect.EXPLOSION, 50);
             loc.getWorld().playEffect(loc, Effect.SMALL_SMOKE, 50);
         }
-        Giraffe.getInstance().announceBan(p);
+        //Giraffe.getInstance().announceBan(p); //TODO: FIX THIS FOR USE ON SERVER/COMMIT
         Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(this.plugin, () -> Bukkit.dispatchCommand(sender, "ban " + p.getName() + " Cheating -s"), 20L);
         return true;
     }

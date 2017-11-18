@@ -20,6 +20,7 @@ extends BaseCommandModule {
         this.commands.add(new ListCommand());
         this.commands.add(new EnchantCommand());
         this.commands.add(new NoteCommand());
+        this.commands.add(new PunishmentCommand(plugin));
         this.commands.add(new FeedCommand());
         this.commands.add(new FlyCommand());
         this.commands.add(new KillMobsCommand(plugin));
