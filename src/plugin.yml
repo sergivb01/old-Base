@@ -12,6 +12,7 @@ commands:
   famous:
   togglesc:
   legalmods:
+  see:
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   boom:
