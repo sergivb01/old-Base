@@ -4,7 +4,11 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.BukkitUtils;
+import net.veilmc.util.menu.Menu;
+import net.veilmc.util.menu.MenuUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,6 +30,10 @@ public class SeeCommand extends BaseCommand {
 
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
+        if(!(sender instanceof Player)){
+            sender.sendMessage("no");
+            return false;
+        }
         Player p = (Player)sender;
 
         if (args.length < 1) {
@@ -41,6 +49,13 @@ public class SeeCommand extends BaseCommand {
         UUID uuid = target.getUniqueId();
 
         new Thread(()->{
+
+            Menu menu = MenuUtils.createMenu(ChatColor.RED + "Punishments GUI", 4);
+            MenuUtils.addBorder(menu.getInventory(), menu, Material.STAINED_GLASS_PANE);
+            menu.open(p);
+
+
+
             /*Bukkit.getScheduler().runTaskAsynchronously(this.plugin, ()->{
 
 

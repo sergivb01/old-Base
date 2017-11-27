@@ -32,6 +32,17 @@ public class MenuUtils {
                 .nextRow().apply("111111111").build(); // Fourth row
         menu.forEach(slot -> slot.setItem(glass));
     }
+    public static void addBorder(Inventory inventory, Menu menu, Material material) {
+        ItemStack glass = new ItemStack(material);
+        for (int i = 0 ; i < 9 ; i++) { // Setting first row
+            menu.getSlot(i).setItem(glass);
+        }
+        menu.getSlot(17).setItem(glass);
+        menu.getSlot(18).setItem(glass);
+        for (int i = 26 ; i < 36 ; i++) {
+            menu.getSlot(i).setItem(glass);
+        }
+    }
 
 
 }
