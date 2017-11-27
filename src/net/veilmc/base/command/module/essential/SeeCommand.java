@@ -51,7 +51,7 @@ public class SeeCommand extends BaseCommand {
         new Thread(()->{
 
             Menu menu = MenuUtils.createMenu(ChatColor.RED + "Punishments GUI", 4);
-            MenuUtils.addBorder(menu.getInventory(), menu, Material.STAINED_GLASS_PANE);
+            MenuUtils.addMaterialBorder(menu.getInventory(), menu, Material.DIAMOND_BLOCK, 64);
             menu.open(p);
 
 

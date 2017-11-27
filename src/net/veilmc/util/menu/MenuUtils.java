@@ -24,13 +24,15 @@ public class MenuUtils {
         });
     }
 
-    public static void addMaterialBorder(Inventory inventory, Menu menu, Material material) {
-        ItemStack glass = new ItemStack(material);
+    public static void addMaterialBorder(Inventory inventory, Menu menu, Material material, int amount) {
+        ItemStack glass = new ItemStack(material, amount);
         Mask mask = Mask2D.builder(menu).apply("111111111") // First row
                 .nextRow().apply("100000001") // Second row
                 .nextRow().apply("100000001") // Third row
                 .nextRow().apply("111111111").build(); // Fourth row
-        menu.forEach(slot -> slot.setItem(glass));
+        for (int slot : mask) {
+            menu.getSlot(slot).setItem(glass);
+        }
     }
     public static void addBorder(Inventory inventory, Menu menu, Material material) {
         ItemStack glass = new ItemStack(material);
