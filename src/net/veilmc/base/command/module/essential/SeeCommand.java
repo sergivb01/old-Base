@@ -1,24 +1,17 @@
 package net.veilmc.base.command.module.essential;
 
-import litebans.api.Database;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class SeeCommand extends BaseCommand {
 
@@ -48,7 +41,7 @@ public class SeeCommand extends BaseCommand {
         UUID uuid = target.getUniqueId();
 
         new Thread(()->{
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, ()->{
+            /*Bukkit.getScheduler().runTaskAsynchronously(this.plugin, ()->{
 
 
                 boolean banned = Database.get().isPlayerBanned(uuid, "null");
@@ -67,14 +60,14 @@ public class SeeCommand extends BaseCommand {
                 p.sendMessage("end");
                 try (PreparedStatement st = Database.get().prepareStatement("SELECT * FROM {bans}")) {
                     try (ResultSet rs = st.executeQuery()) {
-        /* ... */
+
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
 
-            });
+            });*/
         }).start();
 
         return true;
