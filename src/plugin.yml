@@ -21,6 +21,7 @@ commands:
   announcement:
     aliases: ["announce", "ann"]
   lol:
+  troll:
   autorestart:
   list:
     aliases: [who]
