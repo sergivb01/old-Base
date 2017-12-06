@@ -18,7 +18,7 @@ public class TrollCommand extends BaseCommand {
 
     public TrollCommand(BasePlugin plugin) {
         super("troll", "Blah");
-        this.setUsage("/(command) <player>");
+        this.setUsage("/(command) <player>/all");
         this.plugin = plugin;
     }
 
@@ -50,6 +50,8 @@ public class TrollCommand extends BaseCommand {
             sender.sendMessage(this.getUsage());
             return true;
         }
+
+
         if(args[0].equalsIgnoreCase("all")) {
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
@@ -59,6 +61,7 @@ public class TrollCommand extends BaseCommand {
             });
             return true;
         }
+
         final Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
         if (target == null) {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
