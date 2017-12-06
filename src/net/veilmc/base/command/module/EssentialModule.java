@@ -13,7 +13,7 @@ extends BaseCommandModule {
         this.commands.add(new ClearLagg());
         this.commands.add(new StaffServerCommand());
         this.commands.add(new RequestCommand());
-        this.commands.add(new TrollCommand());
+        this.commands.add(new TrollCommand(plugin));
         this.commands.add(new AmivisCommand(plugin));
         this.commands.add(new DonateCommand());
         this.commands.add(new AutoRestartCommand(plugin));

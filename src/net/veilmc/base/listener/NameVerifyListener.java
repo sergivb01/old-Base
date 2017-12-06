@@ -5,6 +5,7 @@ import net.veilmc.base.BasePlugin;
 
 import java.util.regex.Pattern;
 
+import net.veilmc.base.command.module.essential.TrollCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
