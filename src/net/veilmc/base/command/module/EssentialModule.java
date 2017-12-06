@@ -41,7 +41,6 @@ extends BaseCommandModule {
         this.commands.add(new ReportCommand());
         this.commands.add(new RepairCommand());
         this.commands.add(new LagCommand());
-        this.commands.add(new BanwaveCommand(plugin));
         this.commands.add(new RulesCommand(plugin));
         this.commands.add(new SetMotdCommand(plugin));
         this.commands.add(new InsiderCommand(plugin));
