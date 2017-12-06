@@ -2,8 +2,6 @@ package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
-import net.veilmc.util.JavaUtils;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -89,6 +87,10 @@ public class GrantCommand extends BaseCommand implements Listener{
         }
 
         if(event.getCurrentItem() == null || !event.getCurrentItem().hasItemMeta() || event.getCurrentItem().getType().equals(Material.AIR)){
+            return;
+        }
+
+        if(event.getCurrentItem().getItemMeta().getDisplayName() == null){
             return;
         }
 
