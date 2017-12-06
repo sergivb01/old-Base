@@ -42,12 +42,10 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-       // sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " has been playing for " + (Object)ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords((long)this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + " this map.");
-        /*if(sender.hasPermission("rank.staff") && target.isOnline()) {
-            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true));
-        } else {*/
-            sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map " + ((sender.hasPermission("rank.staff") && target.isOnline()) ?  ("and has been " + ChatColor.RED + "AFK" + ChatColor.YELLOW + " for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true) + ChatColor.YELLOW + ".") : "."));
-        //}
+        sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map.");
+        if(sender.hasPermission("rank.staff") && target.isOnline()) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Has been AFK for: " + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true)));
+        }
         return true;
     }
 
