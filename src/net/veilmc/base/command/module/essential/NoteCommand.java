@@ -6,6 +6,7 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
 
+import net.veilmc.util.API;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.bukkit.Bukkit;
@@ -42,16 +43,16 @@ extends BaseCommand {
                 String upTime = DateFormatUtils.format(System.currentTimeMillis(), "dd/MM");
                 String time = DateFormatUtils.format(System.currentTimeMillis(), "hh:mm");
                 targetUser.setNote(ChatColor.YELLOW + "Staff: " + ChatColor.GREEN + cs.getName() + ChatColor.GRAY + " [" + upTime + "-" + time + "]" + " - " + ChatColor.YELLOW + note);
-                player.sendMessage(ChatColor.GREEN + "You added a note to " + targetUser.getName());
+                player.sendMessage(API.Prefix_staff + ChatColor.GREEN + "You added a note to " + targetUser.getName());
                 return true;
             }
             if (args[0].equalsIgnoreCase("remove")) {
                 if (player.hasPermission(this.getPermission() + ".remove")) {
                     if (targetUser.tryRemoveNote()) {
-                        Command.broadcastCommandMessage(cs, ChatColor.GREEN + "Removed note of " + target.getName() + ChatColor.YELLOW + '.');
+                        Command.broadcastCommandMessage(cs, API.Prefix_staff + ChatColor.GREEN + "Removed note of " + target.getName() + ChatColor.YELLOW + '.');
                         return true;
                     }
-                    player.sendMessage(ChatColor.RED + "Note not found.");
+                    player.sendMessage(API.Prefix_staff + ChatColor.RED + "Note not found.");
                     return true;
                 }
                 player.sendMessage(ChatColor.RED + "No permission.");

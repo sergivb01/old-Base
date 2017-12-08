@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.chat;
 
 import net.veilmc.base.command.BaseCommand;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -31,8 +32,7 @@ extends BaseCommand {
             if (player.hasPermission(BYPASS_PERMISSION)) continue;
             player.sendMessage(CLEAR_MESSAGE);
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + sender.getName() + " cleared in-game chat.");
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
 
         return true;
     }

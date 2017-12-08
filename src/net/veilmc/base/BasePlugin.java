@@ -1,6 +1,7 @@
 
 package net.veilmc.base;
 
+import litebans.api.Events;
 import lombok.Getter;
 import net.veilmc.base.command.CommandManager;
 import net.veilmc.base.command.SimpleCommandManager;

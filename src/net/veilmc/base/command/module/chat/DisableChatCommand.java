@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.chat;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.JavaUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
@@ -41,6 +42,7 @@ extends BaseCommand {
             }
         }
         this.plugin.getServerHandler().setChatDisabledMillis(newTicks);
+        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', API.Prefix_staff + "&eYou have " + ((newTicks > 0L) ? ("disabled") : ("enabled")) + " chat."));
         Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is now " + ((newTicks > 0L) ? (ChatColor.RED + "disabled" + ChatColor.YELLOW + " for " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(newTicks, true, true)) : (ChatColor.GREEN + "enabled")));
         return true;
     }

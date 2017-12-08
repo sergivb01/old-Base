@@ -5,6 +5,7 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +45,7 @@ extends BaseCommand {
         BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         boolean newVanished = !baseUser.isVanished() || args.length > 1 && Boolean.parseBoolean(args[1]);
         baseUser.setVanished(target, newVanished, true);
-        sender.sendMessage(ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
+        sender.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
         return true;
     }
 

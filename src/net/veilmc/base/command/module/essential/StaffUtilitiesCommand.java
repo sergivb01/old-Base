@@ -4,6 +4,7 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.event.StaffModeEvent;
 import net.veilmc.base.user.BaseUser;
+import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -115,7 +116,7 @@ public class StaffUtilitiesCommand extends BaseCommand
 		final BaseUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
 		final StaffModeEvent playerFreezeEvent = new StaffModeEvent(player, !user.isStaffUtil());
 		Bukkit.getServer().getPluginManager().callEvent(playerFreezeEvent);
-		player.sendMessage(ChatColor.YELLOW + "Staff Mode has been set to " + !user.isStaffUtil() + ChatColor.YELLOW + ".");
+		player.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Staff Mode has been set to " + !user.isStaffUtil() + ChatColor.YELLOW + ".");
 		if(!user.isStaffUtil())
 		{
 			staffitems.put((Player)sender, ((Player) sender).getInventory().getContents());

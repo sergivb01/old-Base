@@ -4,6 +4,7 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.event.PlayerFreezeEvent;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.ParticleEffect;
 import net.veilmc.util.chat.ClickAction;
@@ -246,9 +247,10 @@ public class FreezeCommand extends BaseCommand implements Listener
                     Player p = e.getPlayer();
                     this.frozen.remove(p.getName());
                     this.frozenPlayers.remove(p.getUniqueId());
-                    online.sendMessage(" ");
-                    new Text(ChatColor.YELLOW + p.getName() + ChatColor.RED + " has logged out while frozen. " + ChatColor.GRAY + "(Click to ban)").setHoverText(ChatColor.YELLOW + "Click to ban " + p.getName()).setClick(ClickAction.RUN_COMMAND, "/ban " + p.getName() + " Disconnected while frozen").send(online);
-                    online.sendMessage(" ");
+                  //  online.sendMessage(" ");
+                    online.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&l" + p.getName() + " has logged out while frozen."));
+                   // new Text(ChatColor.YELLOW + p.getName() + ChatColor.RED + " has logged out while frozen. " + ChatColor.GRAY + "(Click to ban)").setHoverText(ChatColor.YELLOW + "Click to ban " + p.getName()).setClick(ClickAction.RUN_COMMAND, "/ban " + p.getName() + " Disconnected while frozen").send(online);
+                   // online.sendMessage(" ");
 
                 }
             }
@@ -294,10 +296,10 @@ public class FreezeCommand extends BaseCommand implements Listener
             if (clicked.getType() == Material.BOOK) {
                 for (final Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("base.command.freeze")) {
-                        online.sendMessage(" ");
-                        new Text(ChatColor.RED + player.getName() + " has clicked to admit").send(online);
-                        online.sendMessage(" ");
-                        online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
+                        online.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&l" + player.getName() + " has clicked to admit."));
+                      //  new Text(ChatColor.RED + player.getName() + " has clicked to admit").send(online);
+                     //   online.sendMessage(" ");
+                      //  online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(0 , new ItemStack(Material.AIR));
                     }
                 }
@@ -305,9 +307,9 @@ public class FreezeCommand extends BaseCommand implements Listener
             if (clicked.getType() == Material.WOOL) {
                 for (final Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("base.command.freeze")) {
-                        online.sendMessage(" ");
-                        new Text(ChatColor.GREEN + player.getName() + " has said they are joining Teamspeak").send(online);
-                        online.sendMessage(" ");
+                        online.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&l" + player.getName() + " has said they are joining teamspeak."));
+                        //new Text(ChatColor.GREEN + player.getName() + " has said they are joining Teamspeak").send(online);
+                        //online.sendMessage(" ");
                         online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(8 , new ItemStack(Material.AIR));
                     }

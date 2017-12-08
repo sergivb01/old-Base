@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +54,7 @@ extends BaseCommand {
             return true;
         }
         target.setGameMode(mode);
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + ChatColor.WHITE + mode.name().toString().toLowerCase() + ChatColor.YELLOW + '.');
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + ChatColor.YELLOW + mode.name().toString().toLowerCase() + ChatColor.YELLOW + '.');
         return true;
     }
 

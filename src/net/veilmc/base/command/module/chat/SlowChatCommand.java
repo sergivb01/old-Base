@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.chat;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.JavaUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
@@ -40,7 +41,8 @@ extends BaseCommand {
             }
         }
         this.plugin.getServerHandler().setChatSlowedMillis(newTicks);
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is " + (newTicks > 0 ? "has slowed down for " + DurationFormatUtils.formatDurationWords(newTicks, true, true) : String.valueOf(ChatColor.YELLOW) + "no longer slowed") + ChatColor.YELLOW + '.');
+        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', API.Prefix_staff + "&eYou have " + (newTicks > 0 ? " slowed down chat." : String.valueOf(ChatColor.YELLOW) + " de-restricted chat.")));
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is" + (newTicks > 0 ? " now slowed down for " + DurationFormatUtils.formatDurationWords(newTicks, true, true) : String.valueOf(ChatColor.YELLOW) + " no longer slowed") + ChatColor.YELLOW + '.');
         return true;
     }
 }

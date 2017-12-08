@@ -37,11 +37,9 @@ public class TrollCommand extends BaseCommand {
             final Object pc = handle.getClass().getField("playerConnection").get(handle);
             final Method sendPacketMethod = pc.getClass().getMethod("sendPacket", Packet);
             sendPacketMethod.invoke(pc, packet);
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     @Override
@@ -61,13 +59,11 @@ public class TrollCommand extends BaseCommand {
             });
             return true;
         }
-
         final Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
         if (target == null) {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-
         Troll(target);
         sender.sendMessage(ChatColor.YELLOW + "You are a fucking troller lolololoololo packets g0d");
         return true;
