@@ -2,6 +2,7 @@
 package net.veilmc.base.command.module.teleport;
 
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.Objects;
 
@@ -40,7 +41,7 @@ extends BaseCommand {
             Block originBlock = origin.getBlock();
             if ((highestLocation.getBlockY() - originBlock.getY() != 1 || originBlock.getType() != Material.WATER) && originBlock.getType() != Material.STATIONARY_WATER) {
                 player.teleport(highestLocation.add(0.0, 1.0, 0.0), PlayerTeleportEvent.TeleportCause.COMMAND);
-                sender.sendMessage(ChatColor.GREEN + "Teleported to highest location.");
+                Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.GREEN + "Teleported to highest location.");
                 return true;
             }
         }
