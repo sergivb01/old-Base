@@ -5,6 +5,7 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +57,7 @@ implements Listener {
             return true;
         }
         ((Player)sender).teleport(previous);
-        sender.sendMessage(ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
+        sender.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
         return true;
     }
 

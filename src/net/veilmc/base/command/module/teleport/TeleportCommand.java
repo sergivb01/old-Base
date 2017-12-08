@@ -57,7 +57,7 @@ extends BaseCommand {
                 return true;
             }
             if (targetA.teleport(targetB, PlayerTeleportEvent.TeleportCause.COMMAND)) {
-                sender.sendMessage(ChatColor.YELLOW + "Teleported " + targetA.getName() + " to " + targetB.getName() + '.');
+                Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Teleported " + targetA.getName() + " to " + targetB.getName() + '.');
             } else {
                 sender.sendMessage(ChatColor.RED + "Failed to teleport you to " + targetB.getName() + '.');
             }
@@ -74,7 +74,7 @@ extends BaseCommand {
             targetALocation.setY(y);
             targetALocation.setZ(z);
             if (targetA.teleport(targetALocation, PlayerTeleportEvent.TeleportCause.COMMAND)) {
-                sender.sendMessage(String.format(ChatColor.YELLOW + "Teleported %s to %.2f, %.2f, %.2f.", targetA.getName(), x, y, z));
+                Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "Teleported " + targetA.getName() + " to " + x + " " + y + " " + z));
             } else {
                 sender.sendMessage(ChatColor.RED + "Failed to teleport you.");
             }

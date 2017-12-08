@@ -2,6 +2,7 @@
 package net.veilmc.base.command.module.teleport;
 
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -30,8 +31,9 @@ extends BaseCommand {
         for (Player target : Bukkit.getOnlinePlayers()) {
             if (target.equals(player) || !player.canSee(target)) continue;
             target.teleport(player, PlayerTeleportEvent.TeleportCause.COMMAND);
+            target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&oAll players have been teleported to " + player.getName()));
         }
-        Command.broadcastCommandMessage(sender, ChatColor.GREEN + "All players have been teleported to your location.");
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "All players have been teleported to your location.");
         return true;
     }
 
