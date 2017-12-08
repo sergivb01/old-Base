@@ -4,6 +4,7 @@ package net.veilmc.base.command.module.inventory;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -53,7 +54,7 @@ extends BaseCommand {
             }
             ammount = Integer.parseInt(args[2]);
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have given " + t.getName() + " " + ammount.toString() + " " + BasePlugin.getPlugin().getItemDb().getItem(args[1]));
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "You have given " + t.getName() + " " + ammount.toString() + " " + BasePlugin.getPlugin().getItemDb().getItem(args[1]));
         return true;
     }
 }

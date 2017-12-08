@@ -21,8 +21,9 @@ public class StaffServerCommand extends BaseCommand {
             sender.sendMessage(ChatColor.RED + "You may not do that.");
             return false;
         }
-        if (args.length != 1) {
-            sender.sendMessage(getUsage(label));
+        if (args.length < 1) {
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            return true;
         }
         else {
             final ByteArrayDataOutput dataOutput = ByteStreams.newDataOutput();

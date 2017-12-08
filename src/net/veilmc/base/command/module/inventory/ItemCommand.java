@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.inventory;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -47,7 +48,7 @@ extends BaseCommand {
             }
             amount = args[1];
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have given yourself " + amount + " " + BasePlugin.getPlugin().getItemDb().getName(BasePlugin.getPlugin().getItemDb().getItem(args[0])), true);
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "You have given yourself " + amount + " " + BasePlugin.getPlugin().getItemDb().getName(BasePlugin.getPlugin().getItemDb().getItem(args[0])), true);
         return true;
     }
 }

@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.inventory;
 
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ extends BaseCommand {
         PlayerInventory targetInventory = target.getInventory();
         targetInventory.clear();
         targetInventory.setArmorContents(new ItemStack[]{new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1), new ItemStack(Material.AIR, 1)});
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Cleared inventory of player " + target.getName() + '.');
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "Cleared inventory of player " + target.getName() + '.');
         return true;
     }
 
