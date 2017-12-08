@@ -1,6 +1,7 @@
 package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.imagemessage.AnimatedMessage;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -36,6 +37,7 @@ public class LagCommand
         sender.sendMessage(ChatColor.YELLOW + "  " + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Uptime: ");
         sender.sendMessage(ChatColor.YELLOW + "  " + serverUptime);
+        sender.sendMessage();
         return true;
     }
 }

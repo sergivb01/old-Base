@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomUtils {
-    private static final String[] numeric = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     private static final String[] alpha = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    private static final String[] numeric = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 
     public static String randomAlphaNumeric(Integer maxChar) {
         ArrayList<String> alphaText = new ArrayList<String>();
