@@ -3,6 +3,7 @@ package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.command.BaseCommand;
+import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +41,7 @@ extends BaseCommand {
         if (newFlight) {
             target.setFlying(true);
         }
-        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Flight mode of " + target.getName() + " set to " + newFlight + '.');
+        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "Flight mode of " + target.getName() + " set to " + newFlight + '.');
         return true;
     }
 

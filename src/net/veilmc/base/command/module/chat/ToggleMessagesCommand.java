@@ -31,7 +31,7 @@ extends BaseCommand {
         BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         boolean newToggled = !baseUser.isMessagesVisible();
         baseUser.setMessagesVisible(newToggled);
-        sender.sendMessage(ChatColor.YELLOW + "You have turned private messages " + (newToggled ? new StringBuilder().append(ChatColor.GREEN).append("on").toString() : new StringBuilder().append(ChatColor.RED).append("off").toString()) + ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "You have " + (newToggled ? "enabled" : "disabled" + ChatColor.YELLOW + " private messages."));
         return true;
     }
 }

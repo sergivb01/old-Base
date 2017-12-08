@@ -75,6 +75,7 @@ public class FreezeCommand extends BaseCommand implements Listener
                     this.frozenPlayers.put(on.getUniqueId(), this.serverFrozenMillis);
             	}
             }
+            Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "&eYou have frozen the server."));
             Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "The server is " + ((serverFrozenMillis != -1) ? ("now frozen for " + DurationFormatUtils.formatDurationWords(freezeTicks, true, true)) : "no longer frozen") + ((reason == null) ? "" : (" with reason " + reason)) + '.');
             return true;
         }
@@ -100,7 +101,7 @@ public class FreezeCommand extends BaseCommand implements Listener
             this.frozenPlayers.remove(targetUUID);
             target.closeInventory();
             target.sendMessage(ChatColor.GREEN + "You have been unfrozen.");
-            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + target.getName() + " is no longer frozen");
+            Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + target.getName() + " is no longer frozen");
         }
         else {
             ParticleEffect.LAVA_SPARK.sphere(target.getPlayer(), target.getLocation(), 4.0f);
