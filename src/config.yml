@@ -14,22 +14,4 @@ banwave:
  # - ''
  # - ''
  # - ''
-punishment:
-  number:
-    - '1'
-    - '2'
-    - '3'
-    - '4'
-    - '5'
-  name:
-    - 'one'
-    - 'two'
-    - 'three'
-    - 'four'
-    - 'five'
-  lore:
-    - 'lore 1'
-    - 'lore 2'
-    - 'lore 3'
-    - 'lore 4'
-    - 'lore 5'
+

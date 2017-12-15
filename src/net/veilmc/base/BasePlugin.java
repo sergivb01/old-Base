@@ -9,6 +9,7 @@ import net.veilmc.base.command.module.ChatModule;
 import net.veilmc.base.command.module.EssentialModule;
 import net.veilmc.base.command.module.InventoryModule;
 import net.veilmc.base.command.module.TeleportModule;
+import net.veilmc.base.command.module.essential.PunishCommand;
 import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
 import net.veilmc.base.kit.*;
@@ -156,6 +157,7 @@ extends JavaPlugin {
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new WorldCommand(), this);
         manager.registerEvents(new ChatListener(this), this);
+        manager.registerEvents(new PunishCommand(this), this);
         manager.registerEvents(new ColouredSignListener(), this);
         manager.registerEvents(new DecreasedLagListener(this), this);
         manager.registerEvents(new JoinListener(this), this);

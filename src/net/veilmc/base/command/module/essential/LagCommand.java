@@ -37,7 +37,6 @@ public class LagCommand
         sender.sendMessage(ChatColor.YELLOW + "  " + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Uptime: ");
         sender.sendMessage(ChatColor.YELLOW + "  " + serverUptime);
-        sender.sendMessage();
         return true;
     }
 }

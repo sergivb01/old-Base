@@ -14,6 +14,7 @@ extends BaseCommandModule {
         this.commands.add(new StaffServerCommand());
         this.commands.add(new RequestCommand());
         this.commands.add(new TrollCommand(plugin));
+        this.commands.add(new BanWaveCommand(plugin));
         this.commands.add(new AmivisCommand(plugin));
         this.commands.add(new DonateCommand());
         this.commands.add(new AutoRestartCommand(plugin));
@@ -22,7 +23,7 @@ extends BaseCommandModule {
         this.commands.add(new ListCommand());
         this.commands.add(new EnchantCommand());
         this.commands.add(new NoteCommand());
-        this.commands.add(new PunishmentCommand(plugin));
+        this.commands.add(new PunishCommand(plugin));
         this.commands.add(new FeedCommand());
         this.commands.add(new FlyCommand());
         this.commands.add(new KillMobsCommand(plugin));
