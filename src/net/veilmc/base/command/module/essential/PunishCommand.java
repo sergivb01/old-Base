@@ -34,11 +34,12 @@ public class PunishCommand
 
     static String tn;
     static OfflinePlayer target;
+    static String silent;
     Inventory inv = Bukkit.createInventory(null, 54, "Veil Punishment");
 
     public PunishCommand(BasePlugin plugin) {
         super("punish", "Punish a player.");
-        this.setUsage("/(command) <playerName>");
+        this.setUsage("/(command) <playerName> [-s]");
     }
 
     @Override
@@ -50,18 +51,28 @@ public class PunishCommand
         }
 
 
-            Player player = (Player) sender;
-            if (args.length == 0 || args.length > 1) {
-                player.sendMessage(ChatColor.RED + "Usage: /punishment <player>");
-            } else {
-                target = Bukkit.getServer().getOfflinePlayer(args[0]);
-                tn = target.getName();
-              //  new PunishmentGUI(player);
-                PunishmentGUI(player);
-                return true;
-            }
-        return false;
+        Player player = (Player) sender;
+        if (args.length == 0 || args.length > 2) {
+            //player.sendMessage(ChatColor.RED + "Try using /punish <player> [-s]");
+        } else if (args.length == 2 && args[1].equals("-s")){
+            target = Bukkit.getServer().getOfflinePlayer(args[0]);
+            tn = target.getName();
+            silent = " -s";
+            PunishmentGUI(player);
+            return true;
+        } else if (args.length == 1) {
+            target = Bukkit.getServer().getOfflinePlayer(args[0]);
+            tn = target.getName();
+            silent = "";
+            PunishmentGUI(player);
+            return true;
+        } else {
+            //player.sendMessage(ChatColor.RED + "Try using /punish <player> [-s]");
+            return true;
+        }
+        return true;
     }
+
 
     public void PunishmentGUI(Player player) {
         if(player == null) {
@@ -351,70 +362,70 @@ public class PunishCommand
             // GLOBAL RULES
 
             case 9:
-                if (player.hasPermission("hcf.command.punishment.ban")) {
-                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " Hacked client");
+                if (player.hasPermission("base.command.punish.ban")) {
+                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " Hacked client" + silent);
                     player.closeInventory();
                 } else {
-                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " Hacked client");
+                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " Hacked client" + silent);
                     player.closeInventory();
                 }
                 break;
 
             case 10:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 30d" + " Hacked client [Admit]");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 30d" + " Hacked client [Admit]" + silent);
                 player.closeInventory();
                 break;
 
             case 18:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Xray");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Xray" + silent);
                 player.closeInventory();
                 break;
 
             case 19:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 7d" + " Xray [Admit]");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 7d" + " Xray [Admit]" + silent);
                 player.closeInventory();
                 break;
 
             case 27:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 30d" + " Autoclick");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 30d" + " Autoclick" + silent);
                 player.closeInventory();
                 break;
 
             case 28:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Autoclick [Admit]");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Autoclick [Admit]" + silent);
                 player.closeInventory();
                 break;
 
             case 36:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 3d" + " Abusing of glitches");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 3d" + " Abusing of glitches" + silent);
                 player.closeInventory();
                 break;
 
             case 37:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Unapproved Mods");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 15d" + " Unapproved Mods" + silent);
                 player.closeInventory();
                 break;
 
             case 45:
-                if (player.hasPermission("hcf.command.punishment.ban")) {
-                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " Advertising");
+                if (player.hasPermission("base.command.punish.ban")) {
+                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " Advertising" + silent);
                     player.closeInventory();
                 } else {
-                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " Advertising");
+                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " Advertising" + silent);
                     player.closeInventory();
                 }
                 break;
 
             case 46:
-                if (player.hasPermission("hcf.command.punishment.blacklist")) {
+                if (player.hasPermission("base.command.punish.blacklist")) {
                     Bukkit.dispatchCommand(player, "blacklist " + target.getName() + " Ddos");
                     player.closeInventory();
-                } else if (player.hasPermission("hcf.command.punishment.ban")){
-                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " DDos");
+                } else if (player.hasPermission("base.command.punish.ban")){
+                    Bukkit.dispatchCommand(player, "ipban " + target.getName() + " DDos" + silent);
                     player.closeInventory();
                     player.sendMessage(ChatColor.BOLD + " * " + ChatColor.GOLD + ChatColor.BOLD + "ALERT " + ChatColor.RED + "Ask a Manager - Owner to blacklist this player.");
                 } else {
-                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " DDos");
+                    Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 365d" + " DDos" + silent);
                     player.closeInventory();
                     player.sendMessage(ChatColor.BOLD + " * " + ChatColor.GOLD + ChatColor.BOLD + "ALERT " + ChatColor.RED + "Ask a Manager - Owner to blacklist this player.");
                 }
@@ -423,95 +434,95 @@ public class PunishCommand
             // HCF RULES
 
             case 30:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Suffocation traps");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Suffocation traps" + silent);
                 player.closeInventory();
                 break;
 
             case 31:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 1d" + " Abusing of pvp protection");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 1d" + " Abusing of pvp protection" + silent);
                 player.closeInventory();
                 break;
 
             case 32:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Kick & Kill");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Kick & Kill" + silent);
                 player.closeInventory();
                 break;
 
             case 39:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " DTR Evading");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " DTR Evading" + silent);
                 player.closeInventory();
                 break;
 
             case 40:
-                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 1d" + " Alting");
+                Bukkit.dispatchCommand(player, "tempban " + target.getName() + " 1d" + " Alting" + silent);
                 player.closeInventory();
                 break;
 
             case 41:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Griefing outside faction claims");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Griefing outside faction claims" + silent);
                 player.closeInventory();
                 break;
 
             case 48:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Inside");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Inside" + silent);
                 player.closeInventory();
                 break;
 
             case 49:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Block glitching");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Block glitching" + silent);
                 player.closeInventory();
                 break;
 
             case 50:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Allying");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Allying" + silent);
                 player.closeInventory();
                 break;
 
             // CHAT RULES
 
             case 16:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 1h" + " Toxicity");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 1h" + " Toxicity" + silent);
                 player.closeInventory();
                 break;
 
             case 17:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 15m" + " Users disrespect");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 15m" + " Users disrespect" + silent);
                 player.closeInventory();
                 break;
 
             case 25:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 30m" + " Users disrespect");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 30m" + " Users disrespect" + silent);
                 player.closeInventory();
                 break;
 
             case 26:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 1h" + " Staff disrespect");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 1h" + " Staff disrespect" + silent);
                 player.closeInventory();
                 break;
 
             case 34:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 5m" + " Chat spam");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 5m" + " Chat spam" + silent);
                 player.closeInventory();
                 break;
 
             case 35:
-                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Chat flood");
+                Bukkit.dispatchCommand(player, "warn " + target.getName() + " Chat flood" + silent);
                 player.closeInventory();
                 break;
 
             case 43:
-                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 30m" + " External links");
+                Bukkit.dispatchCommand(player, "tempmute " + target.getName() + " 30m" + " External links" + silent);
                 player.closeInventory();
                 break;
 
             case 44:
-                Bukkit.dispatchCommand(player, "kick " + target.getName() + " Spamming faction commands");
+                Bukkit.dispatchCommand(player, "kick " + target.getName() + " Spamming faction commands" + silent);
                 player.closeInventory();
                 break;
 
             // Miscellaneous
             case 52:
-                if (player.hasPermission("hcf.command.punishment.insider")) {
+                if (player.hasPermission("base.command.punish.insider")) {
                     Bukkit.dispatchCommand(player, "pex user " + target.getName() + " group set Insider");
                     player.closeInventory();
                 } else {
@@ -521,8 +532,8 @@ public class PunishCommand
                 break;
 
             case 53:
-                if (player.hasPermission("hcf.command.punishment.ban")) {
-                    Bukkit.dispatchCommand(player, "unban " + target.getName());
+                if (player.hasPermission("base.command.punish.ban")) {
+                    Bukkit.dispatchCommand(player, "unban " + target.getName() + silent);
                     player.closeInventory();
                 } else {
                     player.closeInventory();
