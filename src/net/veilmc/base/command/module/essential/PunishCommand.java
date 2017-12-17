@@ -342,10 +342,10 @@ public class PunishCommand
         Player player = (Player) event.getWhoClicked();
         event.setCancelled(true);
 
-        if(event.getCurrentItem() == null || event.getCurrentItem().getType() == null || !event.getCurrentItem().hasItemMeta()) {
+        /*if(event.getCurrentItem() == null || event.getCurrentItem().getType() == null || !event.getCurrentItem().hasItemMeta()) {
             player.closeInventory();
             return;
-        }
+        }*/
         switch (event.getRawSlot()) {
 
             // RULES

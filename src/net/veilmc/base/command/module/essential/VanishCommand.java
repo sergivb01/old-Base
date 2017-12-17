@@ -43,8 +43,13 @@ extends BaseCommand {
             return true;
         }
         BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
+        Player p = (Player)sender;
         boolean newVanished = !baseUser.isVanished() || args.length > 1 && Boolean.parseBoolean(args[1]);
         baseUser.setVanished(target, newVanished, true);
+        if(baseUser.isStaffUtil()) {
+            p.getInventory().setItem(8, StaffUtilitiesCommand.getVanishTool(newVanished));
+            p.sendMessage("changed");
+        }
         sender.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
         return true;
     }
