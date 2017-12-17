@@ -42,7 +42,7 @@ extends BaseCommand {
             }
         }
         this.plugin.getServerHandler().setChatDisabledMillis(newTicks);
-        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', API.Prefix_staff + "&eYou have " + ((newTicks > 0L) ? ("disabled") : ("enabled")) + " chat."));
+        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "&eYou have " + ((newTicks > 0L) ? ("disabled") : ("enabled")) + " chat."));
         Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is now " + ((newTicks > 0L) ? (ChatColor.RED + "disabled" + ChatColor.YELLOW + " for " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(newTicks, true, true)) : (ChatColor.GREEN + "enabled")));
         return true;
     }

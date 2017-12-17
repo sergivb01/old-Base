@@ -57,7 +57,7 @@ implements Listener {
             return true;
         }
         ((Player)sender).teleport(previous);
-        sender.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Teleported to back location of " + target.getName() + '.');
         return true;
     }
 

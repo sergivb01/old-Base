@@ -78,7 +78,7 @@ extends BaseCommand {
         catch (Error ex) {
             itemName = stack.getType().name();
         }
-        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "Enchanted " + enchantment.getName() + " at level " + level + " onto " + itemName + " of " + target.getName() + '.');
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Enchanted " + enchantment.getName() + " at level " + level + " onto " + itemName + " of " + target.getName() + '.');
         return true;
     }
 

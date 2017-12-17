@@ -32,7 +32,7 @@ extends BaseCommand {
             if (player.hasPermission(BYPASS_PERMISSION)) continue;
             player.sendMessage(CLEAR_MESSAGE);
         }
-        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "You have cleared chat for: " + reason, true);
 
         return true;
     }

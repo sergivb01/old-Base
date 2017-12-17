@@ -41,7 +41,7 @@ extends BaseCommand {
             }
         }
         this.plugin.getServerHandler().setChatSlowedMillis(newTicks);
-        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', API.Prefix_staff + "&eYou have " + (newTicks > 0 ? " slowed down chat." : String.valueOf(ChatColor.YELLOW) + " de-restricted chat.")));
+        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "&eYou have " + (newTicks > 0 ? " slowed down chat." : String.valueOf(ChatColor.YELLOW) + " de-restricted chat.")));
         Bukkit.broadcastMessage(ChatColor.YELLOW + "Global chat is" + (newTicks > 0 ? " now slowed down for " + DurationFormatUtils.formatDurationWords(newTicks, true, true) : String.valueOf(ChatColor.YELLOW) + " no longer slowed") + ChatColor.YELLOW + '.');
         return true;
     }

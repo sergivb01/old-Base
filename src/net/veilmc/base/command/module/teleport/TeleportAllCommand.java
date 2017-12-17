@@ -33,7 +33,7 @@ extends BaseCommand {
             target.teleport(player, PlayerTeleportEvent.TeleportCause.COMMAND);
             target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&oAll players have been teleported to " + player.getName()));
         }
-        Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + "All players have been teleported to your location.");
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "All players have been teleported to your location.");
         return true;
     }
 

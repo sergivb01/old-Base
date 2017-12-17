@@ -50,7 +50,7 @@ extends BaseCommand {
             p.getInventory().setItem(8, StaffUtilitiesCommand.getVanishTool(newVanished));
             p.sendMessage("changed");
         }
-        sender.sendMessage(API.Prefix_staff + ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Vanish mode of " + target.getName() + " set to " + newVanished + '.');
         return true;
     }
 

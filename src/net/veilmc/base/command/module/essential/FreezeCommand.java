@@ -101,7 +101,7 @@ public class FreezeCommand extends BaseCommand implements Listener
             this.frozenPlayers.remove(targetUUID);
             target.closeInventory();
             target.sendMessage(ChatColor.GREEN + "You have been unfrozen.");
-            Command.broadcastCommandMessage(sender, API.Prefix_staff + ChatColor.YELLOW + target.getName() + " is no longer frozen");
+            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + target.getName() + " is no longer frozen");
         }
         else {
             ParticleEffect.LAVA_SPARK.sphere(target.getPlayer(), target.getLocation(), 4.0f);
