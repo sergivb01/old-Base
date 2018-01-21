@@ -51,7 +51,7 @@ extends BaseCommand {
         }
         long millis = System.currentTimeMillis();
         if (target == null || !BaseCommand.canSee(sender, target) && millis - baseUser.getLastReceivedMessageMillis() > VANISH_REPLY_TIMEOUT) {
-            sender.sendMessage(ChatColor.GOLD + "There is no player to reply to.");
+            sender.sendMessage(ChatColor.RED + "There is no player to reply to.");
             return true;
         }
         String message = StringUtils.join(args, ' ');

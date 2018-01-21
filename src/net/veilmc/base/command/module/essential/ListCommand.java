@@ -49,9 +49,5 @@ extends BaseCommand {
         sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
-
-    public String getRealName(String group) {
-        return PermissionsEx.getPermissionManager().getGroup(group).getPrefix().replace("[", "").replace("]", "").replace("_", "").replace(group, "");
-    }
 }
 

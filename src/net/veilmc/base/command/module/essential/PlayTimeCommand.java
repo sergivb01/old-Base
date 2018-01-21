@@ -44,7 +44,7 @@ extends BaseCommand {
         }
         sender.sendMessage(ChatColor.YELLOW + target.getName() + " has been playing for " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(this.plugin.getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true) + ChatColor.YELLOW + " this map.");
         if(sender.hasPermission("rank.staff") && target.isOnline()) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Has been AFK for: " + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true)));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cAFK Timer: &e" + DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target.getPlayer()), true, true)));
         }
         return true;
     }

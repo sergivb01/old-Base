@@ -11,6 +11,7 @@ extends BaseCommandModule {
         this.commands.add(new LolCommand(plugin));
         this.commands.add(new ToggleDonorOnly(plugin));
         this.commands.add(new ClearLagg());
+        this.commands.add(new SNoteCommand());
         this.commands.add(new StaffServerCommand());
         this.commands.add(new RequestCommand());
         this.commands.add(new TrollCommand(plugin));

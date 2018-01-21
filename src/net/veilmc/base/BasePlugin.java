@@ -1,7 +1,6 @@
 
 package net.veilmc.base;
 
-import litebans.api.Events;
 import lombok.Getter;
 import net.veilmc.base.command.CommandManager;
 import net.veilmc.base.command.SimpleCommandManager;
@@ -21,6 +20,7 @@ import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
+import net.veilmc.hcf.utils.ConfigFile;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -31,14 +31,7 @@ import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -49,9 +42,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.logging.Level;
 
 public class BasePlugin
 extends JavaPlugin {
@@ -71,13 +62,13 @@ extends JavaPlugin {
     @Getter private SignHandler signHandler;
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
+    @Getter private ConfigFile langFile;
 
 
 
     public void onEnable() {
         plugin = this;
-        aO6169yawd7Fuck();
-
+        //aO6169yawd7Fuck();
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
