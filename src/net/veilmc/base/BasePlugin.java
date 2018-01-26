@@ -148,7 +148,7 @@ extends JavaPlugin {
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new WorldCommand(), this);
         manager.registerEvents(new ChatListener(this), this);
-        manager.registerEvents(new PunishCommand(this), this);
+        manager.registerEvents(new PunishCommand(), this);
         manager.registerEvents(new ColouredSignListener(), this);
         manager.registerEvents(new DecreasedLagListener(this), this);
         manager.registerEvents(new JoinListener(this), this);
