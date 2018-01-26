@@ -13,7 +13,6 @@ commands:
   togglesc:
   legalmods:
   banwave:
-  see:
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
   boom:
@@ -26,6 +25,7 @@ commands:
   troll:
   autorestart:
   request:
+    aliases: [helpop]
   list:
     aliases: [who]
   punish:

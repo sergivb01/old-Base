@@ -157,6 +157,10 @@ implements Listener {
             player.sendMessage(ChatColor.RED + "You have already used this kit " + curUses + '/' + maxUses + " times.");
             event.setCancelled(true);
         }
+        if(baseUser.isStaffUtil()) {
+            player.sendMessage(ChatColor.RED + "You cannot apply kits while in staff mode.");
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
