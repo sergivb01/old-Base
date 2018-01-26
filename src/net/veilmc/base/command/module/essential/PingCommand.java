@@ -37,7 +37,7 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        sender.sendMessage((target.equals(sender) ? new StringBuilder().append(ChatColor.YELLOW).append("Your ping is").toString() : new StringBuilder().append(ChatColor.YELLOW).append("Ping of ").append(target.getName()).toString()) + ChatColor.GRAY + ": " + ChatColor.WHITE + getPing(target));
+        sender.sendMessage((target.equals(sender) ? new StringBuilder().append(ChatColor.YELLOW).append("Your ping is").toString() : new StringBuilder().append(ChatColor.YELLOW).append("Ping of").append(target.getName()).toString()) + ChatColor.GRAY + ": " + ChatColor.WHITE + getPing(target));
         return true;
     }
 

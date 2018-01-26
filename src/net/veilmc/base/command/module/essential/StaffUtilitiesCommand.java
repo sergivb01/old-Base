@@ -13,8 +13,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class StaffUtilitiesCommand extends BaseCommand
@@ -22,6 +25,33 @@ public class StaffUtilitiesCommand extends BaseCommand
 	BasePlugin plugin;
 	public static ConcurrentHashMap<Player, ItemStack[]>  staffitems = new ConcurrentHashMap<>();
 	public static ConcurrentHashMap<Player, ItemStack[]> staffarmor = new ConcurrentHashMap<>();
+
+
+    private final HashMap<UUID, ItemStack[]> contents = new HashMap<>();
+    private final HashMap<UUID, ItemStack[]> armorContents = new HashMap<>();
+
+
+    public boolean hasPreviousInventory(Player player) {
+        return contents.containsKey(player.getUniqueId()) && armorContents.containsKey(player.getUniqueId());
+    }
+
+    public void saveInventory(Player player) {
+        contents.put(player.getUniqueId(), player.getInventory().getContents());
+        armorContents.put(player.getUniqueId(), player.getInventory().getArmorContents());
+    }
+
+    public void loadInventory(Player player) {
+        PlayerInventory playerInventory = player.getInventory();
+        playerInventory.setContents((ItemStack[]) contents.get(player.getUniqueId()));
+        playerInventory.setArmorContents((ItemStack[]) armorContents.get(player.getUniqueId()));
+        contents.remove(player.getUniqueId());
+        armorContents.remove(player.getUniqueId());
+    }
+
+
+
+
+
 
 
 	public static ItemStack getRandomTeleport()
@@ -122,12 +152,18 @@ public class StaffUtilitiesCommand extends BaseCommand
 			staffitems.put((Player)sender, ((Player) sender).getInventory().getContents());
 			staffarmor.put((Player)sender, ((Player) sender).getInventory().getArmorContents());
 			Player p = (Player)sender;
-			p.getInventory().clear();
+
+            saveInventory(player);
+            PlayerInventory playerInventory = player.getInventory();
+            playerInventory.setArmorContents(new ItemStack[] { new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR) });
+            playerInventory.clear();
+
 			p.getInventory().setItem(0, getCompassTool());
 			p.getInventory().setItem(1, getBookTool());
             p.getInventory().setItem(2, getWorldEditTool());
 
             user.setVanished(true);
+
 			p.getInventory().setItem(6, getFreezeTool());
 			p.getInventory().setItem(8, getVanishTool(true));
             p.getInventory().setItem(7, getRandomTeleport());
@@ -137,7 +173,16 @@ public class StaffUtilitiesCommand extends BaseCommand
 		else
 		{
 			Player p = (Player)sender;
-			p.getInventory().clear();
+
+            PlayerInventory playerInventory = player.getInventory();
+            playerInventory.setArmorContents(new ItemStack[] { new ItemStack(Material.AIR), new ItemStack(Material.AIR),
+                    new ItemStack(Material.AIR), new ItemStack(Material.AIR) });
+            playerInventory.clear();
+            player.setGameMode(GameMode.SURVIVAL);
+            if (hasPreviousInventory(player)) {
+                loadInventory(player);
+            }
+
 			if(staffitems.contains(player)){
 				p.getInventory().setContents(staffitems.remove(sender));
 				p.getInventory().setArmorContents(staffarmor.remove(sender));
