@@ -1,13 +1,6 @@
 package net.veilmc.base.command.module.essential;
 
 // Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,8 +27,6 @@ import net.md_5.bungee.api.ChatColor;
 
 public class PunishCommand extends BaseCommand implements Listener{
 
-
-
     public PunishCommand() {
         super("punish", "Punish a player.");
         this.setAliases(new String[]{"who"});
@@ -44,7 +35,7 @@ public class PunishCommand extends BaseCommand implements Listener{
 
     private static String target;
     private static String silent;
-    Inventory inv;
+    private Inventory inv;
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -577,4 +568,6 @@ public class PunishCommand extends BaseCommand implements Listener{
                 break;
         }
         silent = "";
-    }}
+    }
+
+}
