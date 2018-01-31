@@ -54,7 +54,7 @@ public class ChatListener
 
         for(Player target : event.getRecipients()){
             BaseUser targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
-            if((baseUser.isInStaffChat() && !targetUser.isStaffChatVisible()) || targetUser.getIgnoring().contains(name) || targetUser.isGlobalChatVisible()){
+            if((baseUser.isInStaffChat() && !targetUser.isStaffChatVisible()) || targetUser.getIgnoring().contains(name) || !targetUser.isGlobalChatVisible()){
                 event.getRecipients().remove(target);
             }
         }
