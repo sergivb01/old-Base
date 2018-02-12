@@ -32,21 +32,21 @@ extends BaseCommand {
                 if (BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
                     list.add(ChatColor.GRAY + player.getName());
                 } else if (player.hasPermission("command.list.own")) {
-                    list.add(ChatColor.GREEN + player.getName());
+                    list.add(ChatColor.BLUE + player.getName());
                 }
             }
         }
-        sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage(ChatColor.YELLOW + "There are currently " + ChatColor.GOLD.toString() + ChatColor.BOLD + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ChatColor.YELLOW + " players online.");
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.AQUA + "There are currently " + ChatColor.BLUE.toString() + ChatColor.BOLD + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ChatColor.AQUA + " players online.");
         sender.sendMessage(" ");
         if (list.isEmpty()) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &eStaff:" + " " + ChatColor.RED + "Not avaliable"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &bStaff:" + " " + ChatColor.RED + "Not avaliable"));
         } else {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &eStaff: &7(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ",")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &bStaff: &7(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ",")));
         }
         sender.sendMessage(" ");
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l * &eSupport: &ats.veilhcf.us"));
-        sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l * &bSupport: &fts.veilhcf.us"));
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
 }

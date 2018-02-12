@@ -1,5 +1,5 @@
 name: Core
-version: 4.0-VEILMC
+version: VEILMC
 main: net.veilmc.base.BasePlugin
 commands:
   setviewdistance:
