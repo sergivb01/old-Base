@@ -52,12 +52,12 @@ public class ChatListener
             iterator.remove();
         }*/
 
-        event.getRecipients().forEach(target -> {
+        for(Player target : event.getRecipients()){
             BaseUser targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
             if((baseUser.isInStaffChat() && !targetUser.isStaffChatVisible()) || targetUser.getIgnoring().contains(name) || !targetUser.isGlobalChatVisible()){
                 event.getRecipients().remove(target);
             }
-        });
+        }
 
         if ((remainingChatDisabled = this.plugin.getServerHandler().getRemainingChatDisabledMillis()) > 0 && !player.hasPermission("rank.staff")) {
             player.sendMessage(ChatColor.RED + "Global chat is currently disabled for another " + ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingChatDisabled, true, true) + ChatColor.RED + '.');

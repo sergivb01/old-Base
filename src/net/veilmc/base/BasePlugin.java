@@ -44,9 +44,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class BasePlugin
-extends JavaPlugin {
-    private static BasePlugin instance;
+public class BasePlugin extends JavaPlugin {
     @Getter private static BasePlugin plugin;
     @Getter private ItemDb itemDb;
     @Getter private Random random = new Random();
@@ -63,7 +61,6 @@ extends JavaPlugin {
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
     @Getter private ConfigFile langFile;
-
 
 
     public void onEnable() {
