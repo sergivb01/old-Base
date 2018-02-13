@@ -15,11 +15,11 @@ public class ChatCommands implements Listener {
         Player player = event.getPlayer();
         String spacebar = ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT;
         switch (command) {
-            case "?":
+            case "?help":
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         spacebar+
-                                "&9&lChatCommands list &7(?)\n"+
+                                "&9&lChatCommands list &7(?help)\n"+
                                 " &7* &b?claim\n"+
                                 " &7* &b?elevator\n"+
                                 " &7* &b?potions\n"+
@@ -122,9 +122,9 @@ public class ChatCommands implements Listener {
                 ));
                 break;
         }
-        if (command.startsWith("?") && command.trim().split(" ").length == 1 && !event.isCancelled()) {
+        if (command.startsWith("?") && command.trim().split(" ").length == 1 && !event.isCancelled() && command.toCharArray().length > 1) {
             event.setCancelled(true);
-            player.chat("?");
+            player.chat("?help");
         }
     }
 }
