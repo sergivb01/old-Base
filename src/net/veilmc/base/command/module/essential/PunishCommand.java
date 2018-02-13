@@ -39,31 +39,33 @@ public class PunishCommand extends BaseCommand implements Listener{
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length == 0 || args.length > 2 || (args.length == 2 && !args[1].equalsIgnoreCase("-s"))) {
+            sender.sendMessage(this.getUsage());
+            return true;
+        }
         Player player = (Player) sender;
         if(!(sender instanceof Player)) {
-            System.out.println("Only players can use this command.");
+            sender.sendMessage("Only players can use this command.");
+            return true;
         }
-            if(!player.hasPermission("hcf.command.punishment")) {
-                player.sendMessage(ChatColor.RED + "You dont have permissions to execute this command.");
-            } else if (args.length == 0 || args.length > 2 || args.length == 2 && !args[1].equalsIgnoreCase("-s")) {
-                player.sendMessage(ChatColor.RED + "Try using /punishment <player> [-s]");
-            } else {
-                target = args[0];
-                if (Bukkit.getPlayer(target) == null) {
-                    OfflinePlayer targetoffline = Bukkit.getOfflinePlayer(args[0]);
-                    target = targetoffline.getName();
-                }
-                if (args.length == 1) {
-                    if (silent == null) silent = "";
-                    else silent = "";
-                    inv = Bukkit.createInventory(player, 54, "Veil Punish Manager");
-                } else if (args.length == 2 && args[1].equalsIgnoreCase("-s")) {
-                    silent = " -s";
-                    inv = Bukkit.createInventory(player, 54, "Veil Punish Manager" + ChatColor.ITALIC + " (Silent)");
-                }
-                PunishmentGUI(player);
+        else {
+            target = args[0];
+            if (Bukkit.getPlayer(target) == null) {
+                OfflinePlayer targetoffline = Bukkit.getOfflinePlayer(args[0]);
+                target = targetoffline.getName();
+                return true;
             }
-        return false;
+            if (args.length == 1) {
+                if (silent == null) silent = "";
+                else silent = "";
+                inv = Bukkit.createInventory(player, 54, "Veil Punish Manager");
+            } else if (args.length == 2 && args[1].equalsIgnoreCase("-s")) {
+                silent = " -s";
+                inv = Bukkit.createInventory(player, 54, "Veil Punish Manager" + ChatColor.ITALIC + " (Silent)");
+            }
+            PunishmentGUI(player);
+        }
+        return true;
     }
 
     private void PunishmentGUI(Player player) {

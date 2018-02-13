@@ -8,6 +8,7 @@ import net.veilmc.base.command.module.ChatModule;
 import net.veilmc.base.command.module.EssentialModule;
 import net.veilmc.base.command.module.InventoryModule;
 import net.veilmc.base.command.module.TeleportModule;
+import net.veilmc.base.command.module.chat.ChatCommands;
 import net.veilmc.base.command.module.essential.PunishCommand;
 import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
@@ -44,9 +45,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class BasePlugin
-extends JavaPlugin {
-    private static BasePlugin instance;
+public class BasePlugin extends JavaPlugin {
     @Getter private static BasePlugin plugin;
     @Getter private ItemDb itemDb;
     @Getter private Random random = new Random();
@@ -63,7 +62,6 @@ extends JavaPlugin {
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
     @Getter private ConfigFile langFile;
-
 
 
     public void onEnable() {
@@ -162,6 +160,8 @@ extends JavaPlugin {
         manager.registerEvents(this.playTimeManager, this);
         manager.registerEvents(new PlayerLimitListener(), this);
         manager.registerEvents(new VanishListener(this), this);
+        manager.registerEvents(new ChatCommands(), this);
+        manager.registerEvents(new AutoMuteListener(this), this);
     }
 
 
