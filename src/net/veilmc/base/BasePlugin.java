@@ -8,6 +8,7 @@ import net.veilmc.base.command.module.ChatModule;
 import net.veilmc.base.command.module.EssentialModule;
 import net.veilmc.base.command.module.InventoryModule;
 import net.veilmc.base.command.module.TeleportModule;
+import net.veilmc.base.command.module.chat.ChatCommands;
 import net.veilmc.base.command.module.essential.PunishCommand;
 import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
@@ -159,6 +160,7 @@ public class BasePlugin extends JavaPlugin {
         manager.registerEvents(this.playTimeManager, this);
         manager.registerEvents(new PlayerLimitListener(), this);
         manager.registerEvents(new VanishListener(this), this);
+        manager.registerEvents(new ChatCommands(), this);
     }
 
 
