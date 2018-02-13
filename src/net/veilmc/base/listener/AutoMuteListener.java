@@ -32,11 +32,11 @@ public class AutoMuteListener implements Listener {
             if (player.hasPermission("automute.bypass")) return;
             if (!messageCount.containsKey(playername)) toAdvert(playername);
             addMessage(playername);
-            if (messageCount.get(playername).intValue() == 3) {
+            if (messageCount.get(playername) == 3) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED + "Please slow down!");
             }
-            if (messageCount.get(playername).intValue() == 4) {
+            if (messageCount.get(playername) == 4) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "You have recieved an advert for spamming.");
                 if (!messageCount.containsKey(playername)) toRemoveAdverts(playername);
@@ -48,40 +48,32 @@ public class AutoMuteListener implements Listener {
     private void addMessage(final String playername) {
         int messageInt;
         if (messageCount.containsKey(playername)) {
-            messageInt = (messageCount.get(playername)).intValue();
+            messageInt = messageCount.get(playername);
             messageCount.remove(playername);
         } else messageInt = 0;
         messageInt++;
-        messageCount.put(playername, Integer.valueOf(messageInt));
+        messageCount.put(playername, messageInt);
     }
 
     private void addAdvert(final String playername) {
         int advertsInt;
         if (totalAdverts.containsKey(playername)) {
-            advertsInt = (totalAdverts.get(playername)).intValue();
+            advertsInt = totalAdverts.get(playername);
             totalAdverts.remove(playername);
         } else advertsInt = 0;
         advertsInt++;
-        totalAdverts.put(playername, Integer.valueOf(advertsInt));
-        if (totalAdverts.get(playername).intValue() == 2) {
+        totalAdverts.put(playername, advertsInt);
+        if (totalAdverts.get(playername) == 2) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mute " + playername + " 5m [AutoMute] Spam -s");
             totalAdverts.remove(playername);
         }
     }
 
     private void toAdvert(final String playername) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(BasePlugin.getPlugin(), new Runnable() {
-            public void run() {
-                messageCount.remove(playername);
-            }
-        }, cooldownToAdvert * 20);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(BasePlugin.getPlugin(), () -> messageCount.remove(playername), cooldownToAdvert * 20);
     }
 
     private void toRemoveAdverts(final String playername) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(BasePlugin.getPlugin(), new Runnable() {
-            public void run() {
-                totalAdverts.remove(playername);
-            }
-        }, cooldownToRemoveAdvert * 20);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(BasePlugin.getPlugin(), () -> totalAdverts.remove(playername), cooldownToRemoveAdvert * 20);
     }
 }
