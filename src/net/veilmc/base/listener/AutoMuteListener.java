@@ -28,29 +28,39 @@ public class AutoMuteListener implements Listener {
         long remainingChatDisabled = this.plugin.getServerHandler().getRemainingChatDisabledMillis();
         if (!(remainingChatDisabled > 0) || !(remainingChatSlowed > 0)) {
             Player player = event.getPlayer();
-            String playername = player.getName();
-            if (player.hasPermission("automute.bypass")) return;
-            if (!messageCount.containsKey(playername)) toAdvert(playername);
-            addMessage(playername);
-            if (messageCount.get(playername) == 3) {
+            String playerString = player.getName();
+
+            if (player.hasPermission("automute.bypass")) {
+                return;
+            }
+
+            if (!messageCount.containsKey(playerString)){
+                toAdvert(playerString);
+            }
+            addMessage(playerString);
+
+            if (messageCount.get(playerString) == 3) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED + "Please slow down!");
             }
-            if (messageCount.get(playername) == 4) {
+
+            if (messageCount.get(playerString) == 4) {
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "You have recieved an advert for spamming.");
-                if (!messageCount.containsKey(playername)) toRemoveAdverts(playername);
-                addAdvert(playername);
+                player.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "You have recieved a warning for spamming.");
+                addAdvert(playerString);
             }
 
         }
     }
     private void addMessage(final String playername) {
         int messageInt;
+
         if (messageCount.containsKey(playername)) {
             messageInt = messageCount.get(playername);
             messageCount.remove(playername);
-        } else messageInt = 0;
+        } else {
+            messageInt = 0;
+        }
         messageInt++;
         messageCount.put(playername, messageInt);
     }
@@ -60,10 +70,13 @@ public class AutoMuteListener implements Listener {
         if (totalAdverts.containsKey(playername)) {
             advertsInt = totalAdverts.get(playername);
             totalAdverts.remove(playername);
-        } else advertsInt = 0;
+        } else {
+            advertsInt = 0;
+        }
         advertsInt++;
         totalAdverts.put(playername, advertsInt);
         if (totalAdverts.get(playername) == 2) {
+            // Final warning, removes all previous warnings
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mute " + playername + " 5m [AutoMute] Spam -s");
             totalAdverts.remove(playername);
         }
