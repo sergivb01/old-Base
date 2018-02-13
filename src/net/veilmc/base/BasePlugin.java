@@ -161,6 +161,7 @@ public class BasePlugin extends JavaPlugin {
         manager.registerEvents(new PlayerLimitListener(), this);
         manager.registerEvents(new VanishListener(this), this);
         manager.registerEvents(new ChatCommands(), this);
+        //manager.registerEvents(new AutoMuteListener(this), this);
     }
 
 

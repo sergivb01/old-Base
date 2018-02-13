@@ -1,5 +1,13 @@
 package net.veilmc.util.chat;
 
+import net.minecraft.server.v1_7_R4.Item;
+import net.minecraft.util.com.google.common.base.Objects;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R4.potion.CraftPotionEffectType;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +19,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //import com.google.common.base.Objects;
-import net.minecraft.server.v1_7_R4.Item;
-import net.minecraft.util.com.google.common.base.Objects;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_7_R4.potion.CraftPotionEffectType;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
 public class Lang {
     private static final Pattern PAT = Pattern.compile("^\\s*([\\w\\d\\.]+)\\s*=\\s*(.*)\\s*$");
