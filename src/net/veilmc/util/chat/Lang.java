@@ -10,8 +10,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.common.base.Objects;
+//import com.google.common.base.Objects;
 import net.minecraft.server.v1_7_R4.Item;
+import net.minecraft.util.com.google.common.base.Objects;
 import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_7_R4.potion.CraftPotionEffectType;
 import org.bukkit.enchantments.Enchantment;
@@ -67,7 +68,7 @@ public class Lang {
 
     public static String fromStack(ItemStack stack) {
         String node = Lang.translatableFromStack(stack);
-        return (String)Objects.firstNonNull(translations.get(node), node);
+        return (String) Objects.firstNonNull(translations.get(node), node);
     }
 
     public static String translatableFromEnchantment(Enchantment ench) {
