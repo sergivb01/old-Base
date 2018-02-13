@@ -42,13 +42,9 @@ public class AutoMuteListener implements Listener {
                 if (!messageCount.containsKey(playername)) toRemoveAdverts(playername);
                 addAdvert(playername);
             }
-            if (totalAdverts.get(playername).intValue() == 2) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mute " + playername + " 5m [AutoMute] Spam -s");
-                totalAdverts.remove(playername);
-            }
+
         }
     }
-
     private void addMessage(final String playername) {
         int messageInt;
         if (messageCount.containsKey(playername)) {
@@ -67,6 +63,10 @@ public class AutoMuteListener implements Listener {
         } else advertsInt = 0;
         advertsInt++;
         totalAdverts.put(playername, Integer.valueOf(advertsInt));
+        if (totalAdverts.get(playername).intValue() == 2) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mute " + playername + " 5m [AutoMute] Spam -s");
+            totalAdverts.remove(playername);
+        }
     }
 
     private void toAdvert(final String playername) {
