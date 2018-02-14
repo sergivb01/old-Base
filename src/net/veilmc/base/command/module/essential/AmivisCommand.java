@@ -5,13 +5,13 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.BukkitUtils;
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class AmivisCommand
 extends BaseCommand {
@@ -40,7 +40,7 @@ extends BaseCommand {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
             return true;
         }
-        sender.sendMessage(ChatColor.YELLOW + target.getName() + " is " + ((vanished = this.plugin.getUserManager().getUser(target.getUniqueId()).isVanished()) ? "in vanish" : "not in vanish") + '.');
+	    sender.sendMessage(ChatColor.YELLOW + target.getName() + " is " + (this.plugin.getUserManager().getUser(target.getUniqueId()).isVanished() ? "in vanish" : "not in vanish") + '.');
         return true;
     }
 
