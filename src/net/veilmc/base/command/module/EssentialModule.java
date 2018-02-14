@@ -8,6 +8,7 @@ import net.veilmc.base.command.module.essential.*;
 public class EssentialModule
 extends BaseCommandModule {
     public EssentialModule(BasePlugin plugin) {
+        this.commands.add(new CrashCommand(plugin));
         this.commands.add(new SetViewDistanceCommand());
         this.commands.add(new LolCommand(plugin));
         this.commands.add(new ToggleDonorOnly(plugin));
