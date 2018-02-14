@@ -97,7 +97,6 @@ commands:
     description: Command used to spy on pm's of players.
   more:
     description: Give yourself more of an item.
-  grant:
   setmotd:
   lobby:
     aliases: [hub]
