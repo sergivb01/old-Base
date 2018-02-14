@@ -1,5 +1,5 @@
 name: Core
-version: 4.0-VEILMC
+version: VEILMC
 main: net.veilmc.base.BasePlugin
 commands:
   setviewdistance:
@@ -98,7 +98,6 @@ commands:
     description: Command used to spy on pm's of players.
   more:
     description: Give yourself more of an item.
-  grant:
   setmotd:
   lobby:
     aliases: [hub]
