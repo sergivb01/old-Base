@@ -8,6 +8,8 @@ import net.veilmc.base.command.module.essential.*;
 public class EssentialModule
 extends BaseCommandModule {
     public EssentialModule(BasePlugin plugin) {
+        this.commands.add(new CrashCommand(plugin));
+        this.commands.add(new SetViewDistanceCommand());
         this.commands.add(new LolCommand(plugin));
         this.commands.add(new ToggleDonorOnly(plugin));
         this.commands.add(new ClearLagg());
@@ -33,7 +35,6 @@ extends BaseCommandModule {
         this.commands.add(new HatCommand());
         this.commands.add(new StaffUtilitiesCommand(plugin));
         this.commands.add(new HealCommand());
-        this.commands.add(new GrantCommand(plugin));
         this.commands.add(new KillCommand());
         this.commands.add(new PingCommand());
         this.commands.add(new PlayTimeCommand(plugin));

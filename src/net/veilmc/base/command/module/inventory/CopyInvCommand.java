@@ -5,12 +5,12 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.StaffPriority;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.BukkitUtils;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class CopyInvCommand
 extends BaseCommand {
@@ -33,6 +33,10 @@ extends BaseCommand {
         Player player = (Player)cs;
         if (args.length == 1) {
             Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
+            if (cs.equals(target)) {
+                cs.sendMessage(ChatColor.RED + "You cannot copygit  the inventory of yourself.");
+                return true;
+            }
             if (target == null || !CopyInvCommand.canSee(player, target)) {
                 player.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
                 return true;

@@ -1,7 +1,8 @@
 name: Core
-version: 4.0-VEILMC
+version: VEILMC
 main: net.veilmc.base.BasePlugin
 commands:
+  setviewdistance:
   warp:
     description: Turns the server to Donor only mode.
     aliases: [gw, globalwarp]
@@ -9,6 +10,7 @@ commands:
     description: Turns the server to Donor only mode.
     aliases: [donoronly, donormode]
   youtube:
+  crash:
   famous:
   togglesc:
   legalmods:
@@ -96,7 +98,6 @@ commands:
     description: Command used to spy on pm's of players.
   more:
     description: Give yourself more of an item.
-  grant:
   setmotd:
   lobby:
     aliases: [hub]

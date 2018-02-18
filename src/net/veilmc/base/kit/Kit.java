@@ -226,7 +226,7 @@ implements ConfigurationSerializable {
         if (event.isCancelled()) {
             return false;
         }
-        if(BasePlugin.getPlugin().getServerHandler().getKitmap()) {
+        if(BasePlugin.getPlugin().getConfig().getBoolean("kit-map")) {
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 player.removePotionEffect(effect.getType());
             }

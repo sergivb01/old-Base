@@ -1,24 +1,13 @@
 package net.veilmc.base.command.module.essential;
 
 // Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
-// Created by iDaniel84
 
-import java.util.Arrays;
-import java.util.List;
-
-import net.veilmc.base.BasePlugin;
+import net.md_5.bungee.api.ChatColor;
 import net.veilmc.base.command.BaseCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,11 +19,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PunishCommand extends BaseCommand implements Listener{
-
-
 
     public PunishCommand() {
         super("punish", "Punish a player.");
@@ -44,35 +33,32 @@ public class PunishCommand extends BaseCommand implements Listener{
 
     private static String target;
     private static String silent;
-    Inventory inv;
+    private Inventory inv;
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length == 0 || args.length > 2 || (args.length == 2 && !args[1].equalsIgnoreCase("-s"))) {
+            sender.sendMessage(this.getUsage());
+            return true;
+        }
         Player player = (Player) sender;
         if(!(sender instanceof Player)) {
-            System.out.println("Only players can use this command.");
+            sender.sendMessage("Only players can use this command.");
+            return true;
         }
-            if(!player.hasPermission("hcf.command.punishment")) {
-                player.sendMessage(ChatColor.RED + "You dont have permissions to execute this command.");
-            } else if (args.length == 0 || args.length > 2 || args.length == 2 && !args[1].equalsIgnoreCase("-s")) {
-                player.sendMessage(ChatColor.RED + "Try using /punishment <player> [-s]");
-            } else {
-                target = args[0];
-                if (Bukkit.getPlayer(target) == null) {
-                    OfflinePlayer targetoffline = Bukkit.getOfflinePlayer(args[0]);
-                    target = targetoffline.getName();
-                }
-                if (args.length == 1) {
-                    if (silent == null) silent = "";
-                    else silent = "";
-                    inv = Bukkit.createInventory(player, 54, "Veil Punish Manager");
-                } else if (args.length == 2 && args[1].equalsIgnoreCase("-s")) {
-                    silent = " -s";
-                    inv = Bukkit.createInventory(player, 54, "Veil Punish Manager" + ChatColor.ITALIC + " (Silent)");
-                }
-                PunishmentGUI(player);
+        else {
+            target = args[0];
+            if (args.length == 1) {
+                if (silent == null) silent = "";
+                else silent = "";
+                inv = Bukkit.createInventory(player, 54, "Veil Punish Manager");
+            } else if (args.length == 2 && args[1].equalsIgnoreCase("-s")) {
+                silent = " -s";
+                inv = Bukkit.createInventory(player, 54, "Veil Punish Manager" + ChatColor.ITALIC + " (Silent)");
             }
-        return false;
+            PunishmentGUI(player);
+        }
+        return true;
     }
 
     private void PunishmentGUI(Player player) {
@@ -577,4 +563,11 @@ public class PunishCommand extends BaseCommand implements Listener{
                 break;
         }
         silent = "";
-    }}
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return args.length == 1 ? null : Collections.emptyList();
+    }
+
+}
