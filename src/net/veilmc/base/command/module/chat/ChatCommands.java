@@ -1,6 +1,8 @@
 package net.veilmc.base.command.module.chat;
 
 import net.veilmc.util.BukkitUtils;
+import net.veilmc.util.chat.ClickAction;
+import net.veilmc.util.chat.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,16 +19,14 @@ public class ChatCommands implements Listener {
         switch (command) {
             case "?help":
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        spacebar+
-                                "&9&lChatCommands list &7(?help)\n"+
-                                " &7* &b?claim\n"+
-                                " &7* &b?elevator\n"+
-                                " &7* &b?potions\n"+
-                                " &7* &b?links\n"+
-                                " &7* &b?teamspeak\n"+
-                                spacebar
-                ));
+                player.sendMessage(spacebar);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&9&lChatCommands list &7(Click)"));
+                new Text(ChatColor.translateAlternateColorCodes('&'," &7* &b?claim")).setHoverText(ChatColor.BLUE + "Click to ?claim").setClick(ClickAction.RUN_COMMAND, "?claim").send(player);
+                new Text(ChatColor.translateAlternateColorCodes('&'," &7* &b?elevator")).setHoverText(ChatColor.BLUE + "Click to ?elevator").setClick(ClickAction.RUN_COMMAND, "?elevator").send(player);
+                new Text(ChatColor.translateAlternateColorCodes('&'," &7* &b?potions")).setHoverText(ChatColor.BLUE + "Click to ?potions").setClick(ClickAction.RUN_COMMAND, "?potions").send(player);
+                new Text(ChatColor.translateAlternateColorCodes('&'," &7* &b?links")).setHoverText(ChatColor.BLUE + "Click to ?links").setClick(ClickAction.RUN_COMMAND, "?links").send(player);
+                new Text(ChatColor.translateAlternateColorCodes('&'," &7* &b?teamspeak")).setHoverText(ChatColor.BLUE + "Click to ?teamspeak").setClick(ClickAction.RUN_COMMAND, "?teamspeak").send(player);
+                player.sendMessage(spacebar);
                 break;
             case "?claim":
                 event.setCancelled(true);
