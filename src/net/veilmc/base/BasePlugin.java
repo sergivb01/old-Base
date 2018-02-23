@@ -145,7 +145,7 @@ public class BasePlugin extends JavaPlugin {
         manager.registerEvents(new ReportCommand(), this);
         manager.registerEvents(new KitListener(this), this);
         manager.registerEvents(new MoveByBlockEvent(), this);
-        manager.registerEvents(new MobstackListener(this), this);
+        manager.registerEvents(new MobstackListener(), this);
         manager.registerEvents(new StaffListener(), this);
         manager.registerEvents(new NameVerifyListener(this), this);
         this.playTimeManager = new PlayTimeManager(this);
@@ -168,7 +168,7 @@ public class BasePlugin extends JavaPlugin {
         long claggdelay = (long) this.serverHandler.getClearlagdelay() * 20;
 
         this.announcementTask = announcementTask = new AnnouncementHandler(this);
-        MobstackListener mobstackListener = new MobstackListener(this);
+        MobstackListener mobstackListener = new MobstackListener();
         this.clearEntityHandler = clearEntityHandler = new ClearEntityHandler();
 
         mobstackListener.runTaskTimerAsynchronously(this, 20, 20);

@@ -1,12 +1,10 @@
 package net.veilmc.base.listener;
 
-import net.veilmc.base.BasePlugin;
-import net.veilmc.util.cuboid.CoordinatePair;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.util.gnu.trove.iterator.TObjectIntIterator;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
+import net.veilmc.util.cuboid.CoordinatePair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,22 +20,16 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class MobstackListener extends BukkitRunnable implements Listener {
-    private static final int NATURAL_STACK_RADIUS = 81;
-    private static final int MAX_STACKED_QUANTITY = 200;
-    private static final ArrayList markedMobs = new ArrayList();
     private static final String STACKED_PREFIX = ChatColor.GREEN.toString() + "x";
     private final Table<CoordinatePair, EntityType, Integer> naturalSpawnStacks;
-    private final TObjectIntHashMap spawnerStacks;
-    private final BasePlugin plugin;
+    private final TObjectIntHashMap<Location> spawnerStacks;
 
-    public MobstackListener(BasePlugin plugin){
+    public MobstackListener(){
         this.naturalSpawnStacks = HashBasedTable.create();
-        this.spawnerStacks = new TObjectIntHashMap();
-        this.plugin = plugin;
+        this.spawnerStacks = new TObjectIntHashMap<>();
     }
 
     private CoordinatePair fromLocation(Location location){
@@ -71,7 +63,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
 
         CreatureSpawner spawner = event.getSpawner();
         World world = spawner.getWorld();
-        if ((world != null) || (world.getEnvironment().equals(World.Environment.THE_END))) {
+        if ((world != null) || (world != null && world.getEnvironment().equals(World.Environment.THE_END))) {
             return;
         }
         Location location = spawner.getLocation();
