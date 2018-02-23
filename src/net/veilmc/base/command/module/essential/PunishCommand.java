@@ -1,17 +1,13 @@
 package net.veilmc.base.command.module.essential;
 
 // Created by iDaniel84
-import java.util.Arrays;
-import java.util.List;
 
-import net.veilmc.base.BasePlugin;
+import net.md_5.bungee.api.ChatColor;
 import net.veilmc.base.command.BaseCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PunishCommand extends BaseCommand implements Listener{
 
@@ -50,11 +48,6 @@ public class PunishCommand extends BaseCommand implements Listener{
         }
         else {
             target = args[0];
-            if (Bukkit.getPlayer(target) == null) {
-                OfflinePlayer targetoffline = Bukkit.getOfflinePlayer(args[0]);
-                target = targetoffline.getName();
-                return true;
-            }
             if (args.length == 1) {
                 if (silent == null) silent = "";
                 else silent = "";
@@ -570,6 +563,11 @@ public class PunishCommand extends BaseCommand implements Listener{
                 break;
         }
         silent = "";
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return args.length == 1 ? null : Collections.emptyList();
     }
 
 }

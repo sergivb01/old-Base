@@ -21,7 +21,6 @@ import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
-import net.veilmc.hcf.utils.ConfigFile;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -56,7 +55,7 @@ public class BasePlugin extends JavaPlugin {
     @Getter private SignHandler signHandler;
     @Getter private UserManager userManager;
     @Getter private KitExecutor kitExecutor;
-    @Getter private ConfigFile langFile;
+    //@Getter private ConfigFile langFile;
 
     public void onEnable() {
         plugin = this;
