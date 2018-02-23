@@ -65,11 +65,13 @@ public class MobstackListener extends BukkitRunnable implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onSpawnerSpawn(SpawnerSpawnEvent event){
-        if(event.getEntityType().equals(EntityType.ENDERMAN) || event.getEntityType().equals(EntityType.SLIME)) return;
+        if(event.getEntityType().equals(EntityType.ENDERMAN) || event.getEntityType().equals(EntityType.SLIME)){
+            return;
+        }
 
         CreatureSpawner spawner = event.getSpawner();
         World world = spawner.getWorld();
-        if ((world != null) && (world.getEnvironment().equals(World.Environment.THE_END))) {
+        if ((world != null) || (world.getEnvironment().equals(World.Environment.THE_END))) {
             return;
         }
         Location location = spawner.getLocation();
@@ -77,7 +79,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         int entityId = entityIdOptional.get();
         net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
         Entity target = nmsTarget != null ? nmsTarget.getBukkitEntity() : null;
-        if ((target != null) && ((target instanceof LivingEntity))){
+        if (((target instanceof LivingEntity))){
             LivingEntity targetLiving = (LivingEntity)target;
             int stackedQuantity = getStackedQuantity(targetLiving);
             if (stackedQuantity == -1) {
@@ -96,7 +98,9 @@ public class MobstackListener extends BukkitRunnable implements Listener {
     public void onCreatureSpawn(CreatureSpawnEvent event){
         EntityType entityType = event.getEntityType();
 
-        if(entityType.equals(EntityType.ENDERMAN) || entityType.equals(EntityType.SLIME)) return;
+        if(entityType.equals(EntityType.ENDERMAN) || entityType.equals(EntityType.SLIME)){
+            return;
+        }
 
         switch (event.getSpawnReason()){
             case CHUNK_GEN:
@@ -109,7 +113,7 @@ public class MobstackListener extends BukkitRunnable implements Listener {
                     int entityId = entityIdOptional.get();
                     net.minecraft.server.v1_7_R4.Entity nmsTarget = ((CraftWorld)location.getWorld()).getHandle().getEntity(entityId);
                     Entity target = nmsTarget == null ? null : nmsTarget.getBukkitEntity();
-                    if ((target != null) && ((target instanceof LivingEntity))){
+                    if (((target instanceof LivingEntity))){
                         LivingEntity targetLiving = (LivingEntity)target;
                         boolean canSpawn;
                         if ((targetLiving instanceof Ageable)) {
@@ -148,11 +152,9 @@ public class MobstackListener extends BukkitRunnable implements Listener {
             if ((respawned instanceof Zombie)) {
                 ((Zombie)respawned).setBaby(false);
             }
-            if (this.spawnerStacks.containsValue(livingEntity.getEntityId()))
-            {
+            if (this.spawnerStacks.containsValue(livingEntity.getEntityId())){
                 TObjectIntIterator<Location> iterator = this.spawnerStacks.iterator();
-                while (iterator.hasNext())
-                {
+                while (iterator.hasNext()){
                     iterator.advance();
                     if (iterator.value() == livingEntity.getEntityId()) {
                         iterator.setValue(respawned.getEntityId());
@@ -166,9 +168,6 @@ public class MobstackListener extends BukkitRunnable implements Listener {
         String customName = livingEntity.getCustomName();
         if ((customName != null) && (customName.contains(STACKED_PREFIX))){
             customName = customName.replace(STACKED_PREFIX, "");
-            if (customName == null) {
-                return -1;
-            }
             customName = ChatColor.stripColor(customName);
             return Integer.parseInt(customName);
         }
