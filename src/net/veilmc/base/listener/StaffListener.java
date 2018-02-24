@@ -156,7 +156,7 @@ public class StaffListener implements Listener{
 		}
 		if(inventory.getName().contains("Inventory: ")){
 			Player target = Bukkit.getPlayer(event.getInventory().getTitle().substring("Inventory: ".length()));
-			if(event.getCurrentItem() == null){
+			if(event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName() == null){
 				return;
 			}
 			switch(event.getCurrentItem().getItemMeta().getDisplayName().toLowerCase()){
