@@ -1,20 +1,20 @@
 
 package net.veilmc.base.command.module.essential;
 
+import com.google.common.base.Strings;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
 import net.veilmc.util.command.CommandWrapper;
-import com.google.common.base.Strings;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoRestartCommand
 extends BaseCommand {
@@ -27,7 +27,7 @@ extends BaseCommand {
         arguments.add(new AutoRestartCancelArgument(plugin));
         arguments.add(new AutoRestartScheduleArgument(plugin));
         arguments.add(new AutoRestartTimeArgument(plugin));
-        Collections.sort(arguments, new CommandWrapper.ArgumentComparator());
+        arguments.sort(new CommandWrapper.ArgumentComparator());
         this.handler = new CommandWrapper(arguments);
     }
 

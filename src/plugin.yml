@@ -2,6 +2,8 @@ name: Core
 version: VEILMC
 main: net.veilmc.base.BasePlugin
 commands:
+  settings:
+    aliases: [options, config]
   setviewdistance:
   warp:
     description: Turns the server to Donor only mode.
