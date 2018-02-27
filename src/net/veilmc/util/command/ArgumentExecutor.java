@@ -59,14 +59,15 @@ TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String permission2;
         if (args.length < 1) {
-            sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-            sender.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + WordUtils.capitalizeFully(label) + ChatColor.RED + ChatColor.BOLD.toString() + " Help" + ChatColor.GRAY + " (Page 1 out of 1)");
+            sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            sender.sendMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + WordUtils.capitalizeFully(label) + ChatColor.AQUA + ChatColor.BOLD.toString() + " Help" + ChatColor.GRAY + " (Page 1 out of 1)");
+            sender.sendMessage(" ");
             for (CommandArgument argument : this.arguments) {
                 String permission = argument.getPermission();
                 if (permission != null && !sender.hasPermission(permission)) continue;
-                new Text(ChatColor.GOLD + argument.getUsage(label) + ChatColor.GRAY + " - " + argument.getDescription()).setClick(ClickAction.SUGGEST_COMMAND, "/" + argument.getUsage(label)).setColor(ChatColor.GRAY).send(sender);
+                new Text(ChatColor.BLUE + argument.getUsage(label) + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setClick(ClickAction.SUGGEST_COMMAND, "/" + argument.getUsage(label)).setColor(ChatColor.GRAY).send(sender);
             }
-            sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
             return true;
         }
         CommandArgument argument2 = this.getArgument(args[0]);
