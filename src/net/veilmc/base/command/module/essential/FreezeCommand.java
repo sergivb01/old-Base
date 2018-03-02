@@ -4,7 +4,6 @@ import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.event.PlayerFreezeEvent;
-import net.veilmc.util.API;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.ParticleEffect;
 import net.veilmc.util.chat.ClickAction;

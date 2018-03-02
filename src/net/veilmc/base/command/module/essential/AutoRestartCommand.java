@@ -63,7 +63,7 @@ extends BaseCommand {
                 sender.sendMessage(ChatColor.RED + "There is not a restart task pending.");
                 return true;
             }
-            sender.sendMessage(ChatColor.YELLOW + "Automatic restart task occurring in " + DurationFormatUtils.formatDurationWords(this.plugin.getAutoRestartHandler().getRemainingMilliseconds(), true, true) + (Strings.nullToEmpty(reason = this.plugin.getAutoRestartHandler().getReason()).isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.');
+            sender.sendMessage(ChatColor.AQUA + "Automatic restart task occurring in " + DurationFormatUtils.formatDurationWords(this.plugin.getAutoRestartHandler().getRemainingMilliseconds(), true, true) + (Strings.nullToEmpty(reason = this.plugin.getAutoRestartHandler().getReason()).isEmpty() ? "" : new StringBuilder().append(" for ").append(reason).toString()) + '.');
             return true;
         }
     }

@@ -25,8 +25,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class BukkitUtils
-{
+public final class BukkitUtils {
     public static final String STRAIGHT_LINE_DEFAULT;
     private static final ImmutableMap<Object, Object> CHAT_DYE_COLOUR_MAP;
     private static final ImmutableSet<Object> DEBUFF_TYPES;
@@ -65,17 +64,17 @@ public final class BukkitUtils
 
     public static String getDisplayName(final CommandSender sender) {
         Preconditions.checkNotNull(sender);
-        return (sender instanceof Player) ? ((Player)sender).getDisplayName() : sender.getName();
+        return (sender instanceof Player) ? ((Player) sender).getDisplayName() : sender.getName();
     }
 
     public static long getIdleTime(final Player player) {
         Preconditions.checkNotNull(player);
-        final long idleTime = ((CraftPlayer)player).getHandle().x();
+        final long idleTime = ((CraftPlayer) player).getHandle().x();
         return (idleTime > 0L) ? (MinecraftServer.ar() - idleTime) : 0L;
     }
 
     public static DyeColor toDyeColor(final ChatColor colour) {
-        return (DyeColor)BukkitUtils.CHAT_DYE_COLOUR_MAP.get(colour);
+        return (DyeColor) BukkitUtils.CHAT_DYE_COLOUR_MAP.get(colour);
     }
 
     public static boolean hasMetaData(final Metadatable metadatable, final String input, final Plugin plugin) {
@@ -89,16 +88,15 @@ public final class BukkitUtils
     public static Player getFinalAttacker(final EntityDamageEvent ede, final boolean ignoreSelf) {
         Player attacker = null;
         if (ede instanceof EntityDamageByEntityEvent) {
-            final EntityDamageByEntityEvent event = (EntityDamageByEntityEvent)ede;
+            final EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) ede;
             final Entity damager = event.getDamager();
             if (event.getDamager() instanceof Player) {
-                attacker = (Player)damager;
-            }
-            else if (event.getDamager() instanceof Projectile) {
-                final Projectile projectile = (Projectile)damager;
+                attacker = (Player) damager;
+            } else if (event.getDamager() instanceof Projectile) {
+                final Projectile projectile = (Projectile) damager;
                 final ProjectileSource shooter = projectile.getShooter();
                 if (shooter instanceof Player) {
-                    attacker = (Player)shooter;
+                    attacker = (Player) shooter;
                 }
             }
             if (attacker != null && ignoreSelf && event.getEntity().equals(attacker)) {
