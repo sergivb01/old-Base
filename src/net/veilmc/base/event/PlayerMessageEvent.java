@@ -7,6 +7,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import java.util.Set;
 
+import net.veilmc.util.chat.StaffMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -65,6 +66,34 @@ implements Cancellable {
         String displayName = rank + this.sender.getDisplayName();
         String rank1 = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.recipient).getPrefix()).replace("_", " ");
         String displayName1 = rank1 + this.recipient.getDisplayName();
+
+        String[] blockedWords = new String[] {"kys"
+                , "nigger"
+                , "kill yourself"
+                , "cunt"
+                , "killyourself"
+                , "killurself"
+                , "kill urself"
+                , "hack"
+                , "phase"
+                , "aura"
+                , "killaura"
+                , "forceop"
+                , "exploit"
+                , "theboys"
+                , "antikb"
+                , "grief"
+                , "worldedit"
+                , "world edit"};
+
+        for(String strings : blockedWords) {
+            if (this.message.contains(strings)) {
+                StaffMessage.broadcastFilter(this.sender, ChatColor.translateAlternateColorCodes('&', "&7&o-> " + this.recipient.getName() + "&7&o: &7&o" + this.message.replace(strings, ChatColor.RED + "" + ChatColor.ITALIC + strings + ChatColor.GRAY +"" + ChatColor.ITALIC)), false);
+                break;
+            }
+        }
+
+
         this.sender.sendMessage(ChatColor.GRAY + "(" + ChatColor.GRAY + "To " + displayName1 + ChatColor.GRAY + ") " + ChatColor.GRAY + this.message);
         this.recipient.sendMessage(ChatColor.GRAY + "(" + ChatColor.GRAY + "From " + displayName + ChatColor.GRAY + ") " + ChatColor.GRAY + this.message);
     }
