@@ -4,11 +4,11 @@ package net.veilmc.base.command.module;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommandModule;
 import net.veilmc.base.command.module.chat.*;
-import net.veilmc.base.command.module.chat.*;
 
 public class ChatModule
 extends BaseCommandModule {
     public ChatModule(BasePlugin plugin) {
+        this.commands.add(new ToggleSoundsCommand(plugin));
         this.commands.add(new ToggleStaffChatCommand(plugin));
         this.commands.add(new AnnouncementCommand(plugin));
         this.commands.add(new BroadcastCommand(plugin));

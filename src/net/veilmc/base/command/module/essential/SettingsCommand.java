@@ -4,6 +4,8 @@ package net.veilmc.base.command.module.essential;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,7 +44,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 		}
 
 		Player player = (Player)sender;
-		player.sendMessage(YELLOW + "Opening menu...");
+		player.sendMessage(YELLOW + "Opening your menu...");
 
 		ItemStack[] contents = getContents(player);
 		Inventory inv = Bukkit.createInventory(this, contents.length, ChatColor.translateAlternateColorCodes('&', "&6&lSettings"));
@@ -89,6 +91,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 		if((event.getView() != null) && ((event.getWhoClicked() instanceof Player)) && (event.getClickedInventory() != null) && ((event.getClickedInventory().getHolder() instanceof SettingsCommand))){
 			Player player = (Player)event.getWhoClicked();
 			BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
+			FactionUser factionUser = HCF.getInstance().getUserManager().getUser(player.getUniqueId());
 
 			event.setCancelled(true);
 
@@ -101,13 +104,13 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 						break;
 					}
 					case 4:{ //sounds
-						//TODO: Handle toggle sounds
-						player.performCommand("togglepm");
+						player.performCommand("togglesounds");
 						break;
 					}
 					case 7:{ //tab style
-						//TODO: Handle tab style
-						player.sendMessage(YELLOW + "Comming soon!");
+						int next = (factionUser.getTabStyleInt() >= (staff ? 2 : 1) ? 0 : factionUser.getTabStyleInt() + 1);
+						factionUser.setTabStyle(next);
+						player.sendMessage(YELLOW + "Tab style set to " + next + " => " + factionUser.getTabStyle().toString());
 						break;
 					}
 					default:
