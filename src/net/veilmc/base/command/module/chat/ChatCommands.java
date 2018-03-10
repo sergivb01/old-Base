@@ -106,10 +106,8 @@ public class ChatCommands implements Listener {
                                 " &7* &3Store: &rstore.veilhcf.us\n"+
                                 " &7* &3Twitter: &rtwitter.com/veilhcf\n"+
                                 " &7* &3Discord: &rdiscord.gg/RdbbBx7\n"+
-                                " &7* &3Allowed Mods: &rveilhcf.us/community/mods/\n"+
-                                " &7* &3Allowed Mods: &rhttps://veilhcf.us/community/clients/\n"+
-                                " &7* &3Server Rules: &rveilhcf.us/community/rules/\n"+
-                                " &7* &3Staff: &rveilhcf.us/community/staff/\n"+
+                                " &7* &3Allowed Mods: &rhttps://veilhcf.us/community/d/12-allowed-modifications\n"+
+                                " &7* &3Server Rules: &rhttps://veilhcf.us/community/d/118-our-rules\n"+
                                 spacebar
                 ));
                 break;
