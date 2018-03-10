@@ -13,6 +13,7 @@ commands:
     aliases: [donoronly, donormode]
   youtube:
   crash:
+  muteword:
   famous:
   togglesc:
   legalmods:

@@ -67,13 +67,11 @@ implements Cancellable {
         String rank1 = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.recipient).getPrefix()).replace("_", " ");
         String displayName1 = rank1 + this.recipient.getDisplayName();
 
-        String[] blockedWords = new String[] {"kys"
+        String[] blockedWords = new String[]
+                {"kys"
                 , "nigger"
-                , "kill yourself"
+                , "kill"
                 , "cunt"
-                , "killyourself"
-                , "killurself"
-                , "kill urself"
                 , "hack"
                 , "phase"
                 , "aura"
@@ -83,8 +81,7 @@ implements Cancellable {
                 , "theboys"
                 , "antikb"
                 , "grief"
-                , "worldedit"
-                , "world edit"};
+                , "worldedit"};
 
         for(String strings : blockedWords) {
             if (this.message.contains(strings)) {
