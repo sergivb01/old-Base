@@ -3,7 +3,6 @@ package net.veilmc.base.command.module.chat;
 
 import net.veilmc.base.command.BaseCommand;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
-import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

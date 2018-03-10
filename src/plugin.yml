@@ -14,6 +14,7 @@ commands:
   youtube:
   crash:
   togglesounds:
+  muteword:
   famous:
   togglesc:
   legalmods:

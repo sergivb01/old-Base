@@ -76,6 +76,14 @@ public class ChatListener
             long delayMillis = (long)this.plugin.getServerHandler().getChatSlowedDelay() * 1000;
             player.sendMessage(ChatColor.YELLOW + "Chat is currently in slow mode with a " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(delayMillis, true, true) + " cooldown." + ChatColor.YELLOW + " You have to wait " + ChatColor.GOLD + DurationFormatUtils.formatDurationWords(speakTimeRemaining, true, true));
         }
+       /* String[] blockedWords = new String[] {"keyall", "keyal"};
+        for(String strings : blockedWords) {
+            if (event.getMessage().contains(strings) && (!(player.hasPermission("rank.staff")))) {
+                event.setCancelled(true);
+                player.sendMessage(ChatColor.RED + "That is a blocked word.");
+                break;
+            }
+        }*/
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)

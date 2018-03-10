@@ -4,7 +4,6 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.event.StaffModeEvent;
 import net.veilmc.base.user.BaseUser;
-import net.veilmc.util.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

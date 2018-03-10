@@ -3,7 +3,6 @@ package net.veilmc.base.command.module.inventory;
 
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
-import net.veilmc.util.API;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

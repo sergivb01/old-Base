@@ -50,6 +50,16 @@ public class WhoisCommand extends BaseCommand
         final Location location = target.getLocation();
         final World world = location.getWorld();
         final BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Username: &f" + target.getName()));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9UUID: &f" + target.getUniqueId()));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Operator: &f" + (target.isOp() ? "True" : "False")));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9All Permissions: &f" + (target.hasPermission("*") ? "True" : "False")));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Staff: &f" + (target.hasPermission("rank.staff") ? "True" : "False")));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Priority: &f" + StaffPriority.of(target).getPriorityLevel()));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Idle: &f" + (target.isOnline() ? ChatColor.RED + "User is offline" : DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target), true, true))));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+/*
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         sender.sendMessage(ChatColor.GREEN + " [" + target.getDisplayName() + ChatColor.GREEN + ']');
         sender.sendMessage(ChatColor.YELLOW + "  Health: " + ChatColor.AQUA + target.getHealth() + '/' + target.getMaxHealth());
@@ -81,7 +91,7 @@ public class WhoisCommand extends BaseCommand
         }
         final int version = ((CraftPlayer) target).getHandle().playerConnection.networkManager.getVersion();
         sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + ObjectUtils.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
-        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);*/
         return true;
     }
 

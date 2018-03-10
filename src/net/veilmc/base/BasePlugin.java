@@ -40,21 +40,36 @@ import java.io.IOException;
 import java.util.Random;
 
 public class BasePlugin extends JavaPlugin {
-    @Getter private static BasePlugin plugin;
-    @Getter private ItemDb itemDb;
-    @Getter private Random random = new Random();
-    @Getter private WarpManager warpManager;
-    @Getter private RandomUtils randomUtils;
-    @Getter private AutoRestartHandler autoRestartHandler;
-    @Getter private BukkitRunnable clearEntityHandler;
-    @Getter public BukkitRunnable announcementTask;
-    @Getter private CommandManager commandManager;
-    @Getter private KitManager kitManager;
-    @Getter private PlayTimeManager playTimeManager;
-    @Getter private ServerHandler serverHandler;
-    @Getter private SignHandler signHandler;
-    @Getter private UserManager userManager;
-    @Getter private KitExecutor kitExecutor;
+    @Getter
+    private static BasePlugin plugin;
+    @Getter
+    private ItemDb itemDb;
+    @Getter
+    private Random random = new Random();
+    @Getter
+    private WarpManager warpManager;
+    @Getter
+    private RandomUtils randomUtils;
+    @Getter
+    private AutoRestartHandler autoRestartHandler;
+    @Getter
+    private BukkitRunnable clearEntityHandler;
+    @Getter
+    public BukkitRunnable announcementTask;
+    @Getter
+    private CommandManager commandManager;
+    @Getter
+    private KitManager kitManager;
+    @Getter
+    private PlayTimeManager playTimeManager;
+    @Getter
+    private ServerHandler serverHandler;
+    @Getter
+    private SignHandler signHandler;
+    @Getter
+    private UserManager userManager;
+    @Getter
+    private KitExecutor kitExecutor;
     //@Getter private ConfigFile langFile;
 
     public void onEnable() {
@@ -80,7 +95,6 @@ public class BasePlugin extends JavaPlugin {
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
     }
-
 
 
     public void onDisable() {
@@ -113,8 +127,7 @@ public class BasePlugin extends JavaPlugin {
 
         try {
             Lang.initialize("en_US");
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -154,15 +167,16 @@ public class BasePlugin extends JavaPlugin {
         manager.registerEvents(new VanishListener(this), this);
         manager.registerEvents(new ChatCommands(), this);
         //manager.registerEvents(new AutoMuteListener(this), this);
+        manager.registerEvents(new StaffUtilsRemoveListener(), this);
     }
 
 
-    private void reloadSchedulers(){
+    private void reloadSchedulers() {
         ClearEntityHandler clearEntityHandler;
         AnnouncementHandler announcementTask;
 
-        if(this.clearEntityHandler != null) this.clearEntityHandler.cancel();
-        if(this.announcementTask != null) this.announcementTask.cancel();
+        if (this.clearEntityHandler != null) this.clearEntityHandler.cancel();
+        if (this.announcementTask != null) this.announcementTask.cancel();
 
         long announcementDelay = (long) this.serverHandler.getAnnouncementDelay() * 20;
         long claggdelay = (long) this.serverHandler.getClearlagdelay() * 20;
