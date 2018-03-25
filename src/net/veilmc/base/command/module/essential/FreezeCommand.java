@@ -310,7 +310,6 @@ public class FreezeCommand extends BaseCommand implements Listener
                     if (online.hasPermission("base.command.freeze")) {
                         online.sendMessage(" ");
                         online.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&l" + player.getName() + " has said he/she is joining teamspeak."));
-                        //new Text(ChatColor.GREEN + player.getName() + " has said they are joining Teamspeak").send(online);
                         online.sendMessage(" ");
                         online.playSound(player.getLocation(), Sound.LEVEL_UP, 1.25F, 1.25F);
                         inv.setItem(8 , new ItemStack(Material.AIR));

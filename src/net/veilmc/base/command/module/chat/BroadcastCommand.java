@@ -53,7 +53,7 @@ extends BaseCommand {
             return true;
         }
         message = !raw ? ChatColor.translateAlternateColorCodes('&', String.format(Locale.ENGLISH, this.plugin.getServerHandler().getBroadcastFormat(), message)) : ChatColor.translateAlternateColorCodes('&', message);
-        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Veil " + ChatColor.GRAY + "»" + ChatColor.YELLOW + message);
+        Bukkit.broadcastMessage(message);
         return true;
     }
 
