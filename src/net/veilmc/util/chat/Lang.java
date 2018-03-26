@@ -20,88 +20,86 @@ import java.util.regex.Pattern;
 
 //import com.google.common.base.Objects;
 
-public class Lang {
-    private static final Pattern PAT = Pattern.compile("^\\s*([\\w\\d\\.]+)\\s*=\\s*(.*)\\s*$");
-    private static Map<String, String> translations;
-    private static String language;
+public class Lang{
+	private static final Pattern PAT = Pattern.compile("^\\s*([\\w\\d\\.]+)\\s*=\\s*(.*)\\s*$");
+	private static Map<String, String> translations;
+	private static String language;
 
-    
-    public static void initialize(String lang) throws IOException {
-        translations = new HashMap<String, String>();
-        if (lang == null) {
-            lang = "en_US";
-        }
-        if (!lang.equals(language)) {
-            InputStream stream = null;
-            BufferedReader reader = null;
-            try {
-                String line;
-                language = lang;
-                String resourcePath = "/assets/minecraft/lang/" + language + ".lang";
-                stream = Item.class.getResourceAsStream(resourcePath);
-                reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                while ((line = reader.readLine()) != null) {
-                    Matcher matcher;
-                    if (!(line = line.trim()).contains("=") || !(matcher = PAT.matcher(line)).matches()) continue;
-                    translations.put(matcher.group(1), matcher.group(2));
-                }
-            }
-            finally {
-                if (stream != null) {
-                    stream.close();
-                }
-                if (reader != null) {
-                    reader.close();
-                }
-            }
-        }
-    }
+	static{
+		language = null;
+	}
 
-    public static String getLanguage() {
-        return language;
-    }
+	public static void initialize(String lang) throws IOException{
+		translations = new HashMap<String, String>();
+		if(lang == null){
+			lang = "en_US";
+		}
+		if(!lang.equals(language)){
+			InputStream stream = null;
+			BufferedReader reader = null;
+			try{
+				String line;
+				language = lang;
+				String resourcePath = "/assets/minecraft/lang/" + language + ".lang";
+				stream = Item.class.getResourceAsStream(resourcePath);
+				reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+				while((line = reader.readLine()) != null){
+					Matcher matcher;
+					if(!(line = line.trim()).contains("=") || !(matcher = PAT.matcher(line)).matches()) continue;
+					translations.put(matcher.group(1), matcher.group(2));
+				}
+			}finally{
+				if(stream != null){
+					stream.close();
+				}
+				if(reader != null){
+					reader.close();
+				}
+			}
+		}
+	}
 
-    public static String translatableFromStack(ItemStack stack) {
-        net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy(stack);
-        Item item = nms.getItem();
-        return item.a(nms) + ".name";
-    }
+	public static String getLanguage(){
+		return language;
+	}
 
-    public static String fromStack(ItemStack stack) {
-        String node = Lang.translatableFromStack(stack);
-        return (String) Objects.firstNonNull(translations.get(node), node);
-    }
+	public static String translatableFromStack(ItemStack stack){
+		net.minecraft.server.v1_7_R4.ItemStack nms = CraftItemStack.asNMSCopy(stack);
+		Item item = nms.getItem();
+		return item.a(nms) + ".name";
+	}
 
-    public static String translatableFromEnchantment(Enchantment ench) {
-        net.minecraft.server.v1_7_R4.Enchantment nms = net.minecraft.server.v1_7_R4.Enchantment.byId[ench.getId()];
-        return nms == null ? ench.getName() : nms.a();
-    }
+	public static String fromStack(ItemStack stack){
+		String node = Lang.translatableFromStack(stack);
+		return (String) Objects.firstNonNull(translations.get(node), node);
+	}
 
-    public static String fromEnchantment(Enchantment ench) {
-        String node = Lang.translatableFromEnchantment(ench);
-        return (String) Objects.firstNonNull(translations.get(node), node);
-    }
+	public static String translatableFromEnchantment(Enchantment ench){
+		net.minecraft.server.v1_7_R4.Enchantment nms = net.minecraft.server.v1_7_R4.Enchantment.byId[ench.getId()];
+		return nms == null ? ench.getName() : nms.a();
+	}
 
-    public static String translatableFromPotionEffectType(PotionEffectType effectType) {
-        CraftPotionEffectType craftType = (CraftPotionEffectType)PotionEffectType.getById(effectType.getId());
-        return craftType.getHandle().a();
-    }
+	public static String fromEnchantment(Enchantment ench){
+		String node = Lang.translatableFromEnchantment(ench);
+		return (String) Objects.firstNonNull(translations.get(node), node);
+	}
 
-    public static String fromPotionEffectType(PotionEffectType effectType) {
-        String node = Lang.translatableFromPotionEffectType(effectType);
-        String val = translations.get(node);
-        if (val == null) {
-            return node;
-        }
-        return val;
-    }
+	public static String translatableFromPotionEffectType(PotionEffectType effectType){
+		CraftPotionEffectType craftType = (CraftPotionEffectType) PotionEffectType.getById(effectType.getId());
+		return craftType.getHandle().a();
+	}
 
-    public static  String translate(String key, Object ... args) {
-        return String.format(translations.get(key), args);
-    }
+	public static String fromPotionEffectType(PotionEffectType effectType){
+		String node = Lang.translatableFromPotionEffectType(effectType);
+		String val = translations.get(node);
+		if(val == null){
+			return node;
+		}
+		return val;
+	}
 
-    static {
-        language = null;
-    }
+	public static String translate(String key, Object... args){
+		return String.format(translations.get(key), args);
+	}
 }
 

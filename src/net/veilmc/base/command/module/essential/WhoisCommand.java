@@ -1,64 +1,62 @@
 package net.veilmc.base.command.module.essential;
 
+import com.google.common.collect.ImmutableMap;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.StaffPriority;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
 import net.veilmc.util.BukkitUtils;
-import net.veilmc.util.chat.ClickAction;
-import net.veilmc.util.chat.Text;
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.util.org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class WhoisCommand extends BaseCommand
-{
-    private static final Map<Integer, String> CLIENT_PROTOCOL_IDS;
-    private final BasePlugin plugin;
-    
-    public WhoisCommand(final BasePlugin plugin) {
-        super("whois", "Check information about a player.");
-        this.plugin = plugin;
-        this.setUsage("/(command) [player]");
-    }
-    
-    @Override
-    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-        if (args.length < 1) {
-            sender.sendMessage(this.getUsage());
-            return true;
-        }
-        final Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
-        if (target == null || !BaseCommand.canSee(sender, target)) {
-            sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
-            return true;
-        }
-        final Location location = target.getLocation();
-        final World world = location.getWorld();
-        final BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Username: &f" + target.getName()));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9UUID: &f" + target.getUniqueId()));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Operator: &f" + (target.isOp() ? "True" : "False")));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9All Permissions: &f" + (target.hasPermission("*") ? "True" : "False")));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Staff: &f" + (target.hasPermission("rank.staff") ? "True" : "False")));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Priority: &f" + StaffPriority.of(target).getPriorityLevel()));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Idle: &f" + (target.isOnline() ? ChatColor.RED + "User is offline" : DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target), true, true))));
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+public class WhoisCommand extends BaseCommand{
+	private static final Map<Integer, String> CLIENT_PROTOCOL_IDS;
+
+	static{
+		CLIENT_PROTOCOL_IDS = ImmutableMap.of(4, "1.7.5", 5, "1.7.10", 47, "1.8");
+	}
+
+	private final BasePlugin plugin;
+
+	public WhoisCommand(final BasePlugin plugin){
+		super("whois", "Check information about a player.");
+		this.plugin = plugin;
+		this.setUsage("/(command) [player]");
+	}
+
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args){
+		if(args.length < 1){
+			sender.sendMessage(this.getUsage());
+			return true;
+		}
+		final Player target = BukkitUtils.playerWithNameOrUUID(args[0]);
+		if(target == null || !BaseCommand.canSee(sender, target)){
+			sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[0]));
+			return true;
+		}
+		final Location location = target.getLocation();
+		final World world = location.getWorld();
+		final BaseUser baseUser = this.plugin.getUserManager().getUser(target.getUniqueId());
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Username: &f" + target.getName()));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9UUID: &f" + target.getUniqueId()));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Operator: &f" + (target.isOp() ? "True" : "False")));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9All Permissions: &f" + (target.hasPermission("*") ? "True" : "False")));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Staff: &f" + (target.hasPermission("rank.staff") ? "True" : "False")));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Priority: &f" + StaffPriority.of(target).getPriorityLevel()));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Idle: &f" + (target.isOnline() ? ChatColor.RED + "User is offline" : DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target), true, true))));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
 /*
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         sender.sendMessage(ChatColor.GREEN + " [" + target.getDisplayName() + ChatColor.GREEN + ']');
@@ -92,18 +90,12 @@ public class WhoisCommand extends BaseCommand
         final int version = ((CraftPlayer) target).getHandle().playerConnection.networkManager.getVersion();
         sender.sendMessage(ChatColor.YELLOW + "  Client Version: " + ChatColor.AQUA + version + ChatColor.GRAY + " [" + ObjectUtils.firstNonNull(WhoisCommand.CLIENT_PROTOCOL_IDS.get(version), "Unknown (check at http://wiki.vg/Protocol_version_numbers)") + "]");
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);*/
-        return true;
-    }
+		return true;
+	}
 
-
-    
-    @Override
-    public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
-        return (args.length == 1) ? null : Collections.emptyList();
-    }
-    
-    static {
-        CLIENT_PROTOCOL_IDS = ImmutableMap.of(4, "1.7.5", 5, "1.7.10", 47, "1.8");
-    }
+	@Override
+	public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args){
+		return (args.length == 1) ? null : Collections.emptyList();
+	}
 }
 

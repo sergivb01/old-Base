@@ -1,27 +1,24 @@
 package net.veilmc.base.command.module.essential;
 
 import com.google.common.primitives.Ints;
-import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static org.bukkit.ChatColor.GREEN;
-import static org.bukkit.ChatColor.RED;
+import static org.bukkit.ChatColor.*;
 
-public class SetViewDistanceCommand extends BaseCommand {
+public class SetViewDistanceCommand extends BaseCommand{
 
-	public SetViewDistanceCommand () {
+	public SetViewDistanceCommand(){
 		super("setviewdistance", "Starts global ban wave.");
-		this.setAliases(new String[] { "renderdistance", "setrenderdistance", "svd", "srd" });
+		this.setAliases(new String[]{"renderdistance", "setrenderdistance", "svd", "srd"});
 		this.setUsage("/(command) <vipsonly(true/false)> <distance>");
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(args.length <= 1){
 			sender.sendMessage(this.getUsage());
 			return false;

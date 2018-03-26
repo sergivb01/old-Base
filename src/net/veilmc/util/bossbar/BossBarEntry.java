@@ -1,23 +1,22 @@
-
 package net.veilmc.util.bossbar;
 
 import org.bukkit.scheduler.BukkitTask;
 
-public class BossBarEntry {
-    private final BossBar bossBar;
-    private final BukkitTask cancelTask;
+public class BossBarEntry{
+	private final BossBar bossBar;
+	private final BukkitTask cancelTask;
 
-    public BossBarEntry(BossBar bossBar, BukkitTask cancelTask) {
-        this.bossBar = bossBar;
-        this.cancelTask = cancelTask;
-    }
+	public BossBarEntry(BossBar bossBar, BukkitTask cancelTask){
+		this.bossBar = bossBar;
+		this.cancelTask = cancelTask;
+	}
 
-    public BossBar getBossBar() {
-        return this.bossBar;
-    }
+	public BossBar getBossBar(){
+		return this.bossBar;
+	}
 
-    public BukkitTask getCancelTask() {
-        return this.cancelTask;
-    }
+	public BukkitTask getCancelTask(){
+		return this.cancelTask;
+	}
 }
 

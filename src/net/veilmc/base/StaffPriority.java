@@ -1,51 +1,51 @@
-
 package net.veilmc.base;
 
 import com.google.common.collect.ImmutableMap;
 import org.bukkit.entity.Player;
 
-public enum StaffPriority {
-    OWNER(6),
-    HEADADMIN(5),
-    STAFFMANAGER(4),
-    ADMIN(3),
-    MODERATOR(2),
-    TRIAL(1),
-    NONE(0);
-    
-    private static final ImmutableMap<Integer, StaffPriority> BY_ID;
-    private final int priorityLevel;
+public enum StaffPriority{
+	OWNER(6),
+	HEADADMIN(5),
+	STAFFMANAGER(4),
+	ADMIN(3),
+	MODERATOR(2),
+	TRIAL(1),
+	NONE(0);
 
-    StaffPriority(int priorityLevel) {
-        this.priorityLevel = priorityLevel;
-    }
+	private static final ImmutableMap<Integer, StaffPriority> BY_ID;
 
-    public static StaffPriority of(int level) {
-        return BY_ID.get(level);
-    }
+	static{
+		ImmutableMap.Builder builder = new ImmutableMap.Builder();
+		for(StaffPriority staffPriority : StaffPriority.values()){
+			builder.put(staffPriority.priorityLevel, staffPriority);
+		}
+		BY_ID = builder.build();
+	}
 
-    public static StaffPriority of(Player player) {
-        for (StaffPriority staffPriority : StaffPriority.values()) {
-            if (!player.hasPermission("staffpriority." + staffPriority.priorityLevel)) continue;
-            return staffPriority;
-        }
-        return NONE;
-    }
+	private final int priorityLevel;
 
-    public int getPriorityLevel() {
-        return this.priorityLevel;
-    }
+	StaffPriority(int priorityLevel){
+		this.priorityLevel = priorityLevel;
+	}
 
-    public boolean isMoreThan(StaffPriority other) {
-        return this.priorityLevel > other.priorityLevel;
-    }
+	public static StaffPriority of(int level){
+		return BY_ID.get(level);
+	}
 
-    static {
-        ImmutableMap.Builder builder = new ImmutableMap.Builder();
-        for (StaffPriority staffPriority : StaffPriority.values()) {
-            builder.put(staffPriority.priorityLevel, staffPriority);
-        }
-        BY_ID = builder.build();
-    }
+	public static StaffPriority of(Player player){
+		for(StaffPriority staffPriority : StaffPriority.values()){
+			if(!player.hasPermission("staffpriority." + staffPriority.priorityLevel)) continue;
+			return staffPriority;
+		}
+		return NONE;
+	}
+
+	public int getPriorityLevel(){
+		return this.priorityLevel;
+	}
+
+	public boolean isMoreThan(StaffPriority other){
+		return this.priorityLevel > other.priorityLevel;
+	}
 }
 

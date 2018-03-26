@@ -1,4 +1,3 @@
-
 package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.BasePlugin;
@@ -8,13 +7,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class RulesCommand
-extends BaseCommand {
-    private final BasePlugin plugin;
-    //final HashMap<String, String> rule = new HashMap();
+		extends BaseCommand{
+	private final BasePlugin plugin;
+	//final HashMap<String, String> rule = new HashMap();
 
-    public RulesCommand(BasePlugin plugin) {
-        super("rules", "Shows the server rules.");
-        this.setUsage("/(command)");
+	public RulesCommand(BasePlugin plugin){
+		super("rules", "Shows the server rules.");
+		this.setUsage("/(command)");
         /*this.rule.put("Staff-Disrespect", "Intentionally trying to insult and criticise a staff member.");
         this.rule.put("DDoS-Threats", "Threats relating to DoS attacks [DDoS].");
         this.rule.put("DDoS-Comedy", "Joking around about DDoS.");
@@ -24,11 +23,11 @@ extends BaseCommand {
         this.rule.put("Death-Threats", "Messages that encourage harm/suicidal inflictions towards one's personal life.");
         this.rule.put("Unfair-Modification", "Any mods that aren't on the allowed mod list.");
         this.rule.put("Insiding", "Removing items and or Griefing your current faction to then leave and betray.");*/
-        this.plugin = plugin;
-    }
+		this.plugin = plugin;
+	}
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
         /*Integer ruleAmount = 1;
         if (args.length == 0) {
             sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
@@ -115,8 +114,8 @@ extends BaseCommand {
                 sender.sendMessage(ChatColor.GOLD + "Note: Punishment may vary due to severity");
             }
         }*/
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eRules can be found at &aveilhcf.us/rules"));
-        return true;
-    }
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eRules can be found at &aveilhcf.us/rules"));
+		return true;
+	}
 }
 

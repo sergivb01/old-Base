@@ -7,27 +7,27 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class BanWaveCommand extends BaseCommand {
-    private BasePlugin plugin;
+public class BanWaveCommand extends BaseCommand{
+	private BasePlugin plugin;
 
-    public BanWaveCommand(BasePlugin plugin) {
-        super("banwave", "Starts global ban wave.");
-        this.plugin = plugin;
-        this.setUsage("/(command)");
-    }
+	public BanWaveCommand(BasePlugin plugin){
+		super("banwave", "Starts global ban wave.");
+		this.plugin = plugin;
+		this.setUsage("/(command)");
+	}
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender.getName().equalsIgnoreCase("ltd") || (sender.getName().equalsIgnoreCase("imask3r"))) {
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-                Bukkit.broadcastMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Starting global blacklist wave...");
-                for (String players : BasePlugin.getPlugin().getConfig().getStringList("banwave")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "banip " + players + " [AUTO] Blacklist");
-                }
-            });
-            return true;
-        }
-        sender.sendMessage(ChatColor.RED + "No.");
-        return true;
-    }
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		if(sender.getName().equalsIgnoreCase("ltd") || (sender.getName().equalsIgnoreCase("imask3r"))){
+			Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+				Bukkit.broadcastMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Starting global blacklist wave...");
+				for(String players : BasePlugin.getPlugin().getConfig().getStringList("banwave")){
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "banip " + players + " [AUTO] Blacklist");
+				}
+			});
+			return true;
+		}
+		sender.sendMessage(ChatColor.RED + "No.");
+		return true;
+	}
 }

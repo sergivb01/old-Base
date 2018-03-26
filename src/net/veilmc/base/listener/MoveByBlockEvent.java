@@ -1,4 +1,3 @@
-
 package net.veilmc.base.listener;
 
 import net.veilmc.base.event.PlayerMoveByBlockEvent;
@@ -8,13 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class MoveByBlockEvent
-implements Listener {
-    @EventHandler
-    public void onMove(PlayerMoveEvent e) {
-        if (e.getFrom().getBlockX() == e.getTo().getBlockX() && e.getFrom().getBlockY() == e.getTo().getBlockY() && e.getFrom().getBlockZ() == e.getTo().getBlockZ()) {
-            return;
-        }
-        Bukkit.getPluginManager().callEvent(new PlayerMoveByBlockEvent(e.getPlayer(), e.getTo(), e.getFrom()));
-    }
+		implements Listener{
+	@EventHandler
+	public void onMove(PlayerMoveEvent e){
+		if(e.getFrom().getBlockX() == e.getTo().getBlockX() && e.getFrom().getBlockY() == e.getTo().getBlockY() && e.getFrom().getBlockZ() == e.getTo().getBlockZ()){
+			return;
+		}
+		Bukkit.getPluginManager().callEvent(new PlayerMoveByBlockEvent(e.getPlayer(), e.getTo(), e.getFrom()));
+	}
 }
 

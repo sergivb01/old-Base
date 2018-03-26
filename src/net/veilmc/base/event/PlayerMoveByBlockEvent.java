@@ -1,4 +1,3 @@
-
 package net.veilmc.base.event;
 
 import org.bukkit.Location;
@@ -8,49 +7,49 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
 public class PlayerMoveByBlockEvent
-extends PlayerEvent
-implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
-    private Location from;
-    private Location to;
-    private boolean cancelled;
+		extends PlayerEvent
+		implements Cancellable{
+	private static final HandlerList handlers = new HandlerList();
+	private Location from;
+	private Location to;
+	private boolean cancelled;
 
-    public PlayerMoveByBlockEvent(Player player, Location to, Location from) {
-        super(player);
-        this.from = from;
-        this.to = to;
-    }
+	public PlayerMoveByBlockEvent(Player player, Location to, Location from){
+		super(player);
+		this.from = from;
+		this.to = to;
+	}
 
-    public Location getFrom() {
-        return this.from;
-    }
+	public static HandlerList getHandlerList(){
+		return handlers;
+	}
 
-    public Location getTo() {
-        return this.to;
-    }
+	public Location getFrom(){
+		return this.from;
+	}
 
-    public void setFrom(Location from) {
-        this.from = from;
-    }
+	public void setFrom(Location from){
+		this.from = from;
+	}
 
-    public void setTo(Location to) {
-        this.to = to;
-    }
+	public Location getTo(){
+		return this.to;
+	}
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+	public void setTo(Location to){
+		this.to = to;
+	}
 
-    public boolean isCancelled() {
-        return this.cancelled;
-    }
+	public boolean isCancelled(){
+		return this.cancelled;
+	}
 
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
+	public void setCancelled(boolean cancelled){
+		this.cancelled = cancelled;
+	}
 
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+	public HandlerList getHandlers(){
+		return handlers;
+	}
 }
 

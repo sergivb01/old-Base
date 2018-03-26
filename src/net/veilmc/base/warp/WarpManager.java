@@ -1,29 +1,28 @@
-
 package net.veilmc.base.warp;
 
 import java.util.Collection;
 
-public interface WarpManager {
-    Collection<String> getWarpNames();
+public interface WarpManager{
+	Collection<String> getWarpNames();
 
-    Collection<Warp> getWarps();
+	Collection<Warp> getWarps();
 
-    Warp getWarp(String var1);
+	Warp getWarp(String var1);
 
-    boolean containsWarp(Warp var1);
+	boolean containsWarp(Warp var1);
 
-    void createWarp(Warp var1);
+	void createWarp(Warp var1);
 
-    void removeWarp(Warp var1);
+	void removeWarp(Warp var1);
 
-    String getWarpDelayWords();
+	String getWarpDelayWords();
 
-    long getWarpDelayMillis();
+	long getWarpDelayMillis();
 
-    long getWarpDelayTicks();
+	long getWarpDelayTicks();
 
-    void reloadWarpData();
+	void reloadWarpData();
 
-    void saveWarpData();
+	void saveWarpData();
 }
 

@@ -25,22 +25,22 @@ package net.veilmc.util.menu;
 
 import java.util.Iterator;
 
-public class ArrayIterator<T> implements Iterator<T> {
+public class ArrayIterator<T> implements Iterator<T>{
 
-    private T[] array;
-    private int current;
+	private T[] array;
+	private int current;
 
-    public ArrayIterator(T[] array) {
-        this.array = array;
-    }
+	public ArrayIterator(T[] array){
+		this.array = array;
+	}
 
-    @Override
-    public boolean hasNext() {
-        return array.length > current;
-    }
+	@Override
+	public boolean hasNext(){
+		return array.length > current;
+	}
 
-    @Override
-    public T next() {
-        return array[current++];
-    }
+	@Override
+	public T next(){
+		return array[current++];
+	}
 }

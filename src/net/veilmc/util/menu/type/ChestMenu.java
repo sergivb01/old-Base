@@ -28,44 +28,44 @@ import net.veilmc.util.menu.Menu;
 /**
  * A menu that is backed by a chest inventory.
  */
-public class ChestMenu extends AbstractMenu {
+public class ChestMenu extends AbstractMenu{
 
-    protected ChestMenu(String title, int slots, Menu menu) {
-        super(title, slots, menu);
-    }
+	protected ChestMenu(String title, int slots, Menu menu){
+		super(title, slots, menu);
+	}
 
-    /**
-     * Returns a new builder.
-     *
-     * @param rows The amount of rows for the inventory to contain
-     * @throws IllegalArgumentException if rows is not between 1 and 6 inclusive
-     */
-    public static Builder builder(int rows) {
-        if (rows < 1 || rows > 6) {
-            throw new IllegalArgumentException("invalid row count");
-        }
-        return new Builder(rows * 9);
-    }
+	/**
+	 * Returns a new builder.
+	 *
+	 * @param rows The amount of rows for the inventory to contain
+	 * @throws IllegalArgumentException if rows is not between 1 and 6 inclusive
+	 */
+	public static Builder builder(int rows){
+		if(rows < 1 || rows > 6){
+			throw new IllegalArgumentException("invalid row count");
+		}
+		return new Builder(rows * 9);
+	}
 
-    @Override
-    public Dimension getDimensions() {
-        return new Dimension(getInventory().getSize() / 9, 9);
-    }
+	@Override
+	public Dimension getDimensions(){
+		return new Dimension(getInventory().getSize() / 9, 9);
+	}
 
-    /**
-     * A builder for creating a ChestMenu instance.
-     */
-    public static class Builder extends AbstractMenu.Builder {
+	/**
+	 * A builder for creating a ChestMenu instance.
+	 */
+	public static class Builder extends AbstractMenu.Builder{
 
-        private int size;
+		private int size;
 
-        Builder(int size) {
-            this.size = size;
-        }
+		Builder(int size){
+			this.size = size;
+		}
 
-        @Override
-        public ChestMenu build() {
-            return new ChestMenu(getTitle(), size, getParent());
-        }
-    }
+		@Override
+		public ChestMenu build(){
+			return new ChestMenu(getTitle(), size, getParent());
+		}
+	}
 }

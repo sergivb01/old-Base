@@ -1,4 +1,3 @@
-
 package net.veilmc.base.command.module.essential;
 
 import net.veilmc.base.BasePlugin;
@@ -28,7 +27,7 @@ import static org.bukkit.ChatColor.*;
 public class SettingsCommand extends BaseCommand implements Listener, InventoryHolder{
 	private final BasePlugin plugin;
 
-	public SettingsCommand(BasePlugin plugin) {
+	public SettingsCommand(BasePlugin plugin){
 		super("settings", "Configure the looking on the server.");
 		this.setUsage("/(command) <message>");
 		this.setAliases(new String[]{"options", "config"});
@@ -37,13 +36,13 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){
 			sender.sendMessage(RED + "You may not execute this command.");
 			return true;
 		}
 
-		Player player = (Player)sender;
+		Player player = (Player) sender;
 		player.sendMessage(YELLOW + "Opening your menu...");
 
 		ItemStack[] contents = getContents(player);
@@ -89,13 +88,13 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event){
 		if((event.getView() != null) && ((event.getWhoClicked() instanceof Player)) && (event.getClickedInventory() != null) && ((event.getClickedInventory().getHolder() instanceof SettingsCommand))){
-			Player player = (Player)event.getWhoClicked();
+			Player player = (Player) event.getWhoClicked();
 			BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
 			FactionUser factionUser = HCF.getInstance().getUserManager().getUser(player.getUniqueId());
 
 			event.setCancelled(true);
 
-			if (baseUser != null){
+			if(baseUser != null){
 				int slot = event.getSlot();
 				boolean staff = player.hasPermission("rank.staff");
 				switch(slot){
@@ -123,7 +122,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 	}
 
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
 		return args.length == 1 ? null : Collections.emptyList();
 	}
 

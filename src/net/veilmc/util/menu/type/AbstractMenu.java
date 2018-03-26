@@ -23,10 +23,6 @@
 
 package net.veilmc.util.menu.type;
 
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Optional;
-
 import net.veilmc.util.menu.ArrayIterator;
 import net.veilmc.util.menu.Menu;
 import net.veilmc.util.menu.slot.DefaultSlot;
@@ -36,132 +32,136 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
- * An abstract class that provides a skeletal implementation of the Menu 
+ * An abstract class that provides a skeletal implementation of the Menu
  * interface.
  */
-public abstract class AbstractMenu implements Menu  {
+public abstract class AbstractMenu implements Menu{
 
-    private final Inventory inventory;
-    private Menu parent;
-    private Slot[] slots;
-    private CloseHandler handler;
+	private final Inventory inventory;
+	private Menu parent;
+	private Slot[] slots;
+	private CloseHandler handler;
 
-    protected AbstractMenu(String title, int slots, Menu parent) {
-        if (title == null) {
-            title = InventoryType.CHEST.getDefaultTitle();
-        }
-        this.inventory = Bukkit.createInventory(this, slots, title);
-        this.parent = parent;
-        generateSlots();
-    }
-    
-    protected AbstractMenu(String title, InventoryType type, Menu parent) {
-        Objects.requireNonNull(type, "type cannot be null");
-        if (title == null) {
-            title = type.getDefaultTitle();
-        }
-        this.inventory = Bukkit.createInventory(this, type, title);
-        this.parent = parent;
-        generateSlots();
-    }
+	protected AbstractMenu(String title, int slots, Menu parent){
+		if(title == null){
+			title = InventoryType.CHEST.getDefaultTitle();
+		}
+		this.inventory = Bukkit.createInventory(this, slots, title);
+		this.parent = parent;
+		generateSlots();
+	}
 
-    /**
-     * Initial method called to fill the Slots of the menu
-     */
-    protected void generateSlots() {
-        this.slots = new Slot[inventory.getSize()];
-        for (int i = 0 ; i < slots.length ; i++) {
-            slots[i] = new DefaultSlot(inventory, i);
-        }
-    }
+	protected AbstractMenu(String title, InventoryType type, Menu parent){
+		Objects.requireNonNull(type, "type cannot be null");
+		if(title == null){
+			title = type.getDefaultTitle();
+		}
+		this.inventory = Bukkit.createInventory(this, type, title);
+		this.parent = parent;
+		generateSlots();
+	}
 
-    @Override
-    public Optional<Menu> getParent() {
-        return Optional.ofNullable(parent);
-    }
+	/**
+	 * Initial method called to fill the Slots of the menu
+	 */
+	protected void generateSlots(){
+		this.slots = new Slot[inventory.getSize()];
+		for(int i = 0; i < slots.length; i++){
+			slots[i] = new DefaultSlot(inventory, i);
+		}
+	}
 
-    @Override
-    public void open(Player viewer) {
-        viewer.openInventory(getInventory());
-    }
+	@Override
+	public Optional<Menu> getParent(){
+		return Optional.ofNullable(parent);
+	}
 
-    @Override
-    public void close(Player viewer) {
-        Inventory inv = getInventory();
-        if (!inv.getViewers().contains(viewer)) {
-            throw new IllegalStateException("menu not open for player");
-        }
-        viewer.closeInventory();
-    }
+	@Override
+	public void open(Player viewer){
+		viewer.openInventory(getInventory());
+	}
 
-    @Override
-    public Slot getSlot(int index) {
-        return slots[index];
-    }
+	@Override
+	public void close(Player viewer){
+		Inventory inv = getInventory();
+		if(!inv.getViewers().contains(viewer)){
+			throw new IllegalStateException("menu not open for player");
+		}
+		viewer.closeInventory();
+	}
 
-    @Override
-    public Iterator<Slot> iterator() {
-        return new ArrayIterator<>(slots);
-    }
+	@Override
+	public Slot getSlot(int index){
+		return slots[index];
+	}
 
-    @Override
-    public void clear() {
-        for (Slot slot : slots) {
-            slot.setItem(null);
-        }
-    }
+	@Override
+	public Iterator<Slot> iterator(){
+		return new ArrayIterator<>(slots);
+	}
 
-    @Override
-    public void clear(int index) {
-        Slot slot = getSlot(index);
-        slot.setItem(null);
-    }
+	@Override
+	public void clear(){
+		for(Slot slot : slots){
+			slot.setItem(null);
+		}
+	}
 
-    @Override
-    public Inventory getInventory() {
-        return inventory;
-    }
+	@Override
+	public void clear(int index){
+		Slot slot = getSlot(index);
+		slot.setItem(null);
+	}
 
-    @Override
-    public void setCloseHandler(CloseHandler handler) {
-        this.handler = handler;
-    }
+	@Override
+	public Inventory getInventory(){
+		return inventory;
+	}
 
-    @Override
-    public Optional<CloseHandler> getCloseHandler() {
-        return Optional.ofNullable(handler);
-    }
+	@Override
+	public Optional<CloseHandler> getCloseHandler(){
+		return Optional.ofNullable(handler);
+	}
 
-    /**
-     * Abstract base class for builders of {@link Menu} types.
-     * <p>
-     * Builder instances are reusable; calling {@link #build()} will
-     * generate a new Menu with identical features to the ones created before it.
-     */
-    public static abstract class Builder implements Menu.Builder {
-        
-        private String title;
-        private Menu parent;
+	@Override
+	public void setCloseHandler(CloseHandler handler){
+		this.handler = handler;
+	}
 
-        @Override
-        public Menu.Builder title(String title) {
-            this.title = title;
-            return this;
-        }
+	/**
+	 * Abstract base class for builders of {@link Menu} types.
+	 * <p>
+	 * Builder instances are reusable; calling {@link #build()} will
+	 * generate a new Menu with identical features to the ones created before it.
+	 */
+	public static abstract class Builder implements Menu.Builder{
 
-        @Override
-        public Menu.Builder parent(Menu parent) {
-            this.parent = parent;
-            return this;
-        }
+		private String title;
+		private Menu parent;
 
-        public String getTitle() {
-            return title;
-        }
+		@Override
+		public Menu.Builder title(String title){
+			this.title = title;
+			return this;
+		}
 
-        public Menu getParent() {
-            return parent;
-        }
-    }
+		@Override
+		public Menu.Builder parent(Menu parent){
+			this.parent = parent;
+			return this;
+		}
+
+		public String getTitle(){
+			return title;
+		}
+
+		public Menu getParent(){
+			return parent;
+		}
+	}
 }

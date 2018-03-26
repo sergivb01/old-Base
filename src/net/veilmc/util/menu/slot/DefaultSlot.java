@@ -23,66 +23,66 @@
 
 package net.veilmc.util.menu.slot;
 
-import java.util.Objects;
-import java.util.Optional;
-
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A slot defined for default use by all Menus defined by this library.
  */
-public class DefaultSlot implements Slot {
+public class DefaultSlot implements Slot{
 
-    private final Inventory handle;
-    private final int index;
-    private ClickOptions options;
-    private ClickHandler handler;
-    
-    public DefaultSlot(Inventory handle, int index) {
-        this(handle, index, ClickOptions.DENY_ALL);
-    }
+	private final Inventory handle;
+	private final int index;
+	private ClickOptions options;
+	private ClickHandler handler;
 
-    public DefaultSlot(Inventory handle, int index, ClickOptions options) {
-        Objects.requireNonNull(handle);
-        this.handle = handle;
-        this.index = index;
-        setClickOptions(options);
-    }
+	public DefaultSlot(Inventory handle, int index){
+		this(handle, index, ClickOptions.DENY_ALL);
+	}
 
-    @Override
-    public int getIndex() {
-        return index;
-    }
+	public DefaultSlot(Inventory handle, int index, ClickOptions options){
+		Objects.requireNonNull(handle);
+		this.handle = handle;
+		this.index = index;
+		setClickOptions(options);
+	}
 
-    @Override
-    public ClickOptions getClickOptions() {
-        return options;
-    }
+	@Override
+	public int getIndex(){
+		return index;
+	}
 
-    @Override
-    public void setClickOptions(ClickOptions options) {
-        Objects.requireNonNull(options);
-        this.options = options;
-    }
+	@Override
+	public ClickOptions getClickOptions(){
+		return options;
+	}
 
-    @Override
-    public ItemStack getItem() {
-        return handle.getItem(index);
-    }
+	@Override
+	public void setClickOptions(ClickOptions options){
+		Objects.requireNonNull(options);
+		this.options = options;
+	}
 
-    @Override
-    public void setItem(ItemStack item) {
-        handle.setItem(index, item);
-    }
+	@Override
+	public ItemStack getItem(){
+		return handle.getItem(index);
+	}
 
-    @Override
-    public Optional<ClickHandler> getClickHandler() {
-        return Optional.ofNullable(handler);
-    }
+	@Override
+	public void setItem(ItemStack item){
+		handle.setItem(index, item);
+	}
 
-    @Override
-    public void setClickHandler(ClickHandler handler) {
-        this.handler = handler;
-    }
+	@Override
+	public Optional<ClickHandler> getClickHandler(){
+		return Optional.ofNullable(handler);
+	}
+
+	@Override
+	public void setClickHandler(ClickHandler handler){
+		this.handler = handler;
+	}
 }
