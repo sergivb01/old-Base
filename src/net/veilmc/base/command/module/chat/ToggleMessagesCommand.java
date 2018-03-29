@@ -29,7 +29,12 @@ public class ToggleMessagesCommand
 		BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
 		boolean newToggled = !baseUser.isMessagesVisible();
 		baseUser.setMessagesVisible(newToggled);
-		sender.sendMessage(ChatColor.YELLOW + "You have " + (newToggled ? "enabled" : "disabled") + ChatColor.YELLOW + " private messages.");
+		if(newToggled) {
+			sender.sendMessage(ChatColor.GREEN + "You have enabled private messages.");
+			return true;
+		} else {
+			sender.sendMessage(ChatColor.RED + "You have disabled private messages.");
+		}
 		return true;
 	}
 }

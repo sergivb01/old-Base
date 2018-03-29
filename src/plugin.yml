@@ -14,10 +14,8 @@ commands:
   youtube:
   crash:
   togglesounds:
-  muteword:
   famous:
   togglesc:
-  legalmods:
   banwave:
   clearlagg:
     aliases: ["cl", "laggclear", "clearlag", "clag"]
