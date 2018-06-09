@@ -112,7 +112,7 @@ public class ChatCommands implements Listener{
 				event.setCancelled(true);
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						spacebar +
-								"&9&lVeil Network links\n" +
+								"&9&lServer links\n" +
 								" &7* &3Website: &rveilhcf.us\n" +
 								" &7* &3Forums: &rveilhcf.us/community\n" +
 								" &7* &3Store: &rstore.veilhcf.us\n" +

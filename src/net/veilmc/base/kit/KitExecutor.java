@@ -1,11 +1,12 @@
 package net.veilmc.base.kit;
 
-import net.veilmc.base.BasePlugin;
 import net.veilmc.base.kit.argument.*;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.ArgumentExecutor;
 import net.veilmc.util.command.CommandArgument;
 import net.veilmc.util.command.CommandWrapper;
+import net.veilmc.base.kit.argument.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

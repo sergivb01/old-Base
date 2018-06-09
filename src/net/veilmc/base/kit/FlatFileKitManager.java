@@ -1,8 +1,8 @@
 package net.veilmc.base.kit;
 
 import com.google.common.collect.Lists;
-import net.veilmc.base.BasePlugin;
 import net.veilmc.base.kit.event.KitRenameEvent;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.util.Config;
 import net.veilmc.util.GenericUtils;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;

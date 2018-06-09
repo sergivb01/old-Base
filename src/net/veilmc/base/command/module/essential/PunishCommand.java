@@ -49,10 +49,10 @@ public class PunishCommand extends BaseCommand implements Listener{
 			if(args.length == 1){
 				if(silent == null) silent = "";
 				else silent = "";
-				inv = Bukkit.createInventory(player, 54, "Veil Punish Manager");
+				inv = Bukkit.createInventory(player, 54, "Punish Manager");
 			}else if(args.length == 2 && args[1].equalsIgnoreCase("-s")){
 				silent = " -s";
-				inv = Bukkit.createInventory(player, 54, "Veil Punish Manager" + ChatColor.ITALIC + " (Silent)");
+				inv = Bukkit.createInventory(player, 54, "Punish Manager" + ChatColor.ITALIC + " (Silent)");
 			}
 			PunishmentGUI(player);
 		}
@@ -234,7 +234,7 @@ public class PunishCommand extends BaseCommand implements Listener{
 		meta_chat_StaffDisr.setLore(Arrays.asList(ChatColor.GOLD + "1 hour MUTE", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "~Sh** staff~"));
 		meta_chat_ChatSpam.setLore(Arrays.asList(ChatColor.GOLD + "5 min MUTE", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "Sending same message", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "a lot of times."));
 		meta_chat_ChatFlood.setLore(Arrays.asList(ChatColor.GOLD + "WARN", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "Sending 1 word per line."));
-		meta_chat_ExternalLinks.setLore(Arrays.asList(ChatColor.GOLD + "30 min MUTE", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "Any link non-related to", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "the Veil Network."));
+		meta_chat_ExternalLinks.setLore(Arrays.asList(ChatColor.GOLD + "30 min MUTE", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "Any link non-related"));
 		meta_chat_FactionMesaggesSpam.setLore(Arrays.asList(ChatColor.GOLD + "KICK", ChatColor.YELLOW.toString() + ChatColor.ITALIC + "Spamming /f create, disband, etc."));
 		meta_chat_HelpopMissue.setLore(Arrays.asList(ChatColor.GOLD + "WARN"));
 
@@ -338,7 +338,7 @@ public class PunishCommand extends BaseCommand implements Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent event){
 
-		if(!event.getInventory().getName().contains("Veil Punish Manager")){
+		if(!event.getInventory().getName().contains("Punish Manager")){
 			return;
 		}
 		Player player = (Player) event.getWhoClicked();
