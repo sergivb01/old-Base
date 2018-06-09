@@ -1,6 +1,8 @@
 package net.veilmc.base;
 
 import lombok.Getter;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
 import net.veilmc.base.command.CommandManager;
 import net.veilmc.base.command.SimpleCommandManager;
 import net.veilmc.base.command.module.ChatModule;
@@ -11,15 +13,18 @@ import net.veilmc.base.command.module.chat.ChatCommands;
 import net.veilmc.base.command.module.essential.PunishCommand;
 import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
-import net.veilmc.base.kit.*;
 import net.veilmc.base.listener.*;
 import net.veilmc.base.task.AnnouncementHandler;
 import net.veilmc.base.task.AutoRestartHandler;
 import net.veilmc.base.task.ClearEntityHandler;
-import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
+import net.veilmc.base.kit.*;
+import net.veilmc.base.user.*;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.tab.TabListener;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -29,14 +34,21 @@ import net.veilmc.util.cuboid.Cuboid;
 import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
+import net.veilmc.base.kit.*;
+import net.veilmc.base.listener.*;
+import net.veilmc.base.user.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class BasePlugin extends JavaPlugin{
 	@Getter
@@ -70,9 +82,32 @@ public class BasePlugin extends JavaPlugin{
 	@Getter
 	private KitExecutor kitExecutor;
 	//@Getter private ConfigFile langFile;
+	@Getter
+	private static final Logger log = Logger.getLogger("Minecraft");
+
+	@Getter
+	private static Permission perms = null;
+	@Getter
+	private static Chat chat = null;
+	@Getter
+	private static Economy econ = null;
+
+
+
+
+
+
+
 
 	public void onEnable(){
+		if (!setupChat() ) {
+			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		plugin = this;
+
 
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -91,15 +126,82 @@ public class BasePlugin extends JavaPlugin{
 		this.registerListeners();
 		this.reloadSchedulers();
 
+		Bukkit.getConsoleSender().sendMessage("");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] Plugin loaded!"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] &eVersion: " + BasePlugin.getPlugin().getDescription().getVersion()));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] &eVault: &aHOOKED"));
+		Bukkit.getConsoleSender().sendMessage("");
+
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
 	}
+
+	private boolean setupChat() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			log.severe("DB: Vault plugin = null");
+			return false;
+		}
+		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+		if (rsp == null) {
+			log.severe("rsp = null");
+			return false;
+		}
+		chat = rsp.getProvider();
+		return chat != null;
+	}
+
+	//private boolean setupChat() {
+	//	RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+	//	chat = rsp.getProvider();
+	//	return chat != null;
+	//}
+
+	private boolean setupPermissions() {
+		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+		perms = rsp.getProvider();
+		return perms != null;
+	}
+
+
+	/*private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			log.severe("DB: Vault plugin = null");
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			log.severe("DB: rsp = null");
+			return false;
+		}
+		econ = rsp.getProvider();
+		return econ != null;
+	}
+
+	private boolean setupChat() {
+		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+		chat = rsp.getProvider();
+		return chat != null;
+	}
+
+	private boolean setupPermissions() {
+		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+		perms = rsp.getProvider();
+		return perms != null;
+	}
+*/
+
+
+
+
+
+
 
 
 	public void onDisable(){
 		super.onDisable();
 
-		BossBarManager.unhook();
+		log.info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
+
 
 		this.kitManager.saveKitData();
 		this.playTimeManager.savePlaytimeData();
@@ -110,6 +212,26 @@ public class BasePlugin extends JavaPlugin{
 
 		plugin = null;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	private void registerManagers(){
@@ -164,10 +286,12 @@ public class BasePlugin extends JavaPlugin{
 		manager.registerEvents(this.playTimeManager, this);
 		manager.registerEvents(new PlayerLimitListener(), this);
 		manager.registerEvents(new VanishListener(this), this);
-		manager.registerEvents(new ChatCommands(), this);
+		//manager.registerEvents(new ChatCommands(), this);
+		manager.registerEvents(new SecurityListener(), this);
 		//manager.registerEvents(new AutoMuteListener(this), this);
 		manager.registerEvents(new StaffUtilsRemoveListener(), this);
 	}
+
 
 
 	private void reloadSchedulers(){
@@ -187,6 +311,21 @@ public class BasePlugin extends JavaPlugin{
 		mobstackListener.runTaskTimerAsynchronously(this, 20, 20);
 		clearEntityHandler.runTaskTimer(this, claggdelay, claggdelay);
 		announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
+	}
+
+
+
+
+	public static Economy getEconomy() {
+		return econ;
+	}
+
+	public static Permission getPermissions() {
+		return perms;
+	}
+
+	public static Chat getChat() {
+		return chat;
 	}
 
 

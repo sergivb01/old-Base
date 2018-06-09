@@ -56,6 +56,8 @@ public class ServerHandler{
 	private int netherBorder;
 	@Getter
 	private int endBorder;
+	@Getter
+	private boolean Lockdown;
 
 	public ServerHandler(BasePlugin plugin){
 		this.plugin = plugin;
@@ -82,6 +84,7 @@ public class ServerHandler{
 		double z = this.config.getDouble("end.exitLocation.z", -200.0);
 		this.endExit = new Location(Bukkit.getWorld(exitWorld), x, y, z);
 		this.donorOnly = this.config.getBoolean("donor-only-enter");
+		this.Lockdown = this.config.getBoolean("lockdown-enabled", false);
 		this.end = this.config.getBoolean("end-open");
 		this.worldBorder = this.config.getInt("border.worldBorder", 3000);
 		this.netherBorder = this.config.getInt("border.netherBorder", 1000);
@@ -118,6 +121,7 @@ public class ServerHandler{
 		this.config.set("end.exitLocation.y", this.endExit.getY());
 		this.config.set("end.exitLocation.z", this.endExit.getX());
 		this.config.set("donor-only-enter", this.donorOnly);
+		this.config.set("lockdown-enabled", this.Lockdown);
 		this.config.set("end-open", this.end);
 		this.config.set("border.worldBorder", this.worldBorder);
 		this.config.set("border.netherBorder", this.netherBorder);

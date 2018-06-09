@@ -1,5 +1,9 @@
 package net.veilmc.base.listener;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.user.BaseUser;
 import org.bukkit.Bukkit;
@@ -10,6 +14,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
 
 public class JoinListener
@@ -25,6 +35,7 @@ public class JoinListener
 		Player player = event.getPlayer();
 		UUID uuid = player.getUniqueId();
 		BaseUser baseUser = this.plugin.getUserManager().getUser(uuid);
+		if(this.plugin.getServerManager().Lockdo)
 		for(Player player1 : Bukkit.getServer().getOnlinePlayers()){
 			if(!player1.hasPermission("command.staffchat")) continue;
 			if(!baseUser.getNotes().isEmpty()){
@@ -38,5 +49,6 @@ public class JoinListener
 		baseUser.tryLoggingName(player);
 		baseUser.tryLoggingAddress(player.getAddress().getAddress().getHostAddress());
 	}
+
 }
 

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
+
 
 import java.util.Set;
 
@@ -61,16 +61,16 @@ public class PlayerMessageEvent
 		recipientUser.setLastRepliedTo(sendingUser.getUniqueId());
 		long millis = System.currentTimeMillis();
 		recipientUser.setLastReceivedMessageMillis(millis);
-		String rank = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.sender).getPrefix()).replace("_", " ");
+
+		String rank = ChatColor.translateAlternateColorCodes('&', "&f" + BasePlugin.getChat().getPlayerPrefix(this.sender)).replace("_", " ");
 		String displayName = rank + this.sender.getDisplayName();
-		String rank1 = ChatColor.translateAlternateColorCodes('&', "&f" + PermissionsEx.getUser(this.recipient).getPrefix()).replace("_", " ");
+		String rank1 = ChatColor.translateAlternateColorCodes('&', "&f" + BasePlugin.getChat().getPlayerPrefix(this.recipient)).replace("_", " ");
 		String displayName1 = rank1 + this.recipient.getDisplayName();
 
 		String[] blockedWords = new String[]
-				{"kys"
+				{
+						"kys"
 						, "nigger"
-						, "kill"
-						, "cunt"
 						, "hack"
 						, "phase"
 						, "aura"
@@ -80,7 +80,11 @@ public class PlayerMessageEvent
 						, "theboys"
 						, "antikb"
 						, "grief"
-						, "worldedit"};
+						, "etb"
+						, "client"
+						, "hack"
+						, "worldedit"
+				};
 
 		for(String strings : blockedWords){
 			if(this.message.contains(strings)){

@@ -1,8 +1,8 @@
 package net.veilmc.base.kit.argument;
 
+import net.veilmc.base.user.BaseUser;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.kit.Kit;
-import net.veilmc.base.user.BaseUser;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.apache.commons.lang.StringUtils;
