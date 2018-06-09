@@ -9,22 +9,18 @@ import net.veilmc.base.command.module.ChatModule;
 import net.veilmc.base.command.module.EssentialModule;
 import net.veilmc.base.command.module.InventoryModule;
 import net.veilmc.base.command.module.TeleportModule;
-import net.veilmc.base.command.module.chat.ChatCommands;
 import net.veilmc.base.command.module.essential.PunishCommand;
 import net.veilmc.base.command.module.essential.ReportCommand;
 import net.veilmc.base.command.module.teleport.WorldCommand;
+import net.veilmc.base.kit.*;
 import net.veilmc.base.listener.*;
 import net.veilmc.base.task.AnnouncementHandler;
 import net.veilmc.base.task.AutoRestartHandler;
 import net.veilmc.base.task.ClearEntityHandler;
+import net.veilmc.base.user.*;
 import net.veilmc.base.warp.FlatFileWarpManager;
 import net.veilmc.base.warp.Warp;
 import net.veilmc.base.warp.WarpManager;
-import net.veilmc.base.kit.*;
-import net.veilmc.base.user.*;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.tab.TabListener;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.PersistableLocation;
 import net.veilmc.util.RandomUtils;
 import net.veilmc.util.SignHandler;
@@ -34,9 +30,6 @@ import net.veilmc.util.cuboid.Cuboid;
 import net.veilmc.util.cuboid.NamedCuboid;
 import net.veilmc.util.itemdb.ItemDb;
 import net.veilmc.util.itemdb.SimpleItemDb;
-import net.veilmc.base.kit.*;
-import net.veilmc.base.listener.*;
-import net.veilmc.base.user.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -93,14 +86,8 @@ public class BasePlugin extends JavaPlugin{
 	private static Economy econ = null;
 
 
-
-
-
-
-
-
 	public void onEnable(){
-		if (!setupChat() ) {
+		if(!setupChat()){
 			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
 			return;
@@ -136,13 +123,13 @@ public class BasePlugin extends JavaPlugin{
 
 	}
 
-	private boolean setupChat() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+	private boolean setupChat(){
+		if(getServer().getPluginManager().getPlugin("Vault") == null){
 			log.severe("DB: Vault plugin = null");
 			return false;
 		}
 		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-		if (rsp == null) {
+		if(rsp == null){
 			log.severe("rsp = null");
 			return false;
 		}
@@ -156,7 +143,7 @@ public class BasePlugin extends JavaPlugin{
 	//	return chat != null;
 	//}
 
-	private boolean setupPermissions() {
+	private boolean setupPermissions(){
 		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
 		perms = rsp.getProvider();
 		return perms != null;
@@ -191,12 +178,6 @@ public class BasePlugin extends JavaPlugin{
 */
 
 
-
-
-
-
-
-
 	public void onDisable(){
 		super.onDisable();
 
@@ -212,26 +193,6 @@ public class BasePlugin extends JavaPlugin{
 
 		plugin = null;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	private void registerManagers(){
@@ -293,7 +254,6 @@ public class BasePlugin extends JavaPlugin{
 	}
 
 
-
 	private void reloadSchedulers(){
 		ClearEntityHandler clearEntityHandler;
 		AnnouncementHandler announcementTask;
@@ -314,17 +274,15 @@ public class BasePlugin extends JavaPlugin{
 	}
 
 
-
-
-	public static Economy getEconomy() {
+	public static Economy getEconomy(){
 		return econ;
 	}
 
-	public static Permission getPermissions() {
+	public static Permission getPermissions(){
 		return perms;
 	}
 
-	public static Chat getChat() {
+	public static Chat getChat(){
 		return chat;
 	}
 

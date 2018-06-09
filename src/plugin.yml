@@ -25,13 +25,13 @@ commands:
   togglesc:
   banwave:
   clearlagg:
-    aliases: ["cl", "laggclear", "clearlag", "clag"]
+    aliases: [cl, laggclear, clearlag, clag]
   boom:
   snote:
   staffmode:
-    aliases: ["h", "mod", "staff"]
+    aliases: [h, mod, staff]
   announcement:
-    aliases: ["announce", "ann"]
+    aliases: [announce, ann]
   lol:
   troll:
   autorestart:
@@ -44,7 +44,7 @@ commands:
   note:
   copyinv:
   amivis:
-    aliases: ["amivanish", "amivanished", "?invis", "?v", "?vis", "invis?", "vis?", "v?"]
+    aliases: [amivanish, amivanished, ?invis, ?v, ?vis, invis?, vis?, v?]
     description: Command used to check if visible.
   autorestart:
     aliases: [autore]

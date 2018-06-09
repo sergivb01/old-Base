@@ -1,6 +1,5 @@
 package net.veilmc.base.command.module;
 
-import net.veilmc.base.command.module.essential.*;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommandModule;
 import net.veilmc.base.command.module.essential.*;

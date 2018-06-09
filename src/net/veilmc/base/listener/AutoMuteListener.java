@@ -17,6 +17,7 @@ public class AutoMuteListener implements Listener{
 	private int cooldownToRemoveAdvert = 600;
 	private HashMap<String, Integer> messageCount = new HashMap<>();
 	private HashMap<String, Integer> totalAdverts = new HashMap<>();
+
 	public AutoMuteListener(BasePlugin plugin){
 		this.plugin = plugin;
 	}

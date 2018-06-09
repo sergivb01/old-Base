@@ -28,6 +28,7 @@ public class PunishCommand extends BaseCommand implements Listener{
 	private static String target;
 	private static String silent;
 	private Inventory inv;
+
 	public PunishCommand(){
 		super("punish", "Punish a player.");
 		this.setAliases(new String[]{"who"});

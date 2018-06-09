@@ -13,17 +13,14 @@ public class SecurityListener implements Listener{
 
 
 	@EventHandler
-	public void preProcessCommand(PlayerCommandPreprocessEvent event) {
+	public void preProcessCommand(PlayerCommandPreprocessEvent event){
 
-		if(event.getPlayer().isOp() && BasePlugin.getChat().playerInGroup(event.getPlayer(), "default")) {
+		if(event.getPlayer().isOp() && BasePlugin.getChat().playerInGroup(event.getPlayer(), "default")){
 			event.setCancelled(true);
 			Command.broadcastCommandMessage(Bukkit.getConsoleSender(), ChatColor.YELLOW + event.getPlayer().getName() + " has been detected as a security risk", false);
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + event.getPlayer().getName() + " Detected: Security Risk -s");
 		}
 	}
-
-
-
 
 
 }
