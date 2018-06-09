@@ -1,8 +1,8 @@
 package net.veilmc.base.kit;
 
 import com.google.common.base.Preconditions;
-import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.base.BasePlugin;
+import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.InventoryUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;

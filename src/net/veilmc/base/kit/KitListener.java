@@ -1,8 +1,8 @@
 package net.veilmc.base.kit;
 
+import net.veilmc.base.BasePlugin;
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.base.user.BaseUser;
-import net.veilmc.base.BasePlugin;
 import net.veilmc.util.ParticleEffect;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
