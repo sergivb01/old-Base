@@ -42,8 +42,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.IOException;
 import java.util.Random;
 
-@Getter public class BasePlugin extends JavaPlugin{
+@Getter
+public class BasePlugin extends JavaPlugin{
 	private static BasePlugin plugin;
+	private static Permission perms = null;
+	private static Chat chat = null;
+	private static Economy economy = null;
 	public BukkitRunnable announcementTask;
 	private ItemDb itemDb;
 	private Random random = new Random();
@@ -55,16 +59,18 @@ import java.util.Random;
 	private KitManager kitManager;
 	private PlayTimeManager playTimeManager;
 	private ServerHandler serverHandler;
+	// private ConfigFile langFile;
 	private SignHandler signHandler;
 	private UserManager userManager;
 	private KitExecutor kitExecutor;
-	// private ConfigFile langFile;
 
+	public static Chat getChat(){
+		return chat;
+	}
 
-	private static Permission perms = null;
-	private static Chat chat = null;
-	private static Economy economy = null;
-
+	public static BasePlugin getPlugin(){
+		return plugin;
+	}
 
 	public void onEnable(){
 		if(!setupChat()){
@@ -117,7 +123,6 @@ import java.util.Random;
 		return chat != null;
 	}
 
-
 	private boolean setupPermissions(){
 		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
 		perms = rsp.getProvider();
@@ -139,7 +144,6 @@ import java.util.Random;
 
 		plugin = null;
 	}
-
 
 	private void registerManagers(){
 		BossBarManager.hook();
@@ -195,7 +199,6 @@ import java.util.Random;
 		manager.registerEvents(new StaffUtilsRemoveListener(), this);
 	}
 
-
 	private void reloadSchedulers(){
 		ClearEntityHandler clearEntityHandler;
 		AnnouncementHandler announcementTask;
@@ -213,14 +216,6 @@ import java.util.Random;
 		mobstackListener.runTaskTimerAsynchronously(this, 20, 20);
 		clearEntityHandler.runTaskTimer(this, claggdelay, claggdelay);
 		announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
-	}
-
-	public static Chat getChat(){
-		return chat;
-	}
-
-	public static BasePlugin getPlugin(){
-		return plugin;
 	}
 
 }
