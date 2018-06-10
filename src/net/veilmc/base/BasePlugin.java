@@ -41,54 +41,34 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Logger;
 
-public class BasePlugin extends JavaPlugin{
-	@Getter
+@Getter public class BasePlugin extends JavaPlugin{
 	private static BasePlugin plugin;
-	@Getter
 	public BukkitRunnable announcementTask;
-	@Getter
 	private ItemDb itemDb;
-	@Getter
 	private Random random = new Random();
-	@Getter
 	private WarpManager warpManager;
-	@Getter
 	private RandomUtils randomUtils;
-	@Getter
 	private AutoRestartHandler autoRestartHandler;
-	@Getter
 	private BukkitRunnable clearEntityHandler;
-	@Getter
 	private CommandManager commandManager;
-	@Getter
 	private KitManager kitManager;
-	@Getter
 	private PlayTimeManager playTimeManager;
-	@Getter
 	private ServerHandler serverHandler;
-	@Getter
 	private SignHandler signHandler;
-	@Getter
 	private UserManager userManager;
-	@Getter
 	private KitExecutor kitExecutor;
-	//@Getter private ConfigFile langFile;
-	@Getter
-	private static final Logger log = Logger.getLogger("Minecraft");
+	// private ConfigFile langFile;
 
-	@Getter
+
 	private static Permission perms = null;
-	@Getter
 	private static Chat chat = null;
-	@Getter
-	private static Economy econ = null;
+	private static Economy economy = null;
 
 
 	public void onEnable(){
 		if(!setupChat()){
-			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getLogger().severe("Could not find Vault dependency!");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -108,15 +88,15 @@ public class BasePlugin extends JavaPlugin{
 		ConfigurationSerialization.registerClass(NamedCuboid.class);
 		ConfigurationSerialization.registerClass(Kit.class);
 
-		this.registerManagers();
-		this.registerCommands();
-		this.registerListeners();
-		this.reloadSchedulers();
+		registerManagers();
+		registerCommands();
+		registerListeners();
+		reloadSchedulers();
 
 		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] Plugin loaded!"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] &eVersion: " + BasePlugin.getPlugin().getDescription().getVersion()));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + BasePlugin.getPlugin().getDescription().getName() + "] &eVault: &aHOOKED"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] Plugin loaded!"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] &eVersion: " + getDescription().getVersion()));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] &eVault: &aHOOKED"));
 		Bukkit.getConsoleSender().sendMessage("");
 
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
@@ -125,23 +105,18 @@ public class BasePlugin extends JavaPlugin{
 
 	private boolean setupChat(){
 		if(getServer().getPluginManager().getPlugin("Vault") == null){
-			log.severe("DB: Vault plugin = null");
+			getLogger().severe("DB: Vault plugin = null");
 			return false;
 		}
 		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
 		if(rsp == null){
-			log.severe("rsp = null");
+			getLogger().severe("rsp = null");
 			return false;
 		}
 		chat = rsp.getProvider();
 		return chat != null;
 	}
 
-	//private boolean setupChat() {
-	//	RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-	//	chat = rsp.getProvider();
-	//	return chat != null;
-	//}
 
 	private boolean setupPermissions(){
 		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
@@ -149,47 +124,18 @@ public class BasePlugin extends JavaPlugin{
 		return perms != null;
 	}
 
-
-	/*private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			log.severe("DB: Vault plugin = null");
-			return false;
-		}
-		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
-			log.severe("DB: rsp = null");
-			return false;
-		}
-		econ = rsp.getProvider();
-		return econ != null;
-	}
-
-	private boolean setupChat() {
-		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-		chat = rsp.getProvider();
-		return chat != null;
-	}
-
-	private boolean setupPermissions() {
-		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-		perms = rsp.getProvider();
-		return perms != null;
-	}
-*/
-
-
 	public void onDisable(){
 		super.onDisable();
 
-		log.info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
+		getLogger().info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
 
 
-		this.kitManager.saveKitData();
-		this.playTimeManager.savePlaytimeData();
-		this.serverHandler.saveServerData();
-		this.signHandler.cancelTasks(null);
-		this.userManager.saveParticipatorData();
-		this.warpManager.saveWarpData();
+		kitManager.saveKitData();
+		playTimeManager.savePlaytimeData();
+		serverHandler.saveServerData();
+		signHandler.cancelTasks(null);
+		userManager.saveParticipatorData();
+		warpManager.saveWarpData();
 
 		plugin = null;
 	}
@@ -198,14 +144,14 @@ public class BasePlugin extends JavaPlugin{
 	private void registerManagers(){
 		BossBarManager.hook();
 
-		this.randomUtils = new RandomUtils();
-		this.autoRestartHandler = new AutoRestartHandler(this);
-		this.kitManager = new FlatFileKitManager(this);
-		this.serverHandler = new ServerHandler(this);
-		this.signHandler = new SignHandler(this);
-		this.userManager = new UserManager(this);
-		this.itemDb = new SimpleItemDb(this);
-		this.warpManager = new FlatFileWarpManager(this);
+		randomUtils = new RandomUtils();
+		autoRestartHandler = new AutoRestartHandler(this);
+		kitManager = new FlatFileKitManager(this);
+		serverHandler = new ServerHandler(this);
+		signHandler = new SignHandler(this);
+		userManager = new UserManager(this);
+		itemDb = new SimpleItemDb(this);
+		warpManager = new FlatFileWarpManager(this);
 
 		try{
 			Lang.initialize("en_US");
@@ -216,21 +162,17 @@ public class BasePlugin extends JavaPlugin{
 	}
 
 	private void registerCommands(){
-		this.commandManager = new SimpleCommandManager(this);
-		this.commandManager.registerAll(new ChatModule(this));
-		this.commandManager.registerAll(new EssentialModule(this));
-		this.commandManager.registerAll(new InventoryModule(this));
-		this.commandManager.registerAll(new TeleportModule(this));
-		this.kitExecutor = new KitExecutor(this);
-		this.getCommand("kit").setExecutor(this.kitExecutor);
-	}
-
-	public KitExecutor getKitExecutor(){
-		return this.kitExecutor;
+		commandManager = new SimpleCommandManager(this);
+		commandManager.registerAll(new ChatModule(this));
+		commandManager.registerAll(new EssentialModule(this));
+		commandManager.registerAll(new InventoryModule(this));
+		commandManager.registerAll(new TeleportModule(this));
+		kitExecutor = new KitExecutor(this);
+		getCommand("kit").setExecutor(kitExecutor);
 	}
 
 	private void registerListeners(){
-		PluginManager manager = this.getServer().getPluginManager();
+		PluginManager manager = getServer().getPluginManager();
 		manager.registerEvents(new WorldCommand(), this);
 		manager.registerEvents(new ChatListener(this), this);
 		manager.registerEvents(new PunishCommand(), this);
@@ -243,8 +185,8 @@ public class BasePlugin extends JavaPlugin{
 		manager.registerEvents(new MobstackListener(), this);
 		manager.registerEvents(new StaffListener(), this);
 		manager.registerEvents(new NameVerifyListener(this), this);
-		this.playTimeManager = new PlayTimeManager(this);
-		manager.registerEvents(this.playTimeManager, this);
+		playTimeManager = new PlayTimeManager(this);
+		manager.registerEvents(playTimeManager, this);
 		manager.registerEvents(new PlayerLimitListener(), this);
 		manager.registerEvents(new VanishListener(this), this);
 		//manager.registerEvents(new ChatCommands(), this);
@@ -273,19 +215,13 @@ public class BasePlugin extends JavaPlugin{
 		announcementTask.runTaskTimer(this, announcementDelay, announcementDelay);
 	}
 
-
-	public static Economy getEconomy(){
-		return econ;
-	}
-
-	public static Permission getPermissions(){
-		return perms;
-	}
-
 	public static Chat getChat(){
 		return chat;
 	}
 
+	public static BasePlugin getPlugin(){
+		return plugin;
+	}
 
 }
 

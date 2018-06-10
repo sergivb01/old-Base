@@ -13,9 +13,7 @@ import org.bukkit.event.HandlerList;
 
 import java.util.Set;
 
-public class PlayerMessageEvent
-		extends Event
-		implements Cancellable{
+public class PlayerMessageEvent extends Event implements Cancellable{
 	private static final HandlerList handlers = new HandlerList();
 	private final Player sender;
 	private final Player recipient;

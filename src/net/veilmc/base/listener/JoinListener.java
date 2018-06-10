@@ -25,7 +25,7 @@ public class JoinListener
 		Player player = event.getPlayer();
 		UUID uuid = player.getUniqueId();
 		BaseUser baseUser = this.plugin.getUserManager().getUser(uuid);
-		if(this.plugin.getServerManager().Lockdo)
+		if(this.plugin.getServerHandler().isLockdown()) //TODO: This doesn't have any sense
 			for(Player player1 : Bukkit.getServer().getOnlinePlayers()){
 				if(!player1.hasPermission("command.staffchat")) continue;
 				if(!baseUser.getNotes().isEmpty()){

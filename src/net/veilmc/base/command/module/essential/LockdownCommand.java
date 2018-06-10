@@ -4,13 +4,10 @@ import net.veilmc.base.command.BaseCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class LockdownCommand
-		extends BaseCommand
-
-{
+public class LockdownCommand extends BaseCommand{
 	private final String TO_BE_ON_LIST_PERMISSION;
 
-	public ListCommand(){
+	public LockdownCommand(){
 		super("lockdown", "Puts the server on high alert");
 		this.setUsage("/(command)");
 		this.TO_BE_ON_LIST_PERMISSION = "command.lockdown";
@@ -18,7 +15,7 @@ public class LockdownCommand
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-
-
+		return true;
 	}
+
 }
