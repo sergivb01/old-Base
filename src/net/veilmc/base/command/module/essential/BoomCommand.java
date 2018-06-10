@@ -52,7 +52,6 @@ public class BoomCommand
 			loc.getWorld().playEffect(loc, Effect.EXPLOSION, 50);
 			loc.getWorld().playEffect(loc, Effect.SMALL_SMOKE, 50);
 		}
-		//Giraffe.getInstance().announceBan(p); //TODO: FIX THIS FOR USE ON SERVER/COMMIT
 		Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(this.plugin, () -> Bukkit.dispatchCommand(sender, "ban " + p.getName() + " Cheating -s"), 20L);
 		return true;
 	}

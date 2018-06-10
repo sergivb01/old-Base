@@ -213,7 +213,7 @@ public final class MenuFunctionListener implements Listener{
 	                             Inventory clicked, Menu menu, int slotIndex){
 
 
-		passClickToSlot(handle, inventoryAction, clickType, clicked, menu, slotIndex, null); // TODO
+		passClickToSlot(handle, inventoryAction, clickType, clicked, menu, slotIndex, null);
 	}
 
 	// Handles events where a slot was clicked inside an inventory
