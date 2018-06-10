@@ -1,1 +1,1 @@
- > Project archived
+# HCF Essentials plugin
