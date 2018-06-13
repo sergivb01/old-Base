@@ -52,7 +52,7 @@ public class GamemodeCommand
 			return true;
 		}
 		target.setGameMode(mode);
-		Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + ChatColor.YELLOW + mode.name().toString().toLowerCase() + ChatColor.YELLOW + '.');
+		Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set gamemode of " + target.getName() + " to " + ChatColor.YELLOW + mode.name().toLowerCase() + ChatColor.YELLOW + '.');
 		return true;
 	}
 

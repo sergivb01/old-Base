@@ -4,6 +4,7 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.BaseUser;
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.tab.PlayerTab;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.util.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -110,6 +111,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 						int next = (factionUser.getTabStyleInt() >= (staff ? 2 : 1) ? 0 : factionUser.getTabStyleInt() + 1);
 						factionUser.setTabStyle(next);
 						player.sendMessage(YELLOW + "Tab style set to " + next + " => " + factionUser.getTabStyle().toString());
+						PlayerTab.clean.add(player);
 						break;
 					}
 					default:
