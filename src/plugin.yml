@@ -3,12 +3,12 @@ version: DEV
 main: net.veilmc.base.BasePlugin
 depend: [Vault]
 commands:
-  request:
-    aliases: [helpop]
+  #request:
+  #  aliases: [helpop]
   staffserver:
-  staffchat:
-    aliases: [sc]
-  report:
+  #staffchat:
+   # aliases: [sc]
+  #report:
   settings:
     aliases: [options, config]
   setviewdistance:

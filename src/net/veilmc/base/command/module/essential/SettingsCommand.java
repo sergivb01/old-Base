@@ -140,4 +140,3 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 		return null;
 	}
 }
-

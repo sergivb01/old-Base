@@ -15,7 +15,7 @@ public class EssentialModule
 		this.commands.add(new ClearLagg());
 		this.commands.add(new SNoteCommand());
 		this.commands.add(new StaffServerCommand());
-		this.commands.add(new RequestCommand());
+		//this.commands.add(new RequestCommand());
 		this.commands.add(new TrollCommand(plugin));
 		this.commands.add(new BanWaveCommand(plugin));
 		this.commands.add(new AmivisCommand(plugin));
@@ -40,7 +40,7 @@ public class EssentialModule
 		this.commands.add(new PlayTimeCommand(plugin));
 		this.commands.add(new RemoveEntityCommand());
 		this.commands.add(new RenameCommand());
-		this.commands.add(new ReportCommand());
+		//this.commands.add(new ReportCommand());
 		this.commands.add(new RepairCommand());
 		this.commands.add(new LagCommand());
 		this.commands.add(new RulesCommand(plugin));
