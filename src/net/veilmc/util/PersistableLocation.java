@@ -5,23 +5,46 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.PostLoad;
+import org.mongodb.morphia.annotations.PreSave;
+import org.mongodb.morphia.annotations.Transient;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class PersistableLocation
-		implements ConfigurationSerializable,
-		Cloneable{
+@Embedded
+public class PersistableLocation implements ConfigurationSerializable, Cloneable{
+	@Transient
 	private Location location;
+	@Transient
 	private World world;
 	private String worldName;
+	@Transient
 	private UUID worldUID;
 	private double x;
 	private double y;
 	private double z;
 	private float yaw;
 	private float pitch;
+
+	@PreSave
+	public void presaveMethod() {
+		if (this.worldName == null && this.world != null) {
+			this.worldName = this.world.getName();
+		}
+	}
+
+	@PostLoad
+	public void postloadMethod() {
+		if (this.worldName != null) {
+			this.world = Bukkit.getWorld(this.worldName);
+			if (this.world != null) {
+				this.worldUID = this.world.getUID();
+			}
+		}
+	}
 
 	public PersistableLocation(Location location){
 		Preconditions.checkNotNull((Object) location, "Location cannot be null");
