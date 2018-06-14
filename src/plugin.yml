@@ -35,8 +35,8 @@ commands:
   lol:
   troll:
   autorestart:
-  request:
-    aliases: [helpop]
+ # request:
+  #  aliases: [helpop]
   list:
     aliases: [who]
   punish:
@@ -135,8 +135,8 @@ commands:
   repair:
     aliases: [fix]
     description: Allows the repairing of tools.
-  report:
-    description: Report
+  #report:
+   # description: Report
   donate:
     aliases: [buy]
     description: Gets the donation link.
@@ -153,9 +153,9 @@ commands:
     description: Sets a delay between chat messages.
   speed:
     description: Set your walk or fly speed.
-  staffchat:
-    aliases: [sc, ac]
-    description: Speak in staff chat mode only.
+  #staffchat:
+  #  aliases: [sc, ac]
+  #  description: Speak in staff chat mode only.
   stoplag:
   killmobs:
   near:
