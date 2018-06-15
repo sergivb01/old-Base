@@ -56,7 +56,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 
 	private ItemStack[] getContents(Player player){
 		BaseUser baseUser = this.plugin.getUserManager().getUser(player.getUniqueId());
-		boolean staff = player.hasPermission("rank.staff");
+		boolean staff = player.hasPermission("hcf.utils.staff");
 
 		ItemStack[] itemStacks = new ItemStack[9];
 		itemStacks[1] = new ItemBuilder(Material.INK_SACK, 1, (byte) (baseUser.isMessagesVisible() ? 10 : 8))
@@ -97,7 +97,7 @@ public class SettingsCommand extends BaseCommand implements Listener, InventoryH
 
 			if(baseUser != null){
 				int slot = event.getSlot();
-				boolean staff = player.hasPermission("rank.staff");
+				boolean staff = player.hasPermission("hcf.utils.staff");
 				switch(slot){
 					case 1:{ //private messages
 						player.performCommand("togglepm");

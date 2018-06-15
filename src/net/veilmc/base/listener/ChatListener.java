@@ -62,7 +62,7 @@ public class ChatListener
 			}
 		}
 
-		if((remainingChatDisabled = this.plugin.getServerHandler().getRemainingChatDisabledMillis()) > 0 && !player.hasPermission("rank.staff")){
+		if((remainingChatDisabled = this.plugin.getServerHandler().getRemainingChatDisabledMillis()) > 0 && !player.hasPermission("hcf.utils.staff")){
 			player.sendMessage(ChatColor.RED + "Global chat is currently disabled for another " + ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingChatDisabled, true, true) + ChatColor.RED + '.');
 			event.setCancelled(true);
 			return;
@@ -81,7 +81,7 @@ public class ChatListener
 		}
        /* String[] blockedWords = new String[] {"keyall", "keyal"};
         for(String strings : blockedWords) {
-            if (event.getMessage().contains(strings) && (!(player.hasPermission("rank.staff")))) {
+            if (event.getMessage().contains(strings) && (!(player.hasPermission("hcf.utils.staff")))) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED + "That is a blocked word.");
                 break;

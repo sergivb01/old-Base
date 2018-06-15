@@ -7,7 +7,6 @@ import net.veilmc.base.command.module.essential.*;
 public class EssentialModule
 		extends BaseCommandModule{
 	public EssentialModule(BasePlugin plugin){
-		this.commands.add(new CrashCommand(plugin));
 		this.commands.add(new SettingsCommand(plugin));
 		this.commands.add(new SetViewDistanceCommand());
 		this.commands.add(new LolCommand(plugin));
@@ -15,13 +14,9 @@ public class EssentialModule
 		this.commands.add(new ClearLagg());
 		this.commands.add(new SNoteCommand());
 		this.commands.add(new StaffServerCommand());
-		//this.commands.add(new RequestCommand());
-		this.commands.add(new TrollCommand(plugin));
-		this.commands.add(new BanWaveCommand(plugin));
 		this.commands.add(new AmivisCommand(plugin));
 		this.commands.add(new DonateCommand());
 		this.commands.add(new AutoRestartCommand(plugin));
-		this.commands.add(new BoomCommand(plugin));
 		this.commands.add(new ListCommand());
 		this.commands.add(new EnchantCommand());
 		this.commands.add(new NoteCommand());
@@ -40,7 +35,6 @@ public class EssentialModule
 		this.commands.add(new PlayTimeCommand(plugin));
 		this.commands.add(new RemoveEntityCommand());
 		this.commands.add(new RenameCommand());
-		//this.commands.add(new ReportCommand());
 		this.commands.add(new RepairCommand());
 		this.commands.add(new LagCommand());
 		this.commands.add(new RulesCommand(plugin));

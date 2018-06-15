@@ -3,12 +3,7 @@ version: DEV
 main: net.veilmc.base.BasePlugin
 depend: [Vault]
 commands:
-  #request:
-  #  aliases: [helpop]
   staffserver:
-  #staffchat:
-   # aliases: [sc]
-  #report:
   settings:
     aliases: [options, config]
   setviewdistance:
@@ -19,24 +14,18 @@ commands:
     description: Turns the server to Donor only mode.
     aliases: [donoronly, donormode]
   youtube:
-  crash:
   togglesounds:
   famous:
   togglesc:
-  banwave:
   clearlagg:
     aliases: [cl, laggclear, clearlag, clag]
-  boom:
   snote:
   staffmode:
     aliases: [h, mod, staff]
   announcement:
     aliases: [announce, ann]
   lol:
-  troll:
   autorestart:
- # request:
-  #  aliases: [helpop]
   list:
     aliases: [who]
   punish:
@@ -135,8 +124,6 @@ commands:
   repair:
     aliases: [fix]
     description: Allows the repairing of tools.
-  #report:
-   # description: Report
   donate:
     aliases: [buy]
     description: Gets the donation link.

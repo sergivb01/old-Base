@@ -53,7 +53,7 @@ public class WhoisCommand extends BaseCommand{
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9UUID: &f" + target.getUniqueId()));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Operator: &f" + (target.isOp() ? "True" : "False")));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9All Permissions: &f" + (target.hasPermission("*") ? "True" : "False")));
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Staff: &f" + (target.hasPermission("rank.staff") ? "True" : "False")));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Staff: &f" + (target.hasPermission("hcf.utils.staff") ? "True" : "False")));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Priority: &f" + StaffPriority.of(target).getPriorityLevel()));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9Idle: &f" + (target.isOnline() ? ChatColor.RED + "User is offline" : DurationFormatUtils.formatDurationWords(BukkitUtils.getIdleTime(target), true, true))));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
