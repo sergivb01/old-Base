@@ -21,7 +21,7 @@ public class ServerHandler{
 	public boolean useProtocolLib;
 	@Getter
 	@Setter
-	private Boolean kitmap;
+	private boolean kitmap;
 	@Getter
 	@Setter
 	private int clearlagdelay;

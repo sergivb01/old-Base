@@ -73,6 +73,7 @@ public class KitListener
 				return;
 			}
 			kit.applyTo(player, false, true);
+			player.closeInventory();
 		}
 	}
 
