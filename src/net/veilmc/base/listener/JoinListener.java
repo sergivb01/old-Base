@@ -22,6 +22,10 @@ import java.util.UUID;
 public class JoinListener
 		implements Listener{
 	private final BasePlugin plugin;
+	private ItemStack itemStack = new ItemBuilder(Material.BOOK)
+			.displayName(ChatColor.DARK_AQUA + "Open Kits Menu")
+			.lore(ChatColor.GRAY + "Right click to open kits GUI.")
+			.build();
 
 	public JoinListener(BasePlugin plugin){
 		this.plugin = plugin;
@@ -54,11 +58,9 @@ public class JoinListener
 		}
 
 		Player player = event.getPlayer();
-		ItemStack itemStack = new ItemBuilder(Material.BOOK)
-				.displayName(ChatColor.DARK_AQUA + "Open Kits Menu")
-				.lore(ChatColor.GRAY + "Right click to open kits GUI.")
-				.build();
-		Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().setItem(4, itemStack), 10L);
+
+		player.getInventory().setHeldItemSlot(4);
+		Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().setItem(4, itemStack), 2L);
 	}
 
 	@EventHandler
@@ -68,11 +70,8 @@ public class JoinListener
 		}
 
 		Player player = event.getPlayer();
-		ItemStack itemStack = new ItemBuilder(Material.BOOK)
-				.displayName(ChatColor.DARK_AQUA + "Open Kits Menu")
-				.lore(ChatColor.GRAY + "Right click to open kits GUI.")
-				.build();
-		Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().setItem(4, itemStack), 10L);
+		player.getInventory().setHeldItemSlot(4);
+		Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().setItem(4, itemStack), 2L);
 	}
 
 	@EventHandler
@@ -81,20 +80,26 @@ public class JoinListener
 			return;
 		}
 
-		Player player = event.getPlayer();
-		Action action = event.getAction();
-		ItemStack itemStack = event.getItem();
-		if(itemStack != null && (action.equals(Action.RIGHT_CLICK_BLOCK) ||
-				action.equals(Action.RIGHT_CLICK_AIR) ||
-				action.equals(Action.LEFT_CLICK_AIR) ||
-				action.equals(Action.LEFT_CLICK_BLOCK))){
-			if(itemStack.getItemMeta().getDisplayName().equals(ChatColor.DARK_AQUA + "Open Kits Menu")){
-				Bukkit.dispatchCommand(player, "kit gui");
-			}
+		Action a = event.getAction();
+		ItemStack is = event.getItem();
+		if((a == Action.PHYSICAL) || (is == null) || (is.getType() == Material.AIR)){
+			return;
 		}
 
+		if(a.equals(Action.LEFT_CLICK_AIR) || a.equals(Action.LEFT_CLICK_BLOCK)){
+			return;
+		}
+
+		Player player = event.getPlayer();
+		ItemStack itemStack = event.getItem();
+		if(itemStack.getItemMeta().getDisplayName().equals(ChatColor.DARK_AQUA + "Open Kits Menu")){
+			Bukkit.dispatchCommand(player, "kit gui");
+		}
 	}
 
 
 }
+
+
+
 
