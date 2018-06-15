@@ -45,6 +45,8 @@ public class ListCommand
 		sender.sendMessage(" ");
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l * &bSupport: &fts.veilhcf.us"));
 		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+
+
 		return true;
 	}
 }
