@@ -1,6 +1,6 @@
 name: Core
 version: DEV
-main: net.veilmc.base.BasePlugin
+main: com.sergivb01.base.BasePlugin
 depend: [Vault]
 commands:
   staffserver:
