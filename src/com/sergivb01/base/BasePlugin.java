@@ -18,7 +18,6 @@ import com.sergivb01.base.user.*;
 import com.sergivb01.base.warp.FlatFileWarpManager;
 import com.sergivb01.base.warp.Warp;
 import com.sergivb01.base.warp.WarpManager;
-import com.sergivb01.hcf.utils.LicenseChecker;
 import com.sergivb01.util.PersistableLocation;
 import com.sergivb01.util.RandomUtils;
 import com.sergivb01.util.SignHandler;
@@ -83,7 +82,7 @@ public class BasePlugin extends JavaPlugin{
 		plugin = this;
 
 		try{
-			if(!LicenseChecker.hasValidLicense()){
+			if(!new LicenseChecker().hasValidLicense()){
 				getLogger().severe("Detected invalid license configuration...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;

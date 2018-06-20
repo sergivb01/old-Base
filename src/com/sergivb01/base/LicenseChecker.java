@@ -16,7 +16,7 @@ public class LicenseChecker{
 	format:
 		mysuperHWID;192.168.1.62
 	*/
-	private boolean hasValidLicense() throws IOException{
+	public boolean hasValidLicense() throws IOException{
 		Map<String, String> map = new HashMap<>();
 		URL url;
 		BufferedReader in;
