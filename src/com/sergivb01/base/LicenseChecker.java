@@ -35,6 +35,7 @@ public class LicenseChecker{
 		}
 		in.close();
 
+		String address = getPublicIP();
 		String hwid;
 		try{
 			hwid = generateHWID();
@@ -42,7 +43,13 @@ public class LicenseChecker{
 			System.out.println("Failed to generate hwid.");
 			return false;
 		}
-		String address = getPublicIP();
+
+		System.out.println("=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#");
+		System.out.println("License checker - Here are your personal details:");
+		System.out.println("Public IP Address: " + address);
+		System.out.println("HWID: " + hwid);
+		System.out.println("Please send this details to a plugin developer to get your plugin version activated.");
+		System.out.println("=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#");
 
 		return map.containsKey(hwid) && map.get(hwid).equals(address);
 	}
@@ -54,9 +61,9 @@ public class LicenseChecker{
 		final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
 		final byte[] md5 = messageDigest.digest(bytes);
 		int i = 0;
-		for(final byte b : md5){
+		for (final byte b : md5) {
 			s.append(Integer.toHexString((b & 0xFF) | 0x300), 0, 3);
-			if(i != md5.length - 1){
+			if (i != md5.length - 1) {
 				s.append("-");
 			}
 			i++;
@@ -64,7 +71,7 @@ public class LicenseChecker{
 		return sha256(s.toString());
 	}
 
-	private static String sha256(String base){
+	private static String sha256(String base) {
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest(base.getBytes("UTF-8"));
@@ -77,7 +84,7 @@ public class LicenseChecker{
 			}
 
 			return hexString.toString();
-		}catch(Exception ex){
+		} catch(Exception ex){
 			throw new RuntimeException(ex);
 		}
 	}
