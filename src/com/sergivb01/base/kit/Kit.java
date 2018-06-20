@@ -1,8 +1,8 @@
 package com.sergivb01.base.kit;
 
 import com.google.common.base.Preconditions;
-import com.sergivb01.base.kit.event.KitApplyEvent;
 import com.sergivb01.base.BasePlugin;
+import com.sergivb01.base.kit.event.KitApplyEvent;
 import com.sergivb01.util.GenericUtils;
 import com.sergivb01.util.InventoryUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;

@@ -1,8 +1,8 @@
 package com.sergivb01.base.kit;
 
 import com.google.common.collect.Lists;
-import com.sergivb01.base.kit.event.KitRenameEvent;
 import com.sergivb01.base.BasePlugin;
+import com.sergivb01.base.kit.event.KitRenameEvent;
 import com.sergivb01.util.Config;
 import com.sergivb01.util.GenericUtils;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;

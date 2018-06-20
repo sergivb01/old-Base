@@ -1,8 +1,8 @@
 package com.sergivb01.base.kit.argument;
 
-import com.sergivb01.base.user.BaseUser;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.kit.Kit;
+import com.sergivb01.base.user.BaseUser;
 import com.sergivb01.util.BukkitUtils;
 import com.sergivb01.util.command.CommandArgument;
 import org.apache.commons.lang.StringUtils;

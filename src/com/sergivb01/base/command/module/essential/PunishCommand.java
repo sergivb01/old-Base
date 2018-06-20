@@ -2,8 +2,8 @@ package com.sergivb01.base.command.module.essential;
 
 // Created by iDaniel84
 
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.base.command.BaseCommand;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;

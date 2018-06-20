@@ -1,6 +1,5 @@
 package com.sergivb01.base.command.module;
 
-import com.sergivb01.base.command.module.chat.*;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommandModule;
 import com.sergivb01.base.command.module.chat.*;

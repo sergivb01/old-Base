@@ -1,9 +1,9 @@
 package com.sergivb01.base.command.module.essential;
 
-import net.minecraft.server.v1_7_R4.EntityPlayer;
 import com.sergivb01.base.BaseConstants;
 import com.sergivb01.base.command.BaseCommand;
 import com.sergivb01.util.BukkitUtils;
+import net.minecraft.server.v1_7_R4.EntityPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

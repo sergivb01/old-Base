@@ -43,12 +43,12 @@ public class ListCommand
 //		}
 //		sender.sendMessage(" ");
 //		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-		for(Player p : Bukkit.getOnlinePlayers()) {
-			if (ListCommand.canSee(sender, p)) {
+		for(Player p : Bukkit.getOnlinePlayers()){
+			if(ListCommand.canSee(sender, p)){
 				if(BasePlugin.getPlugin().getUserManager().getUser(p.getUniqueId()).isVanished()){
 					list.add(ChatColor.translateAlternateColorCodes('&', "&7&o(Hidden)&r" + BasePlugin.getChat().getPlayerPrefix(p) + p.getName()));
 					continue;
-				} else{
+				}else{
 					list.add(ChatColor.translateAlternateColorCodes('&', BasePlugin.getChat().getPlayerPrefix(p) + p.getName()));
 					continue;
 				}

@@ -1,7 +1,7 @@
 package com.sergivb01.base.command.module.essential;
 
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.base.command.BaseCommand;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

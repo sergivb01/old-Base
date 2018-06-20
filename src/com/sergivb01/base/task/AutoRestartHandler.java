@@ -1,8 +1,8 @@
 package com.sergivb01.base.task;
 
+import com.sergivb01.base.BasePlugin;
 import net.minecraft.server.v1_7_R4.MinecraftServer;
 import net.minecraft.util.com.google.common.primitives.Ints;
-import com.sergivb01.base.BasePlugin;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
