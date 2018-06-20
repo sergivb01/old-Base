@@ -18,12 +18,7 @@ import com.sergivb01.base.user.*;
 import com.sergivb01.base.warp.FlatFileWarpManager;
 import com.sergivb01.base.warp.Warp;
 import com.sergivb01.base.warp.WarpManager;
-import lombok.Getter;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
-import com.sergivb01.base.kit.*;
-import com.sergivb01.base.listener.*;
-import com.sergivb01.base.user.*;
+import com.sergivb01.hcf.utils.LicenseChecker;
 import com.sergivb01.util.PersistableLocation;
 import com.sergivb01.util.RandomUtils;
 import com.sergivb01.util.SignHandler;
@@ -33,6 +28,9 @@ import com.sergivb01.util.cuboid.Cuboid;
 import com.sergivb01.util.cuboid.NamedCuboid;
 import com.sergivb01.util.itemdb.ItemDb;
 import com.sergivb01.util.itemdb.SimpleItemDb;
+import lombok.Getter;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -84,6 +82,17 @@ public class BasePlugin extends JavaPlugin{
 
 		plugin = this;
 
+		try{
+			if(!LicenseChecker.hasValidLicense()){
+				getLogger().severe("Detected invalid license configuration...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			getLogger().info("LICENSE CHECKED!!!");
+		}catch(IOException e){
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
 
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
