@@ -1,7 +1,5 @@
 package com.sergivb01.base.command.module.essential;
 
-import net.minecraft.util.gnu.trove.map.TObjectLongMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import com.sergivb01.base.BaseConstants;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommand;
@@ -10,6 +8,8 @@ import com.sergivb01.util.BukkitUtils;
 import com.sergivb01.util.ParticleEffect;
 import com.sergivb01.util.chat.ClickAction;
 import com.sergivb01.util.chat.Text;
+import net.minecraft.util.gnu.trove.map.TObjectLongMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.command.Command;

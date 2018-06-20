@@ -1,7 +1,7 @@
 package com.sergivb01.base.command.module.chat;
 
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import com.sergivb01.base.command.BaseCommand;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

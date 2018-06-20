@@ -1,8 +1,8 @@
 package com.sergivb01.base.command.module.teleport;
 
 import com.google.common.collect.Maps;
-import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
 import com.sergivb01.base.command.BaseCommand;
+import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

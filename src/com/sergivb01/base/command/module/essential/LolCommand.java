@@ -1,9 +1,9 @@
 package com.sergivb01.base.command.module.essential;
 
-import net.minecraft.server.v1_7_R4.*;
-import net.minecraft.util.com.mojang.authlib.GameProfile;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommand;
+import net.minecraft.server.v1_7_R4.*;
+import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

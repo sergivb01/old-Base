@@ -1,8 +1,8 @@
 package com.sergivb01.util.bossbar;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.server.v1_7_R4.PlayerConnection;
 import com.sergivb01.base.BasePlugin;
+import net.minecraft.server.v1_7_R4.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;

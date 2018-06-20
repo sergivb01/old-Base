@@ -1,12 +1,12 @@
 package com.sergivb01.base.listener;
 
-import net.minecraft.server.v1_7_R4.Blocks;
-import net.minecraft.server.v1_7_R4.PacketPlayOutBlockAction;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.StaffPriority;
 import com.sergivb01.base.event.PlayerVanishEvent;
 import com.sergivb01.base.user.BaseUser;
 import com.sergivb01.util.BukkitUtils;
+import net.minecraft.server.v1_7_R4.Blocks;
+import net.minecraft.server.v1_7_R4.PacketPlayOutBlockAction;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;

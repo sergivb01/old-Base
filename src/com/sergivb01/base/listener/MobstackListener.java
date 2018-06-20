@@ -2,9 +2,9 @@ package com.sergivb01.base.listener;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.sergivb01.util.cuboid.CoordinatePair;
 import net.minecraft.util.gnu.trove.iterator.TObjectIntIterator;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
-import com.sergivb01.util.cuboid.CoordinatePair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

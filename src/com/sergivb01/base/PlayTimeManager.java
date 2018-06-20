@@ -1,7 +1,7 @@
 package com.sergivb01.base;
 
-import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import com.sergivb01.util.Config;
+import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;

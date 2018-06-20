@@ -1,10 +1,9 @@
 package com.sergivb01.base.command.module;
 
-import com.sergivb01.base.command.module.teleport.*;
-import com.sergivb01.base.command.module.warp.WarpExecutor;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommandModule;
 import com.sergivb01.base.command.module.teleport.*;
+import com.sergivb01.base.command.module.warp.WarpExecutor;
 
 public class TeleportModule
 		extends BaseCommandModule{

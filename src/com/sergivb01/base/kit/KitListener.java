@@ -1,8 +1,8 @@
 package com.sergivb01.base.kit;
 
+import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.kit.event.KitApplyEvent;
 import com.sergivb01.base.user.BaseUser;
-import com.sergivb01.base.BasePlugin;
 import com.sergivb01.util.ParticleEffect;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;

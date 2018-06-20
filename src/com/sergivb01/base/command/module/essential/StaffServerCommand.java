@@ -1,9 +1,9 @@
 package com.sergivb01.base.command.module.essential;
 
-import net.minecraft.util.com.google.common.io.ByteArrayDataOutput;
-import net.minecraft.util.com.google.common.io.ByteStreams;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommand;
+import net.minecraft.util.com.google.common.io.ByteArrayDataOutput;
+import net.minecraft.util.com.google.common.io.ByteStreams;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

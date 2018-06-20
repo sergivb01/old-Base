@@ -29,23 +29,6 @@ public class PersistableLocation implements ConfigurationSerializable, Cloneable
 	private float yaw;
 	private float pitch;
 
-	@PreSave
-	public void presaveMethod() {
-		if (this.worldName == null && this.world != null) {
-			this.worldName = this.world.getName();
-		}
-	}
-
-	@PostLoad
-	public void postloadMethod() {
-		if (this.worldName != null) {
-			this.world = Bukkit.getWorld(this.worldName);
-			if (this.world != null) {
-				this.worldUID = this.world.getUID();
-			}
-		}
-	}
-
 	public PersistableLocation(Location location){
 		Preconditions.checkNotNull((Object) location, "Location cannot be null");
 		Preconditions.checkNotNull((Object) location.getWorld(), "Locations' world cannot be null");
@@ -90,6 +73,23 @@ public class PersistableLocation implements ConfigurationSerializable, Cloneable
 		this.z = o instanceof String ? Double.parseDouble((String) o) : (Double) o;
 		this.yaw = Float.parseFloat((String) map.get("yaw"));
 		this.pitch = Float.parseFloat((String) map.get("pitch"));
+	}
+
+	@PreSave
+	public void presaveMethod(){
+		if(this.worldName == null && this.world != null){
+			this.worldName = this.world.getName();
+		}
+	}
+
+	@PostLoad
+	public void postloadMethod(){
+		if(this.worldName != null){
+			this.world = Bukkit.getWorld(this.worldName);
+			if(this.world != null){
+				this.worldUID = this.world.getUID();
+			}
+		}
 	}
 
 	public Map<String, Object> serialize(){

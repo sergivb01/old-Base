@@ -18,8 +18,8 @@ public class LicenseChecker{
 	*/
 	public static boolean hasValidLicense() throws IOException{
 		Map<String, String> map = new HashMap<>();
-		URL url = null;
-		BufferedReader in = null;
+		URL url;
+		BufferedReader in;
 		try{
 			url = new URL("https://pastebin.com/raw/K3PhfwhT");
 			in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -54,9 +54,9 @@ public class LicenseChecker{
 		final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
 		final byte[] md5 = messageDigest.digest(bytes);
 		int i = 0;
-		for (final byte b : md5) {
+		for(final byte b : md5){
 			s.append(Integer.toHexString((b & 0xFF) | 0x300), 0, 3);
-			if (i != md5.length - 1) {
+			if(i != md5.length - 1){
 				s.append("-");
 			}
 			i++;
@@ -64,7 +64,7 @@ public class LicenseChecker{
 		return sha256(s.toString());
 	}
 
-	private static String sha256(String base) {
+	private static String sha256(String base){
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest(base.getBytes("UTF-8"));
@@ -77,7 +77,7 @@ public class LicenseChecker{
 			}
 
 			return hexString.toString();
-		} catch(Exception ex){
+		}catch(Exception ex){
 			throw new RuntimeException(ex);
 		}
 	}
@@ -89,5 +89,3 @@ public class LicenseChecker{
 	}
 
 }
-
-
