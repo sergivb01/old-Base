@@ -111,14 +111,14 @@ public class FreezeCommand extends BaseCommand implements Listener{
 			this.inv = Bukkit.createInventory(null, 9, "Frozen");
 			ItemStack freezeEng = new ItemStack(Material.PAPER, 1, (short) 3);
 			ItemMeta freezeEngmeta = freezeEng.getItemMeta();
-			freezeEngmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "You are now frozen"), (ChatColor.YELLOW + "You have 5 minutes"), (ChatColor.YELLOW + "to join Teamspeak: "), (ChatColor.GRAY + "(ts.veilhcf.us)"))));
+			freezeEngmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "You are now frozen"), (ChatColor.YELLOW + "You have 5 minutes"), (ChatColor.YELLOW + "to join Teamspeak: "),)));
 			freezeEngmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "FROZEN");
 			freezeEng.setItemMeta(freezeEngmeta);
 			inv.setItem(3, freezeEng);
 
 			ItemStack freezeEsp = new ItemStack(Material.PAPER, 1, (short) 3);
 			ItemMeta freezeEspmeta = freezeEng.getItemMeta();
-			freezeEspmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "Estas Frozeado"), (ChatColor.YELLOW + "Tienes 5 minutos"), (ChatColor.YELLOW + "para entrar a"), (ChatColor.YELLOW + "Teamspeak: " + ChatColor.GRAY + "(ts.veilhcf.us)"))));
+			freezeEspmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "Estas Frozeado"), (ChatColor.YELLOW + "Tienes 5 minutos"), (ChatColor.YELLOW + "para entrar a"), )));
 			freezeEspmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "FROZEADO");
 			freezeEsp.setItemMeta(freezeEspmeta);
 			inv.setItem(5, freezeEsp);
@@ -134,7 +134,7 @@ public class FreezeCommand extends BaseCommand implements Listener{
 
 			ItemStack ts = new ItemStack(Material.WOOL, 1, (short) 5);
 			ItemMeta tsMeta = ts.getItemMeta();
-			tsMeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.GREEN + "Inform staff that you are joining teamspeak"), (ChatColor.GREEN + "Informar al staff que estas conectandote a teamspeak"), (ChatColor.YELLOW + "ts.veilhcf.us"))));
+			tsMeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.GREEN + "Inform staff that you are joining teamspeak"), (ChatColor.GREEN + "Informar al staff que estas conectandote a teamspeak"), )));
 			tsMeta.setDisplayName(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Teamspeak");
 			ts.setItemMeta(tsMeta);
 			inv.setItem(8, ts);
@@ -157,7 +157,7 @@ public class FreezeCommand extends BaseCommand implements Listener{
 					p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "You have been frozen by a staff member.");
 					p.sendMessage(ChatColor.WHITE + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588\u2588 " + ChatColor.YELLOW + "If you logout you will be " + ChatColor.DARK_RED + ChatColor.BOLD + "BANNED" + ChatColor.YELLOW + '.');
 					p.sendMessage(ChatColor.WHITE + "\u2588" + ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + ChatColor.GOLD + "\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + "\u2588 " + ChatColor.YELLOW + "Please connect to our Teamspeak" + ChatColor.YELLOW + '.');
-					new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + " (ts.veilmc.net) " + ChatColor.ITALIC + "Click me to connect" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "https://veilhcf.us/ts3").send(p);
+					new Text(ChatColor.RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.DARK_RED + "\u2588" + ChatColor.GOLD + "\u2588\u2588\u2588" + ChatColor.RED + "\u2588" + ChatColor.WHITE + ChatColor.GRAY + "" + ChatColor.ITALIC + "Click me to connect" + ChatColor.GRAY + '.').setClick(ClickAction.OPEN_URL, "https://veilhcf.us/ts3").send(p);
 					p.sendMessage(ChatColor.RED + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
 					p.sendMessage(ChatColor.WHITE + "\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
 				}else{

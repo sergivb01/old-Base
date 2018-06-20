@@ -114,7 +114,7 @@ public class RulesCommand
                 sender.sendMessage(ChatColor.GOLD + "Note: Punishment may vary due to severity");
             }
         }*/
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eRules can be found at &aveilhcf.us/rules"));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eRules can be found on our website."));
 		return true;
 	}
 }

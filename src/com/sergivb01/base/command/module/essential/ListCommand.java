@@ -42,7 +42,6 @@ public class ListCommand
 //			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &bStaff: &7(" + list.size() + ")" + " " + list.toString().replace("[", "").replace("]", "").replace(",", ChatColor.GRAY + ",")));
 //		}
 //		sender.sendMessage(" ");
-//		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l * &bSupport: &fts.veilhcf.us"));
 //		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if (ListCommand.canSee(sender, p)) {

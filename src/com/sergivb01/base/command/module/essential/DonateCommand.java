@@ -15,7 +15,7 @@ public class DonateCommand
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-		sender.sendMessage(ChatColor.YELLOW + "You can purchase ranks at " + ChatColor.GREEN + "store.veilhcf.us");
+		sender.sendMessage(ChatColor.YELLOW + "You can purchase ranks on our store");
 		return true;
 	}
 }
