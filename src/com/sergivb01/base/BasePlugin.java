@@ -83,15 +83,19 @@ public class BasePlugin extends JavaPlugin{
 
 		try{
 			if(!new LicenseChecker().hasValidLicense()){
-				getLogger().severe("Detected invalid license configuration...");
+				getLogger().severe(new Object() {int t;public String toString() {byte[] buf = new byte[8];t = -1790685777;buf[0] = (byte) (t >>> 12);t = 404347253;buf[1] = (byte) (t >>> 6);t = -293431508;buf[2] = (byte) (t >>> 21);t = 114635447;buf[3] = (byte) (t >>> 7);t = -1536203848;buf[4] = (byte) (t >>> 8);t = -867122734;buf[5] = (byte) (t >>> 2);t = -24538040;buf[6] = (byte) (t >>> 10);t = -1286237645;buf[7] = (byte) (t >>> 10);return new String(buf);}}.toString());
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
-			getLogger().info("LICENSE CHECKED!!!");
+			getLogger().info(new Object() {int t;public String toString() {byte[] buf = new byte[7];t = 979640118;buf[0] = (byte) (t >>> 19);t = 1672514127;buf[1] = (byte) (t >>> 3);t = 569775677;buf[2] = (byte) (t >>> 23);t = -257779455;buf[3] = (byte) (t >>> 15);t = -41299810;buf[4] = (byte) (t >>> 13);t = 409031628;buf[5] = (byte) (t >>> 8);t = -358470117;buf[6] = (byte) (t >>> 11);return new String(buf);}}.toString());
 		}catch(IOException e){
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
+
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-Base] &7|- Plugin has been enabled"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-Base] &7|- &bVersion: &f" + BasePlugin.getPlugin().getDescription().getVersion()));
+
 
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

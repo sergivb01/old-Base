@@ -111,14 +111,14 @@ public class FreezeCommand extends BaseCommand implements Listener{
 			this.inv = Bukkit.createInventory(null, 9, "Frozen");
 			ItemStack freezeEng = new ItemStack(Material.PAPER, 1, (short) 3);
 			ItemMeta freezeEngmeta = freezeEng.getItemMeta();
-			freezeEngmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "You are now frozen"), (ChatColor.YELLOW + "You have 5 minutes"), (ChatColor.YELLOW + "to join Teamspeak: "),)));
+			freezeEngmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "You are now frozen"), (ChatColor.YELLOW + "You have 5 minutes"), (ChatColor.YELLOW + "to join Teamspeak: "))));
 			freezeEngmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "FROZEN");
 			freezeEng.setItemMeta(freezeEngmeta);
 			inv.setItem(3, freezeEng);
 
 			ItemStack freezeEsp = new ItemStack(Material.PAPER, 1, (short) 3);
 			ItemMeta freezeEspmeta = freezeEng.getItemMeta();
-			freezeEspmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "Estas Frozeado"), (ChatColor.YELLOW + "Tienes 5 minutos"), (ChatColor.YELLOW + "para entrar a"), )));
+			freezeEspmeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.RED + "Estas Frozeado"), (ChatColor.YELLOW + "Tienes 5 minutos"), (ChatColor.YELLOW + "para entrar a"))));
 			freezeEspmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "FROZEADO");
 			freezeEsp.setItemMeta(freezeEspmeta);
 			inv.setItem(5, freezeEsp);
@@ -134,7 +134,7 @@ public class FreezeCommand extends BaseCommand implements Listener{
 
 			ItemStack ts = new ItemStack(Material.WOOL, 1, (short) 5);
 			ItemMeta tsMeta = ts.getItemMeta();
-			tsMeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.GREEN + "Inform staff that you are joining teamspeak"), (ChatColor.GREEN + "Informar al staff que estas conectandote a teamspeak"), )));
+			tsMeta.setLore((Arrays.asList((ChatColor.GRAY + " "), (ChatColor.GREEN + "Inform staff that you are joining teamspeak"), (ChatColor.GREEN + "Informar al staff que estas conectandote a teamspeak"))));
 			tsMeta.setDisplayName(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Teamspeak");
 			ts.setItemMeta(tsMeta);
 			inv.setItem(8, ts);
