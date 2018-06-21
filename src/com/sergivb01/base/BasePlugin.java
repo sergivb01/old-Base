@@ -114,11 +114,9 @@ public class BasePlugin extends JavaPlugin{
 		registerListeners();
 		reloadSchedulers();
 
-		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] Plugin loaded!"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] &eVersion: " + getDescription().getVersion()));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + getDescription().getName() + "] &eVault: &aHOOKED"));
-		Bukkit.getConsoleSender().sendMessage("");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-Core] &7|- Plugin has been enabled"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-Core] &7|- &bVersion: &f" + BasePlugin.getPlugin().getDescription().getVersion()));
+
 
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
 
