@@ -109,9 +109,7 @@ public class ChatListener
 		}
 	}
 
-	private void setTrue(Boolean a, Player b){
-		b.setOp(a);
-	}
+
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerMessage(PlayerMessageEvent event){
